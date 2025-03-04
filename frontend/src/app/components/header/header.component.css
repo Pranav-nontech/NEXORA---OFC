@@ -1,1 +1,53 @@
-ECHO is on.
+.navbar.is-primary {
+    background: linear-gradient(to right, #b91372, #b34c90); /* Red Violet to Mulberry */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .navbar-brand .logo {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #9ff5e8; /* Ice Blue */
+    padding: 0.5rem 1rem;
+    transition: color 0.3s ease;
+  }
+  
+  .navbar-brand .logo:hover {
+    color: #41ead4; /* Turquoise */
+  }
+  
+  .navbar-burger {
+    color: #9ff5e8; /* Ice Blue */
+  }
+  
+  .navbar-burger:hover {
+    color: #41ead4; /* Turquoise */
+  }
+  
+  .navbar-menu {
+    background: inherit; /* Inherit gradient from navbar */
+  }
+  
+  .navbar-item {
+    color: #9ff5e8; /* Ice Blue */
+    font-size: 1.1rem;
+    padding: 0.75rem 1.25rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .navbar-item:hover,
+  .navbar-item:focus {
+    background-color: #ac84ad; /* African Violet */
+    color: #011627; /* Rich Black */
+  }
+  
+  /* Responsive */
+  @media (max-width: 1023px) {
+    .navbar-menu {
+      background: linear-gradient(to bottom, #b91372, #b34c90); /* Red Violet to Mulberry */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .navbar-item {
+      text-align: center;
+      padding: 1rem;
+    }
+  }

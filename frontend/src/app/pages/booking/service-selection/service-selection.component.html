@@ -1,0 +1,10 @@
+<div class="service-selection-container">
+  <h1>Select Your Service</h1>
+  <div class="services">
+    <div *ngFor="let service of services" class="service-card" (click)="selectService(service.id)">
+      <h3>{{ service.name }}</h3>
+      <p>{{ service.duration }} mins - ${{ service.price }}</p>
+      <span *ngIf="selectedService?.id === service.id" class="selected">Selected</span>
+    </div>
+  </div>
+</div>

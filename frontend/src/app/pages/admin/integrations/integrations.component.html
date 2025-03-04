@@ -1,0 +1,12 @@
+<div class="integrations-container">
+    <h1>Integrations</h1>
+    <ul>
+      <li *ngFor="let integration of integrations">
+        {{ integration.name }} - 
+        <span>{{ integration.connected ? 'Connected' : 'Not Connected' }}</span>
+        <button (click)="connectIntegration(integration.name)" [disabled]="integration.connected">
+          {{ integration.connected ? 'Connected' : 'Connect' }}
+        </button>
+      </li>
+    </ul>
+  </div>

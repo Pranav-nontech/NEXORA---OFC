@@ -1,0 +1,26 @@
+<div class="pricing-container">
+  <!-- Header Section -->
+  <h1>{{ 'Unlock the Power of Effortless Booking with Nexora' }}</h1>
+  <p class="subheadline">{{ 'Choose the plan that scales with your business. Simplify scheduling, boost efficiency, and delight your customers.' }}</p>
+
+  <!-- Plans Section -->
+  <div class="plans">
+    <div *ngFor="let plan of plans" class="plan-card">
+      <h2>{{ plan.name }}</h2>
+      <p class="price">{{ plan.price }}</p>
+      <p class="description">{{ plan.description }}</p>
+      <ul class="features">
+        <li *ngFor="let feature of plan.features">{{ feature }}</li>
+      </ul>
+      <a [routerLink]="plan.ctaLink" class="btn">{{ plan.cta }}</a>
+    </div>
+  </div>
+
+  <!-- Small Print Section -->
+  <div class="small-print">
+    <p>{{ smallPrint.taxNote }}</p>
+    <p>{{ smallPrint.trialNote }}</p>
+    <p>{{ smallPrint.cancelNote }}</p>
+    <p>{{ smallPrint.gdprNote }} <a routerLink="/privacy">Privacy Policy</a></p>
+  </div>
+</div>

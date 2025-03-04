@@ -1,0 +1,24 @@
+<div class="branding-container">
+    <h1>Branding Settings</h1>
+    <form>
+      <div class="form-group">
+        <label for="logoUrl">Logo URL:</label>
+        <input id="logoUrl" type="text" [(ngModel)]="branding.logoUrl" name="logoUrl" placeholder="https://example.com/logo.png">
+      </div>
+      <div class="form-group">
+        <label for="primaryColor">Primary Color:</label>
+        <input id="primaryColor" type="color" [(ngModel)]="branding.primaryColor" name="primaryColor">
+      </div>
+      <div class="form-group">
+        <label for="secondaryColor">Secondary Color:</label>
+        <input id="secondaryColor" type="color" [(ngModel)]="branding.secondaryColor" name="secondaryColor">
+      </div>
+      <button type="button" (click)="updateBranding()">Update Branding</button>
+    </form>
+    <div class="preview">
+      <h2>Preview</h2>
+      <img [src]="branding.logoUrl" alt="Logo Preview" *ngIf="branding.logoUrl">
+      <div [style.backgroundColor]="branding.primaryColor" class="color-preview">Primary</div>
+      <div [style.backgroundColor]="branding.secondaryColor" class="color-preview">Secondary</div>
+    </div>
+  </div>

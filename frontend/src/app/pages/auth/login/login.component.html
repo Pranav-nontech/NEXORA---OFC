@@ -1,0 +1,21 @@
+<div class="login-container">
+  <h1>Welcome Back to Nexora!</h1>
+  <p class="subheadline">Streamline your bookings and manage your appointments with ease.</p>
+  <form class="login-form">
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input id="email" type="email" [(ngModel)]="loginData.email" name="email" placeholder="Your registered email address" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input id="password" type="password" [(ngModel)]="loginData.password" name="password" placeholder="Your secure password" required>
+    </div>
+    <button type="button" (click)="login()">Log In</button>
+    <p class="error" *ngIf="loginError">{{ loginError }}</p>
+  </form>
+  <p class="links">
+    <a routerLink="/password-reset">Forgot your password?</a><br>
+    Don't have an account? <a routerLink="/signup">Sign Up</a>
+  </p>
+  <p class="footer"><a routerLink="/privacy">Privacy Policy</a></p>
+</div>

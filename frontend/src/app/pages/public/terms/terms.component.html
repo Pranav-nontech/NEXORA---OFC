@@ -1,0 +1,17 @@
+<div class="terms-container">
+  <!-- Headline -->
+  <h1>Welcome to Nexora! Please read our Terms of Service carefully.</h1>
+
+  <!-- Sections -->
+  <div class="terms-sections">
+    <div *ngFor="let section of sections" class="section">
+      <h2>{{ section.title }}</h2>
+      <p>{{ section.content }}
+        <a *ngIf="section.title === 'Acceptance of Terms'" routerLink="/privacy">Privacy Policy</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <p class="last-updated">Last Updated: {{ lastUpdated }}</p>
+</div>

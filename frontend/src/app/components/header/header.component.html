@@ -1,0 +1,13 @@
+<header>
+    <div class="header-container">
+      <div class="logo">
+        <a routerLink="/">Nexora</a>
+      </div>
+      <nav class="nav-links" [class.active]="isMenuOpen">
+        <a *ngFor="let link of navLinks" [routerLink]="link.path">{{ link.label }}</a>
+      </nav>
+      <button class="menu-toggle" (click)="toggleMenu()">
+        <span>{{ isMenuOpen ? 'Close' : 'Menu' }}</span>
+      </button>
+    </div>
+  </header>

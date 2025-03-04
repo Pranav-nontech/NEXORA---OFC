@@ -1,0 +1,25 @@
+<div class="features-container">
+  <!-- Header Section -->
+  <h1>Streamline Your Business with Nexora's Powerful Booking Features</h1>
+  <p class="intro">{{ intro }}</p>
+
+  <!-- Features Section -->
+  <div class="feature-list">
+    <div *ngFor="let feature of features" class="feature-card">
+      <div class="feature-icon">
+        <!-- Placeholder for icons; replace with actual assets -->
+        <img [src]="'/assets/images/' + feature.name.toLowerCase().replace(' ', '-') + '-icon.png'" [alt]="feature.name + ' Icon'">
+      </div>
+      <h3>{{ feature.name }}</h3>
+      <p>{{ feature.description }}</p>
+      <p class="benefit">{{ feature.benefit }}</p>
+      <p class="compliance" *ngIf="feature.compliance">{{ feature.compliance }}</p>
+    </div>
+  </div>
+
+  <!-- Call to Action -->
+  <div class="cta">
+    <p>Ready to experience Nexora's powerful features?</p>
+    <a routerLink="/signup" class="btn">Start Your Free Trial</a>
+  </div>
+</div>

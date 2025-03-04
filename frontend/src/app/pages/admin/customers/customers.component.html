@@ -1,0 +1,21 @@
+<div class="customers-container">
+    <h1>Customer Management</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customer of customers">
+          <td>{{ customer.id }}</td>
+          <td>{{ customer.name }}</td>
+          <td>{{ customer.email }}</td>
+          <td><button (click)="deleteCustomer(customer.id)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

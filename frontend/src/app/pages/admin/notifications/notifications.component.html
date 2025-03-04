@@ -1,0 +1,18 @@
+<div class="notifications-container">
+    <h1>Notification Settings</h1>
+    <form>
+      <div class="form-group">
+        <label for="emailEnabled">Email Notifications:</label>
+        <input id="emailEnabled" type="checkbox" [(ngModel)]="notificationSettings.emailEnabled" name="emailEnabled">
+      </div>
+      <div class="form-group">
+        <label for="smsEnabled">SMS Notifications:</label>
+        <input id="smsEnabled" type="checkbox" [(ngModel)]="notificationSettings.smsEnabled" name="smsEnabled">
+      </div>
+      <div class="form-group">
+        <label for="reminderHours">Reminder (Hours Before):</label>
+        <input id="reminderHours" type="number" [(ngModel)]="notificationSettings.reminderHours" name="reminderHours" min="1">
+      </div>
+      <button type="button" (click)="saveNotificationSettings()">Save</button>
+    </form>
+  </div>

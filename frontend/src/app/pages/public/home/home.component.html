@@ -1,0 +1,47 @@
+<div class="home-container">
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>{{ hero.headline }}</h1>
+      <p class="subheadline">{{ hero.subheadline }}</p>
+      <p class="description">{{ hero.description }}</p>
+      <div class="cta-buttons">
+        <a routerLink="/signup" class="btn primary-btn">Start Your Free Trial</a>
+        <a routerLink="/contact" class="btn secondary-btn">Request a Demo</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <!-- Placeholder for image or video -->
+      <img src="/assets/images/nexora-booking-demo.png" alt="Nexora Booking System on Devices" class="demo-image">
+      <!-- Uncomment for video option -->
+      <!-- <video controls autoplay muted loop>
+        <source src="/assets/videos/nexora-demo.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video> -->
+    </div>
+  </section>
+
+  <!-- Key Features Section -->
+  <section class="features">
+    <h2>Key Features</h2>
+    <div class="feature-list">
+      <div *ngFor="let feature of features" class="feature-card">
+        <h3>{{ feature.name }}</h3>
+        <p>{{ feature.description }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof Section -->
+  <section class="social-proof">
+    <h2>What Our Clients Say</h2>
+    <blockquote>
+      <p>"{{ testimonial.quote }}"</p>
+      <cite>- {{ testimonial.author }}</cite>
+    </blockquote>
+    <div class="client-logos">
+      <!-- Placeholder for company logos -->
+      <p>[Logos of prominent companies using Nexora]</p>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,8 @@
+<div class="system-health-container">
+    <h1>System Health</h1>
+    <div class="status">
+      <p>Backend Status: {{ systemStatus.backend }}</p>
+      <p>Last Checked: {{ systemStatus.lastChecked | date:'medium' }}</p>
+    </div>
+    <button (click)="checkSystemHealth()">Check Now</button>
+  </div>

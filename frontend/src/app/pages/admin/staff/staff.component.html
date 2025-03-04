@@ -1,0 +1,14 @@
+<div class="staff-container">
+    <h1>Staff Management</h1>
+    <ul>
+      <li *ngFor="let staffMember of staff">
+        {{ staffMember.name }} - {{ staffMember.role }}
+      </li>
+    </ul>
+    <div class="add-staff">
+      <h2>Add Staff</h2>
+      <input type="text" #name placeholder="Staff Name">
+      <input type="text" #role placeholder="Role">
+      <button (click)="addStaff({ name: name.value, role: role.value })">Add</button>
+    </div>
+  </div>

@@ -1,0 +1,28 @@
+<div class="cookie-container">
+  <!-- Headline and Intro -->
+  <h1>We Use Cookies to Enhance Your Nexora Experience</h1>
+  <p *ngFor="let paragraph of intro" class="intro">{{ paragraph }}</p>
+
+  <!-- Sections -->
+  <div class="policy-sections">
+    <div *ngFor="let section of sections" class="section">
+      <h2>{{ section.title }}</h2>
+      <div *ngIf="section.subSections" class="sub-sections">
+        <div *ngFor="let sub of section.subSections" class="sub-section">
+          <h3>{{ sub.name }}</h3>
+          <p>{{ sub.description }}</p>
+        </div>
+      </div>
+      <p *ngIf="section.content">
+        {{ section.content }}
+        <a *ngIf="section.link" [href]="section.link" target="_blank">{{ section.content }}</a>
+        <span *ngIf="section.links">
+          <a *ngFor="let link of section.links" [href]="link.url" target="_blank">{{ link.text }}</a>
+        </span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <p class="last-updated">Last Updated: {{ lastUpdated }}</p>
+</div>

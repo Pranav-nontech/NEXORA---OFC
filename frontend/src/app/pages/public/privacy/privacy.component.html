@@ -1,0 +1,18 @@
+<div class="privacy-container">
+  <!-- Headline and Intro -->
+  <h1>Your Privacy Matters at Nexora</h1>
+  <p class="intro">{{ intro }}</p>
+
+  <!-- Sections -->
+  <div class="policy-sections">
+    <div *ngFor="let section of sections" class="section">
+      <h2>{{ section.title }}</h2>
+      <p>{{ section.content }}
+        <a *ngIf="section.title === '7. Cookies and Tracking Technologies'" routerLink="/cookie">Cookie Policy</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <p class="last-updated">Last Updated: {{ lastUpdated }}</p>
+</div>

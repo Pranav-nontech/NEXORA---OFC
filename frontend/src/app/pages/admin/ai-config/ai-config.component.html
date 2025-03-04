@@ -1,0 +1,22 @@
+<div class="ai-config-container">
+    <h1>AI Assistant Configuration</h1>
+    <form>
+      <div class="form-group">
+        <label for="personality">Personality:</label>
+        <select id="personality" [(ngModel)]="aiSettings.personality" name="personality">
+          <option value="friendly">Friendly</option>
+          <option value="professional">Professional</option>
+          <option value="casual">Casual</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="responseTime">Response Time (ms):</label>
+        <input id="responseTime" type="number" [(ngModel)]="aiSettings.responseTime" name="responseTime" min="100" max="2000">
+      </div>
+      <div class="form-group">
+        <label for="enabled">Enabled:</label>
+        <input id="enabled" type="checkbox" [(ngModel)]="aiSettings.enabled" name="enabled">
+      </div>
+      <button type="button" (click)="saveSettings()">Save Settings</button>
+    </form>
+  </div>

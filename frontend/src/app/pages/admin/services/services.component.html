@@ -1,0 +1,15 @@
+<div class="services-container">
+    <h1>Services Management</h1>
+    <ul>
+      <li *ngFor="let service of services">
+        {{ service.name }} - {{ service.duration }} mins - ${{ service.price }}
+      </li>
+    </ul>
+    <div class="add-service">
+      <h2>Add Service</h2>
+      <input type="text" #name placeholder="Service Name">
+      <input type="number" #duration placeholder="Duration (mins)" min="15">
+      <input type="number" #price placeholder="Price ($)" min="0">
+      <button (click)="addService({ name: name.value, duration: +duration.value, price: +price.value })">Add</button>
+    </div>
+  </div>

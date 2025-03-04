@@ -1,0 +1,14 @@
+<footer>
+    <div class="footer-container">
+      <div class="nav-links">
+        <a *ngFor="let link of navLinks" [routerLink]="link.path">{{ link.label }}</a>
+      </div>
+      <div class="contact-info">
+        <p>Email: {{ contactInfo.email }}</p>
+        <p>Phone: {{ contactInfo.phone }}</p>
+      </div>
+      <div class="copyright">
+        <p>© {{ currentYear }} Nexora. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>

@@ -52,9 +52,8 @@
               }
             ],
             "styles": [
-             "src/styles.css",
-              "src/assets/styles/global.css"
-            ],
+            "node_modules/bulma/css/bulma.min.css",
+             "src/styles.css"],
             "scripts": [],
             "server": "src/main.server.ts",
             "outputMode": "server",
@@ -123,5 +122,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

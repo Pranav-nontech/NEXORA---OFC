@@ -1,12 +1,16 @@
-<div class="success-container">
-  <h1>Your Appointment is Scheduled!</h1>
-  <p>We're excited to confirm your appointment!</p>
-  <div class="confirmation-details">
-    <p><strong>Service:</strong> {{ bookingConfirmation.service }}</p>
-    <p><strong>Staff:</strong> {{ bookingConfirmation.staff }}</p>
-    <p><strong>Date & Time:</strong> {{ bookingConfirmation.date | date:'medium' }}</p>
-    <p><strong>Location:</strong> {{ bookingConfirmation.location }}</p>
-    <p><strong>Your Booking Reference:</strong> {{ bookingConfirmation.confirmationId }}</p>
+<section class="section">
+  <div class="container">
+    <h1 class="title is-1">Your Appointment is Scheduled!</h1>
+    <p class="subtitle is-3">We're excited to confirm your appointment!</p>
+    <div class="box">
+      <div class="content">
+        <p><strong>Service:</strong> {{ bookingConfirmation.service }}</p>
+        <p><strong>Staff:</strong> {{ bookingConfirmation.staff }}</p>
+        <p><strong>Date & Time:</strong> {{ bookingConfirmation.date | date:'medium' }}</p>
+        <p><strong>Location:</strong> {{ bookingConfirmation.location }}</p>
+        <p><strong>Your Booking Reference:</strong> {{ bookingConfirmation.confirmationId }}</p>
+      </div>
+    </div>
+    <p class="content">You'll receive a confirmation email with all the details. Need to reschedule or cancel? Use the link in your confirmation email or visit your <a routerLink="/booking/management">Booking Management Page</a>.</p>
   </div>
-  <p>You'll receive a confirmation email with all the details. Need to reschedule or cancel? Use the link in your confirmation email or visit your <a routerLink="/booking/management">Booking Management Page</a>.</p>
-</div>
+</section>

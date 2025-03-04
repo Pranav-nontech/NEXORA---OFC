@@ -1,13 +1,15 @@
-<header>
-    <div class="header-container">
-      <div class="logo">
-        <a routerLink="/">Nexora</a>
-      </div>
-      <nav class="nav-links" [class.active]="isMenuOpen">
-        <a *ngFor="let link of navLinks" [routerLink]="link.path">{{ link.label }}</a>
-      </nav>
-      <button class="menu-toggle" (click)="toggleMenu()">
-        <span>{{ isMenuOpen ? 'Close' : 'Menu' }}</span>
-      </button>
+<nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item logo" routerLink="/">Nexora</a>
+    <button class="navbar-burger" [class.is-active]="isMenuOpen" (click)="toggleMenu()" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+  <div class="navbar-menu" [class.is-active]="isMenuOpen">
+    <div class="navbar-end">
+      <a class="navbar-item" *ngFor="let link of navLinks" [routerLink]="link.path">{{ link.label }}</a>
     </div>
-  </header>
+  </div>
+</nav>

@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
+import { BookingService } from '../../../shared/services/booking.service';
 
 @Component({
   selector: 'app-staff-selection',
   standalone: true,
-  imports: [RouterLink], // For Privacy Policy link
+  imports: [RouterLink],
   templateUrl: './staff-selection.component.html',
   styleUrls: ['./staff-selection.component.css']
 })
@@ -16,8 +17,13 @@ export class StaffSelectionComponent {
 
   selectedStaff: { id: number; name: string; role: string; bio: string } | null = null;
 
+  constructor(private bookingService: BookingService, private router: Router) {}
+
   selectStaff(id: number): void {
     this.selectedStaff = this.staff.find(s => s.id === id) || null;
-    console.log('Staff Selected:', this.selectedStaff);
+    if (this.selectedStaff) {
+      this.bookingService.setStaff(this.selectedStaff);
+      this.router.navigate(['/booking/time-slot-selection']);
+    }
   }
 }

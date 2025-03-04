@@ -1,14 +1,20 @@
-<footer>
-    <div class="footer-container">
-      <div class="nav-links">
-        <a *ngFor="let link of navLinks" [routerLink]="link.path">{{ link.label }}</a>
+<footer class="footer">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-6">
+        <div class="nav-links content">
+          <a class="navbar-item" *ngFor="let link of navLinks" [routerLink]="link.path">{{ link.label }}</a>
+        </div>
       </div>
-      <div class="contact-info">
-        <p>Email: {{ contactInfo.email }}</p>
-        <p>Phone: {{ contactInfo.phone }}</p>
-      </div>
-      <div class="copyright">
-        <p>© {{ currentYear }} Nexora. All rights reserved.</p>
+      <div class="column is-6">
+        <div class="contact-info content">
+          <p>Email: {{ contactInfo.email }}</p>
+          <p>Phone: {{ contactInfo.phone }}</p>
+        </div>
       </div>
     </div>
-  </footer>
+    <div class="content has-text-centered">
+      <p>© {{ currentYear }} Nexora. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

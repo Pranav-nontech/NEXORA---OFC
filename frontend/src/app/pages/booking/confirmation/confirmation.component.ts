@@ -1,40 +1,33 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
+import { BookingService } from '../../../shared/services/booking.service';
 
 @Component({
   selector: 'app-confirmation',
   standalone: true,
-  imports: [FormsModule, RouterLink], // FormsModule for form
+  imports: [RouterLink],
   templateUrl: './confirmation.component.html',
   styleUrls: ['./confirmation.component.css']
 })
 export class ConfirmationComponent {
-  customerInfo = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    phoneNumber: '',
-    address: '',
-    city: '',
-    state: '',
-    zipCode: '',
-    notes: '',
-    termsConsent: false
-  };
+  bookingData: any;
 
-  bookingDetails = {
-    service: 'Haircut',
-    staff: 'Jane Doe',
-    date: new Date(),
-    price: 25
-  };
+  constructor(private bookingService: BookingService, private router: Router) {
+    this.bookingData = this.bookingService.getBookingData();
+  }
 
   confirmBooking(): void {
-    if (this.customerInfo.termsConsent) {
-      console.log('Booking Confirmed:', { customer: this.customerInfo, details: this.bookingDetails });
-    } else {
-      console.log('Terms consent required');
-    }
+    this.bookingService.createBooking(this.bookingData).subscribe({
+      next: (response) => {
+        console.log('Booking Created:', response);
+        this.bookingService.clearBookingData();
+        this.router.navigate(['/booking/success']);
+      },
+      error: (err) => console.error('Booking Failed:', err)
+    });
+  }
+
+  editBooking(): void {
+    this.router.navigate(['/booking/customer-info'], { state: { customerInfo: this.bookingData.customerInfo } });
   }
 }

@@ -6,8 +6,38 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class BookingService {
+  private bookingData: any = {}; // Local state for booking flow
+
   constructor(private api: ApiService) {}
 
+  // Setters for booking steps
+  setService(service: any): void {
+    this.bookingData.service = service;
+  }
+
+  setStaff(staff: any): void {
+    this.bookingData.staff = staff;
+  }
+
+  setTimeSlot(timeSlot: any): void {
+    this.bookingData.timeSlot = timeSlot;
+  }
+
+  setCustomerInfo(customerInfo: any): void {
+    this.bookingData.customerInfo = customerInfo;
+  }
+
+  // Getter for full booking data
+  getBookingData(): any {
+    return this.bookingData;
+  }
+
+  // Clear data after completion
+  clearBookingData(): void {
+    this.bookingData = {};
+  }
+
+  // Existing API methods
   getServices(): Observable<any[]> {
     return this.api.get('bookings/services');
   }

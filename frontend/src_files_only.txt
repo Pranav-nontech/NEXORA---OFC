@@ -1,0 +1,2005 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nexora Booking</title>
+    <base href="/" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  </head>
+  <body>
+    <app-root></app-root>
+  </body>
+</html>import { bootstrapApplication } from '@angular/platform-server';
+import { enableProdMode } from '@angular/core';
+import { AppComponent } from './app/app.component';
+import { environment } from './environments/environment';
+import { provideServerRendering } from '@angular/platform-server';
+import { routes } from './app/app.routes.server';
+
+if (environment.production) {
+  enableProdMode();
+}
+
+export default async function bootstrap() {
+  const app = await bootstrapApplication(AppComponent, {
+    providers: [
+      provideServerRendering(),
+      provideRouter(routes)
+    ]
+  });
+  return app;
+}import { bootstrapApplication } from '@angular/platform-browser';
+import { provideRouter } from '@angular/router';
+import { enableProdMode } from '@angular/core';
+import { AppComponent } from './app/app.component';
+import { routes } from './app/app.routes';
+import { environment } from './environments/environment';
+
+if (environment.production) {
+  enableProdMode();
+}
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideRouter(routes)
+  ]
+})
+  .catch(err => console.error(err));import 'zone.js';          // Required for Angular runtime
+import 'zone.js/testing';  // Required for Jasmine testsimport 'zone.js/node';
+import { enableProdMode } from '@angular/core';
+import { renderApplication } from '@angular/platform-server';
+import { provideServerRendering } from '@angular/platform-server';
+import { AppComponent } from './app/app.component';
+import { environment } from './environments/environment';
+import * as express from 'express';
+import { join } from 'path';
+
+if (environment.production) {
+  enableProdMode();
+}
+
+const server = express();
+const distFolder = join(__dirname, '../dist/frontend');
+
+server.set('view engine', 'html');
+server.set('views', distFolder);
+
+// Serve static files from /dist/frontend
+server.get('*.*', express.static(distFolder, {
+  maxAge: '1y'
+}));
+
+// All regular routes use SSR
+server.get('*', (req, res) => {
+  renderApplication(() => bootstrap(AppComponent), {
+    documentFilePath: join(distFolder, 'index.html'),
+    url: req.url,
+    providers: [
+      provideServerRendering()
+    ]
+  }).then(html => res.send(html))
+    .catch(err => res.status(500).send(err));
+});
+
+const port = process.env['PORT'] || 4000;
+server.listen(port, () => {
+  console.log(`Node Express server listening on http://localhost:${port}`);
+});
+
+async function bootstrap(appComponent: any) {
+  const { bootstrapApplication } = await import('@angular/platform-server');
+  const {routes} = await import('./app/app.routes.server');
+  return bootstrapApplication(appComponent, {
+    providers: [
+      provideServerRendering(),
+      provideRouter(routes)
+    ]
+  });
+}
+
+function provideRouter(routes: any) {
+  throw new Error('Function not implemented.');
+}
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './pages/public/home/home.component';
+// Import other page components...
+
+const routes: Routes = [
+  { path: '', component: HomeComponent },
+  // Add other routes...
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }<app-header></app-header>
+<main>
+  <router-outlet></router-outlet>
+</main>
+<app-footer></app-footer>import { TestBed } from '@angular/core/testing';
+import { RouterOutlet } from '@angular/router';
+import { AppComponent } from './app.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
+
+describe('AppComponent', () => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [
+        AppComponent,
+        RouterOutlet,
+        FooterComponent,
+        HeaderComponent
+      ]
+    }).compileComponents();
+  });
+
+  it('should create the app component', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
+  });
+
+  it(`should have the title 'Nexora Booking'`, () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app.title).toEqual('Nexora Booking');
+  });
+});import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet, FooterComponent, HeaderComponent],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'Nexora Booking'; // App title for display or reference
+}import { ApplicationConfig } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideServer Rendering } from '@angular/platform-server';
+import { routes } from './app.routes.server';
+
+export const appConfigServer: ApplicationConfig = {
+  providers: [
+    provideRouter(routes),          // Server-side routes
+    provideHttpClient(withFetch()), // HTTP client with fetch API for SSR
+    provideServerRendering()        // Enables SSR functionality
+  ]
+};import { ApplicationConfig } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { routes } from './app.routes';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideRouter(routes),          // Sets up routing with app.routes.ts
+    provideHttpClient()            // Enables HTTP client for API calls
+  ]
+};ECHO is on.
+import { Routes } from '@angular/router';
+import { HomeComponent } from './pages/public/home/home.component';
+import { AboutComponent } from './pages/public/about/about.component';
+import { ContactComponent } from './pages/public/contact/contact.component';
+import { FeaturesComponent } from './pages/public/features/features.component';
+import { PricingComponent } from './pages/public/pricing/pricing.component';
+import { FaqComponent } from './pages/public/faq/faq.component';
+import { PrivacyComponent } from './pages/public/privacy/privacy.component';
+import { TermsComponent } from './pages/public/terms/terms.component';
+
+export const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'contact', component: ContactComponent },
+  { path: 'features', component: FeaturesComponent },
+  { path: 'pricing', component: PricingComponent },
+  { path: 'faq', component: FaqComponent },
+  { path: 'privacy', component: PrivacyComponent },
+  { path: 'terms', component: TermsComponent },
+  { path: '**', redirectTo: '', pathMatch: 'full' }
+];import { Routes } from '@angular/router';
+import { HomeComponent } from './pages/public/home/home.component';
+import { AboutComponent } from './pages/public/about/about.component';
+import { ContactComponent } from './pages/public/contact/contact.component';
+import { FeaturesComponent } from './pages/public/features/features.component';
+import { PricingComponent } from './pages/public/pricing/pricing.component';
+import { FaqComponent } from './pages/public/faq/faq.component';
+import { PrivacyComponent } from './pages/public/privacy/privacy.component';
+import { TermsComponent } from './pages/public/terms/terms.component';
+
+export const routes: Routes = [
+  { path: '', component: HomeComponent },              // Default route (landing page)
+  { path: 'about', component: AboutComponent },
+  { path: 'contact', component: ContactComponent },
+  { path: 'features', component: FeaturesComponent },
+  { path: 'pricing', component: PricingComponent },
+  { path: 'faq', component: FaqComponent },
+  { path: 'privacy', component: PrivacyComponent },
+  { path: 'terms', component: TermsComponent },
+  { path: '**', redirectTo: '', pathMatch: 'full' }   // Wildcard redirects to home
+];ECHO is on.
+<footer>
+    <div class="footer-container">
+      <div class="nav-links">
+        <a *ngFor="let link of navLinks" [routerLink]="link.path">{{ link.label }}</a>
+      </div>
+      <div class="contact-info">
+        <p>Email: {{ contactInfo.email }}</p>
+        <p>Phone: {{ contactInfo.phone }}</p>
+      </div>
+      <div class="copyright">
+        <p>© {{ currentYear }} Nexora. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-footer',
+  standalone: true,
+  imports: [RouterLink],
+  templateUrl: './footer.component.html',
+  styleUrls: ['./footer.component.css']
+})
+export class FooterComponent {
+  currentYear: number = new Date().getFullYear();
+
+  navLinks = [
+    { label: 'Home', path: '' },
+    { label: 'About', path: '/about' },
+    { label: 'Contact', path: '/contact' },
+    { label: 'Features', path: '/features' },
+    { label: 'Pricing', path: '/pricing' },
+    { label: 'FAQ', path: '/faq' },
+    { label: 'Privacy', path: '/privacy' },
+    { label: 'Terms', path: '/terms' }
+  ];
+
+  contactInfo = {
+    email: 'info@nexora.com',      // Updated to your email
+    phone: '+91 6355875252'        // Updated to your phone number
+  };
+}ECHO is on.
+<header>
+    <div class="header-container">
+      <div class="logo">
+        <a routerLink="/">Nexora</a>
+      </div>
+      <nav class="nav-links" [class.active]="isMenuOpen">
+        <a *ngFor="let link of navLinks" [routerLink]="link.path">{{ link.label }}</a>
+      </nav>
+      <button class="menu-toggle" (click)="toggleMenu()">
+        <span>{{ isMenuOpen ? 'Close' : 'Menu' }}</span>
+      </button>
+    </div>
+  </header>import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-header',
+  standalone: true,
+  imports: [RouterLink],
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
+})
+export class HeaderComponent {
+  navLinks = [
+    { label: 'Home', path: '' },
+    { label: 'Features', path: '/features' },
+    { label: 'Pricing', path: '/pricing' },
+    { label: 'FAQ', path: '/faq' },
+    { label: 'Contact', path: '/contact' }
+  ];
+
+  isMenuOpen = false; // Toggle state for mobile menu
+
+  toggleMenu(): void {
+    this.isMenuOpen = !this.isMenuOpen; // Toggles mobile menu visibility
+  }
+}ECHO is on.
+<div class="modal-overlay" *ngIf="isOpen" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ title }}</h2>
+        <button class="close-btn" (click)="closeModal()">×</button>
+      </div>
+      <div class="modal-body">
+        <ng-content></ng-content>
+      </div>
+    </div>
+  </div>import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+@Component({
+  selector: 'app-modal',
+  standalone: true,
+  templateUrl: './modal.component.html',
+  styleUrls: ['./modal.component.css']
+})
+export class ModalComponent {
+  @Input() isOpen: boolean = false;        // Controls modal visibility
+  @Input() title: string = 'Modal Title';  // Modal title
+  @Output() close = new EventEmitter<void>(); // Emits when modal is closed
+
+  closeModal(): void {
+    this.isOpen = false;
+    this.close.emit(); // Notify parent component of closure
+  }
+}<div class="ai-config-container">
+    <h1>AI Assistant Configuration</h1>
+    <form>
+      <div class="form-group">
+        <label for="personality">Personality:</label>
+        <select id="personality" [(ngModel)]="aiSettings.personality" name="personality">
+          <option value="friendly">Friendly</option>
+          <option value="professional">Professional</option>
+          <option value="casual">Casual</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="responseTime">Response Time (ms):</label>
+        <input id="responseTime" type="number" [(ngModel)]="aiSettings.responseTime" name="responseTime" min="100" max="2000">
+      </div>
+      <div class="form-group">
+        <label for="enabled">Enabled:</label>
+        <input id="enabled" type="checkbox" [(ngModel)]="aiSettings.enabled" name="enabled">
+      </div>
+      <button type="button" (click)="saveSettings()">Save Settings</button>
+    </form>
+  </div>import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-ai-config',
+  standalone: true,
+  imports: [FormsModule], // Added for ngModel
+  templateUrl: './ai-config.component.html',
+  styleUrls: ['./ai-config.component.css']
+})
+export class AiConfigComponent {
+  aiSettings = {
+    personality: 'friendly',
+    responseTime: 500,
+    enabled: true
+  };
+
+  saveSettings(): void {
+    console.log('AI Settings Saved:', this.aiSettings);
+  }
+}<div class="branding-container">
+    <h1>Branding Settings</h1>
+    <form>
+      <div class="form-group">
+        <label for="logoUrl">Logo URL:</label>
+        <input id="logoUrl" type="text" [(ngModel)]="branding.logoUrl" name="logoUrl" placeholder="https://example.com/logo.png">
+      </div>
+      <div class="form-group">
+        <label for="primaryColor">Primary Color:</label>
+        <input id="primaryColor" type="color" [(ngModel)]="branding.primaryColor" name="primaryColor">
+      </div>
+      <div class="form-group">
+        <label for="secondaryColor">Secondary Color:</label>
+        <input id="secondaryColor" type="color" [(ngModel)]="branding.secondaryColor" name="secondaryColor">
+      </div>
+      <button type="button" (click)="updateBranding()">Update Branding</button>
+    </form>
+    <div class="preview">
+      <h2>Preview</h2>
+      <img [src]="branding.logoUrl" alt="Logo Preview" *ngIf="branding.logoUrl">
+      <div [style.backgroundColor]="branding.primaryColor" class="color-preview">Primary</div>
+      <div [style.backgroundColor]="branding.secondaryColor" class="color-preview">Secondary</div>
+    </div>
+  </div>import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-branding',
+  standalone: true,
+  imports: [FormsModule], // Added for ngModel
+  templateUrl: './branding.component.html',
+  styleUrls: ['./branding.component.css']
+})
+export class BrandingComponent {
+  branding = {
+    logoUrl: '',
+    primaryColor: '#007bff',
+    secondaryColor: '#6c757d'
+  };
+
+  updateBranding(): void {
+    console.log('Branding Updated:', this.branding);
+  }
+}<div class="calendar-container">
+    <h1>Calendar Management</h1>
+    <div class="events">
+      <h2>Events</h2>
+      <ul>
+        <li *ngFor="let event of events">
+          {{ event.title }} - {{ event.date | date:'short' }} ({{ event.duration }} mins)
+        </li>
+      </ul>
+    </div>
+    <div class="add-event">
+      <h2>Add Event</h2>
+      <input type="text" #title placeholder="Event Title">
+      <input type="datetime-local" #date>
+      <input type="number" #duration placeholder="Duration (mins)" min="15">
+      <button (click)="addEvent({ title: title.value, date: new Date(date.value), duration: +duration.value })">Add</button>
+    </div>
+  </div>import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-calendar',
+  standalone: true,
+  templateUrl: './calendar.component.html',
+  styleUrls: ['./calendar.component.css']
+})
+export class CalendarComponent {
+  events = [
+    { title: 'Meeting', date: new Date(), duration: 60 }
+  ];
+
+  addEvent(event: { title: string; date: Date; duration: number }): void {
+    this.events.push(event);
+    console.log('Event Added:', event);
+  }
+}<div class="customers-container">
+    <h1>Customer Management</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customer of customers">
+          <td>{{ customer.id }}</td>
+          <td>{{ customer.name }}</td>
+          <td>{{ customer.email }}</td>
+          <td><button (click)="deleteCustomer(customer.id)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-customers',
+  standalone: true,
+  templateUrl: './customers.component.html',
+  styleUrls: ['./customers.component.css']
+})
+export class CustomersComponent {
+  customers = [
+    { id: 1, name: 'John Doe', email: 'john@example.com' }
+  ];
+
+  deleteCustomer(id: number): void {
+    this.customers = this.customers.filter(c => c.id !== id);
+    console.log('Customer Deleted:', id);
+  }
+}<div class="dashboard-container">
+    <h1>Admin Dashboard</h1>
+    <div class="stats">
+      <div class="stat-card">
+        <h2>Appointments Today</h2>
+        <p>{{ stats.appointmentsToday }}</p>
+      </div>
+      <div class="stat-card">
+        <h2>Total Customers</h2>
+        <p>{{ stats.totalCustomers }}</p>
+      </div>
+      <div class="stat-card">
+        <h2>Revenue</h2>
+        <p>${{ stats.revenue }}</p>
+      </div>
+    </div>
+  </div>import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-dashboard',
+  standalone: true,
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
+})
+export class DashboardComponent {
+  stats = {
+    appointmentsToday: 5,
+    totalCustomers: 50,
+    revenue: 1000
+  };
+}<div class="integrations-container">
+    <h1>Integrations</h1>
+    <ul>
+      <li *ngFor="let integration of integrations">
+        {{ integration.name }} - 
+        <span>{{ integration.connected ? 'Connected' : 'Not Connected' }}</span>
+        <button (click)="connectIntegration(integration.name)" [disabled]="integration.connected">
+          {{ integration.connected ? 'Connected' : 'Connect' }}
+        </button>
+      </li>
+    </ul>
+  </div>import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-integrations',
+  standalone: true,
+  templateUrl: './integrations.component.html',
+  styleUrls: ['./integrations.component.css']
+})
+export class IntegrationsComponent {
+  integrations = [
+    { name: 'Stripe', connected: false },
+    { name: 'Google Calendar', connected: false }
+  ];
+
+  connectIntegration(name: string): void {
+    console.log('Connecting:', name);
+  }
+}<div class="notifications-container">
+    <h1>Notification Settings</h1>
+    <form>
+      <div class="form-group">
+        <label for="emailEnabled">Email Notifications:</label>
+        <input id="emailEnabled" type="checkbox" [(ngModel)]="notificationSettings.emailEnabled" name="emailEnabled">
+      </div>
+      <div class="form-group">
+        <label for="smsEnabled">SMS Notifications:</label>
+        <input id="smsEnabled" type="checkbox" [(ngModel)]="notificationSettings.smsEnabled" name="smsEnabled">
+      </div>
+      <div class="form-group">
+        <label for="reminderHours">Reminder (Hours Before):</label>
+        <input id="reminderHours" type="number" [(ngModel)]="notificationSettings.reminderHours" name="reminderHours" min="1">
+      </div>
+      <button type="button" (click)="saveNotificationSettings()">Save</button>
+    </form>
+  </div>import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-notifications',
+  standalone: true,
+  imports: [FormsModule], // Added for ngModel
+  templateUrl: './notifications.component.html',
+  styleUrls: ['./notifications.component.css']
+})
+export class NotificationsComponent {
+  notificationSettings = {
+    emailEnabled: true,
+    smsEnabled: false,
+    reminderHours: 24
+  };
+
+  saveNotificationSettings(): void {
+    console.log('Notification Settings Saved:', this.notificationSettings);
+  }
+}<div class="reports-container">
+    <h1>Reports</h1>
+    <div class="report-data">
+      <p>Bookings This Month: {{ reportData.bookingsThisMonth }}</p>
+      <p>Revenue This Month: ${{ reportData.revenueThisMonth }}</p>
+    </div>
+  </div>import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-reports',
+  standalone: true,
+  templateUrl: './reports.component.html',
+  styleUrls: ['./reports.component.css']
+})
+export class ReportsComponent {
+  reportData = {
+    bookingsThisMonth: 20,
+    revenueThisMonth: 2000
+  };
+}<div class="services-container">
+    <h1>Services Management</h1>
+    <ul>
+      <li *ngFor="let service of services">
+        {{ service.name }} - {{ service.duration }} mins - ${{ service.price }}
+      </li>
+    </ul>
+    <div class="add-service">
+      <h2>Add Service</h2>
+      <input type="text" #name placeholder="Service Name">
+      <input type="number" #duration placeholder="Duration (mins)" min="15">
+      <input type="number" #price placeholder="Price ($)" min="0">
+      <button (click)="addService({ name: name.value, duration: +duration.value, price: +price.value })">Add</button>
+    </div>
+  </div>import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-services',
+  standalone: true,
+  templateUrl: './services.component.html',
+  styleUrls: ['./services.component.css']
+})
+export class ServicesComponent {
+  services = [
+    { id: 1, name: 'Haircut', duration: 30, price: 25 }
+  ];
+
+  addService(service: { name: string; duration: number; price: number }): void {
+    this.services.push({ id: this.services.length + 1, ...service });
+    console.log('Service Added:', service);
+  }
+}<div class="settings-container">
+    <h1>Business Settings</h1>
+    <form>
+      <div class="form-group">
+        <label for="name">Business Name:</label>
+        <input id="name" type="text" [(ngModel)]="businessSettings.name" name="name">
+      </div>
+      <div class="form-group">
+        <label for="hours">Operating Hours:</label>
+        <input id="hours" type="text" [(ngModel)]="businessSettings.hours" name="hours">
+      </div>
+      <div class="form-group">
+        <label for="location">Location:</label>
+        <input id="location" type="text" [(ngModel)]="businessSettings.location" name="location">
+      </div>
+      <button type="button" (click)="saveSettings()">Save</button>
+    </form>
+  </div>import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-settings',
+  standalone: true,
+  imports: [FormsModule], // Added for ngModel
+  templateUrl: './settings.component.html',
+  styleUrls: ['./settings.component.css']
+})
+export class SettingsComponent {
+  businessSettings = {
+    name: 'Nexora Salon',
+    hours: '9 AM - 5 PM',
+    location: '123 Main St'
+  };
+
+  saveSettings(): void {
+    console.log('Settings Saved:', this.businessSettings);
+  }
+}<div class="staff-container">
+    <h1>Staff Management</h1>
+    <ul>
+      <li *ngFor="let staffMember of staff">
+        {{ staffMember.name }} - {{ staffMember.role }}
+      </li>
+    </ul>
+    <div class="add-staff">
+      <h2>Add Staff</h2>
+      <input type="text" #name placeholder="Staff Name">
+      <input type="text" #role placeholder="Role">
+      <button (click)="addStaff({ name: name.value, role: role.value })">Add</button>
+    </div>
+  </div>import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-staff',
+  standalone: true,
+  templateUrl: './staff.component.html',
+  styleUrls: ['./staff.component.css']
+})
+export class StaffComponent {
+  staff = [
+    { id: 1, name: 'Jane Doe', role: 'Stylist' }
+  ];
+
+  addStaff(staff: { name: string; role: string }): void {
+    this.staff.push({ id: this.staff.length + 1, ...staff });
+    console.log('Staff Added:', staff);
+  }
+}<div class="system-health-container">
+    <h1>System Health</h1>
+    <div class="status">
+      <p>Backend Status: {{ systemStatus.backend }}</p>
+      <p>Last Checked: {{ systemStatus.lastChecked | date:'medium' }}</p>
+    </div>
+    <button (click)="checkSystemHealth()">Check Now</button>
+  </div>import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-system-health',
+  standalone: true,
+  templateUrl: './system-health.component.html',
+  styleUrls: ['./system-health.component.css']
+})
+export class SystemHealthComponent {
+  systemStatus = {
+    backend: 'Online',
+    lastChecked: new Date()
+  };
+
+  checkSystemHealth(): void {
+    // Placeholder for health check
+    this.systemStatus.lastChecked = new Date();
+    console.log('System Health Checked:', this.systemStatus);
+  }
+}<div class="email-verification-container">
+  <h1>Thanks for signing up! Verify your email to get started.</h1>
+  <p>{{ message }}</p>
+  <p>Verification email sent to: <strong>{{ email }}</strong></p>
+  <button type="button" (click)="resendVerification()" [disabled]="!canResend">Resend Verification Email</button>
+  <p *ngIf="resendMessage">{{ resendMessage }}</p>
+  <p>Need help? <a routerLink="/contact">Contact our support team</a></p>
+  <p class="gdpr-note">By verifying your email, you agree to our <a routerLink="/terms">Terms of Service</a> and <a routerLink="/privacy">Privacy Policy</a>. We will use your email address to send you important updates and notifications about your account and bookings. You can manage your communication preferences in your profile.</p>
+  <p class="footer">Copyright Nexora {{ currentYear }}. All rights reserved. <a routerLink="/terms">Terms of Service</a> <a routerLink="/privacy">Privacy Policy</a></p>
+</div>import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-email-verification',
+  standalone: true,
+  imports: [RouterLink], // For links
+  templateUrl: './email-verification.component.html',
+  styleUrls: ['./email-verification.component.css']
+})
+export class EmailVerificationComponent {
+  email: string = 'user@example.com'; // Placeholder; ideally passed via route/service
+  message: string = 'A verification link has been sent to your email address. Please click the link in the email to activate your Nexora account.';
+  resendMessage: string = '';
+  canResend: boolean = true;
+  currentYear: number = new Date().getFullYear();
+
+  resendVerification(): void {
+    if (this.canResend) {
+      this.resendMessage = 'Verification link resent to ' + this.email;
+      this.canResend = false;
+      console.log('Resend Verification Email:', this.email);
+      setTimeout(() => {
+        this.canResend = true;
+        this.resendMessage += ' You can resend the email in 60 seconds.';
+      }, 60000); // 60-second throttle
+    }
+  }
+}<div class="login-container">
+  <h1>Welcome Back to Nexora!</h1>
+  <p class="subheadline">Streamline your bookings and manage your appointments with ease.</p>
+  <form class="login-form">
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input id="email" type="email" [(ngModel)]="loginData.email" name="email" placeholder="Your registered email address" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input id="password" type="password" [(ngModel)]="loginData.password" name="password" placeholder="Your secure password" required>
+    </div>
+    <button type="button" (click)="login()">Log In</button>
+    <p class="error" *ngIf="loginError">{{ loginError }}</p>
+  </form>
+  <p class="links">
+    <a routerLink="/password-reset">Forgot your password?</a><br>
+    Don't have an account? <a routerLink="/signup">Sign Up</a>
+  </p>
+  <p class="footer"><a routerLink="/privacy">Privacy Policy</a></p>
+</div>import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-login',
+  standalone: true,
+  imports: [FormsModule, RouterLink], // FormsModule for ngModel
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent {
+  loginData = {
+    email: '',
+    password: ''
+  };
+
+  loginError: string = '';
+
+  login(): void {
+    if (this.loginData.email && this.loginData.password) {
+      console.log('Login Attempt:', this.loginData);
+      this.loginError = '';
+    } else {
+      this.loginError = 'Please enter both email and password.';
+    }
+  }
+}<div class="password-reset-container">
+  <h1>Forgot your password? No problem!</h1>
+  <p class="subheadline">Enter your registered email address below and we'll send you instructions to reset it.</p>
+  <form class="reset-form">
+    <div class="form-group">
+      <label for="email">Email Address:</label>
+      <input id="email" type="email" [(ngModel)]="email" name="email" placeholder="yourname@example.com" required>
+    </div>
+    <button type="button" (click)="resetPassword()">Reset Password</button>
+    <p class="success" *ngIf="message">{{ message }}</p>
+    <p class="error" *ngIf="error">{{ error }}</p>
+  </form>
+  <p class="small-print">
+    We take your security seriously. This process is encrypted for your protection.<br>
+    <a routerLink="/privacy">Privacy Policy</a> | <a routerLink="/faq">Help/FAQ</a>
+  </p>
+</div>import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-password-reset',
+  standalone: true,
+  imports: [FormsModule, RouterLink], // FormsModule for ngModel
+  templateUrl: './password-reset.component.html',
+  styleUrls: ['./password-reset.component.css']
+})
+export class PasswordResetComponent {
+  email: string = '';
+  message: string = '';
+  error: string = '';
+
+  resetPassword(): void {
+    if (this.email) {
+      this.message = 'Password reset link sent to ' + this.email;
+      this.error = '';
+      console.log('Reset Password Requested:', this.email);
+    } else {
+      this.error = 'Please enter your email.';
+      this.message = '';
+    }
+  }
+}<div class="signup-container">
+  <!-- Headline and Subheadline -->
+  <h1>Unlock Seamless Booking for You and Your Customers</h1>
+  <p class="subheadline">Join Nexora and experience effortless appointment scheduling. Whether you're a business looking to streamline your operations or a customer seeking convenient booking, Nexora has you covered.</p>
+
+  <!-- Signup Form -->
+  <form class="signup-form">
+    <div class="form-group">
+      <label>Account Type:</label>
+      <div class="radio-group">
+        <label>
+          <input type="radio" [(ngModel)]="signupData.accountType" name="accountType" value="customer" checked>
+          (Customer) Book with Ease
+        </label>
+        <label>
+          <input type="radio" [(ngModel)]="signupData.accountType" name="accountType" value="business">
+          (Business) Get Booked Effortlessly
+        </label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="fullName">Full Name:</label>
+      <input id="fullName" type="text" [(ngModel)]="signupData.fullName" name="fullName" placeholder="Your Full Name" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email Address:</label>
+      <input id="email" type="email" [(ngModel)]="signupData.email" name="email" placeholder="Your Email" required>
+      <small>Your information is securely encrypted.</small>
+    </div>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input id="password" type="password" [(ngModel)]="signupData.password" name="password" placeholder="Enter Your Password" required>
+    </div>
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password:</label>
+      <input id="confirmPassword" type="password" [(ngModel)]="signupData.confirmPassword" name="confirmPassword" placeholder="Confirm Your Password" required>
+    </div>
+    <div class="form-group" *ngIf="signupData.accountType === 'business'">
+      <label for="businessName">Business Name:</label>
+      <input id="businessName" type="text" [(ngModel)]="signupData.businessName" name="businessName" placeholder="Your Business Name">
+    </div>
+    <div class="form-group">
+      <label for="phoneNumber">Phone Number (Optional):</label>
+      <input id="phoneNumber" type="tel" [(ngModel)]="signupData.phoneNumber" name="phoneNumber" placeholder="+91 1234567890">
+    </div>
+    <div class="form-group consent">
+      <label>
+        <input type="checkbox" [(ngModel)]="signupData.termsConsent" name="termsConsent" required>
+        I agree to the Nexora <a routerLink="/terms">Terms of Service</a> and <a routerLink="/privacy">Privacy Policy</a>.
+      </label>
+    </div>
+    <div class="form-group consent">
+      <label>
+        <input type="checkbox" [(ngModel)]="signupData.marketingConsent" name="marketingConsent">
+        Subscribe to our newsletter for exclusive offers and updates.
+      </label>
+    </div>
+    <button type="button" (click)="signup()" [disabled]="!signupData.termsConsent">Sign Up Now</button>
+    <p class="error" *ngIf="signupError">{{ signupError }}</p>
+  </form>
+
+  <!-- Small Text Links -->
+  <p class="links">
+    Already have an account? <a routerLink="/login">Login Here</a><br>
+    Learn more about Nexora <a routerLink="/about">Here</a>
+  </p>
+</div>import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-signup',
+  standalone: true,
+  imports: [FormsModule, RouterLink], // FormsModule for ngModel, RouterLink for links
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.css']
+})
+export class SignupComponent {
+  signupData = {
+    accountType: 'customer', // Default to customer
+    fullName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    businessName: '',
+    phoneNumber: '',
+    termsConsent: false,
+    marketingConsent: false
+  };
+
+  signupError: string = '';
+
+  signup(): void {
+    if (!this.signupData.termsConsent) {
+      this.signupError = 'You must agree to the Terms of Service and Privacy Policy.';
+      return;
+    }
+    if (this.signupData.email && this.signupData.password && this.signupData.password === this.signupData.confirmPassword) {
+      console.log('Signup Attempt:', this.signupData);
+      this.signupError = '';
+    } else if (!this.signupData.email || !this.signupData.password) {
+      this.signupError = 'Please fill in all required fields.';
+    } else {
+      this.signupError = 'Passwords do not match.';
+    }
+  }
+}<div class="confirmation-container">
+  <h1>Almost there! Just a few details so we can finalize your booking.</h1>
+  <p>We need some information from you to complete your booking. Please fill out the form below accurately.</p>
+  <form class="customer-form">
+    <div class="form-group">
+      <label for="firstName">First Name:</label>
+      <input id="firstName" type="text" [(ngModel)]="customerInfo.firstName" name="firstName" required>
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last Name:</label>
+      <input id="lastName" type="text" [(ngModel)]="customerInfo.lastName" name="lastName" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email Address:</label>
+      <input id="email" type="email" [(ngModel)]="customerInfo.email" name="email" required>
+    </div>
+    <div class="form-group">
+      <label for="phoneNumber">Phone Number:</label>
+      <input id="phoneNumber" type="tel" [(ngModel)]="customerInfo.phoneNumber" name="phoneNumber" required>
+    </div>
+    <div class="form-group">
+      <label for="address">Address:</label>
+      <input id="address" type="text" [(ngModel)]="customerInfo.address" name="address">
+    </div>
+    <div class="form-group">
+      <label for="city">City:</label>
+      <input id="city" type="text" [(ngModel)]="customerInfo.city" name="city">
+    </div>
+    <div class="form-group">
+      <label for="state">State/Province:</label>
+      <input id="state" type="text" [(ngModel)]="customerInfo.state" name="state">
+    </div>
+    <div class="form-group">
+      <label for="zipCode">Zip/Postal Code:</label>
+      <input id="zipCode" type="text" [(ngModel)]="customerInfo.zipCode" name="zipCode">
+    </div>
+    <div class="form-group">
+      <label for="notes">Notes/Special Requests:</label>
+      <textarea id="notes" [(ngModel)]="customerInfo.notes" name="notes" placeholder="Any specific needs"></textarea>
+    </div>
+    <div class="form-group consent">
+      <label>
+        <input type="checkbox" [(ngModel)]="customerInfo.termsConsent" name="termsConsent" required>
+        I have read and agree to the <a routerLink="/terms">Terms of Service</a> and <a routerLink="/privacy">Privacy Policy</a>.
+      </label>
+    </div>
+  </form>
+  <h2>Review Your Booking Details</h2>
+  <p>Please review the details below to ensure everything is correct. Once confirmed, you'll be one step closer to your appointment!</p>
+  <div class="booking-details">
+    <p><strong>Service:</strong> {{ bookingDetails.service }}</p>
+    <p><strong>Staff:</strong> {{ bookingDetails.staff }}</p>
+    <p><strong>Date:</strong> {{ bookingDetails.date | date:'medium' }}</p>
+    <p><strong>Price:</strong> ${{ bookingDetails.price }}</p>
+  </div>
+  <button (click)="confirmBooking()" [disabled]="!customerInfo.termsConsent">Confirm Booking</button>
+  <button class="edit-btn">Edit Booking</button>
+  <p class="gdpr-note">We will use your personal information to process your booking, provide customer support, and send you related notifications.</p>
+</div>import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-confirmation',
+  standalone: true,
+  imports: [FormsModule, RouterLink], // FormsModule for form
+  templateUrl: './confirmation.component.html',
+  styleUrls: ['./confirmation.component.css']
+})
+export class ConfirmationComponent {
+  customerInfo = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    address: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    notes: '',
+    termsConsent: false
+  };
+
+  bookingDetails = {
+    service: 'Haircut',
+    staff: 'Jane Doe',
+    date: new Date(),
+    price: 25
+  };
+
+  confirmBooking(): void {
+    if (this.customerInfo.termsConsent) {
+      console.log('Booking Confirmed:', { customer: this.customerInfo, details: this.bookingDetails });
+    } else {
+      console.log('Terms consent required');
+    }
+  }
+}<div class="management-container">
+  <h1>Manage Your Appointments with Ease</h1>
+  <p class="subheadline">View, reschedule, or cancel your appointments quickly and conveniently.</p>
+  <div class="appointments" *ngIf="bookings.length > 0; else noBookings">
+    <table>
+      <thead>
+        <tr>
+          <th>Date & Time</th>
+          <th>Service/Item</th>
+          <th>Provider</th>
+          <th>Location</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let booking of bookings">
+          <td>{{ booking.date | date:'short' }}</td>
+          <td>{{ booking.service }}</td>
+          <td>{{ booking.staff }}</td>
+          <td>{{ booking.location }}</td>
+          <td>
+            <button (click)="viewDetails(booking)">View Details</button>
+            <button (click)="cancelBooking(booking.id)">Cancel</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="details" *ngIf="selectedBooking">
+      <h2>Appointment Details</h2>
+      <p><strong>Appointment ID:</strong> {{ selectedBooking.id }}</p>
+      <p><strong>Date & Time:</strong> {{ selectedBooking.date | date:'medium' }}</p>
+      <p><strong>Service/Item:</strong> {{ selectedBooking.service }}</p>
+      <p><strong>Provider:</strong> {{ selectedBooking.staff }}</p>
+      <p><strong>Location:</strong> {{ selectedBooking.location }}</p>
+      <p><strong>Cost:</strong> ${{ selectedBooking.cost }}</p>
+      <p><strong>Notes:</strong> {{ selectedBooking.notes || 'None' }}</p>
+      <button>Reschedule Appointment</button>
+      <button (click)="cancelBooking(selectedBooking.id)">Cancel Appointment</button>
+    </div>
+  </div>
+  <ng-template #noBookings>
+    <p>You currently have no upcoming appointments. <a routerLink="/booking/service-selection">Book Now</a></p>
+  </ng-template>
+</div>import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-management',
+  standalone: true,
+  imports: [RouterLink], // For links
+  templateUrl: './management.component.html',
+  styleUrls: ['./management.component.css']
+})
+export class ManagementComponent {
+  bookings = [
+    { id: 1, service: 'Haircut', staff: 'Jane Doe', date: new Date(), location: 'Salon A', cost: 25, notes: '' }
+  ];
+
+  selectedBooking: any = null;
+
+  cancelBooking(id: number): void {
+    this.bookings = this.bookings.filter(b => b.id !== id);
+    console.log('Booking Cancelled:', id);
+  }
+
+  viewDetails(booking: any): void {
+    this.selectedBooking = booking;
+  }
+}<div class="payment-container">
+  <h1>Complete Your Booking with Confidence</h1>
+  <p>Your payment is processed securely through our trusted payment gateway. We accept Visa, Mastercard, American Express, and PayPal. Your financial information is encrypted and protected.</p>
+  <div class="payment-details">
+    <p><strong>Amount:</strong> {{ paymentDetails.currency }} {{ paymentDetails.amount }}</p>
+  </div>
+  <form class="payment-form">
+    <div class="form-group">
+      <label for="cardNumber">Card Number:</label>
+      <input id="cardNumber" type="text" #cardNumber placeholder="XXXX-XXXX-XXXX-XXXX" required>
+    </div>
+    <button type="button" (click)="processPayment(cardNumber.value)">Pay Now</button>
+    <button class="cancel-btn">Cancel & Return to Booking</button>
+    <p class="error" *ngIf="paymentError">{{ paymentError }}</p>
+  </form>
+  <p class="security">Secured by SSL | <a routerLink="/privacy">Privacy Policy</a></p>
+</div>import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-payment',
+  standalone: true,
+  imports: [RouterLink], // For link
+  templateUrl: './payment.component.html',
+  styleUrls: ['./payment.component.css']
+})
+export class PaymentComponent {
+  paymentDetails = {
+    amount: 25,
+    currency: 'USD'
+  };
+
+  paymentError: string = '';
+
+  processPayment(cardNumber: string): void {
+    if (cardNumber) {
+      console.log('Payment Processed:', { ...this.paymentDetails, cardNumber });
+      this.paymentError = '';
+    } else {
+      this.paymentError = 'Please enter a valid card number.';
+    }
+  }
+}<div class="service-selection-container">
+  <h1>Select Your Service</h1>
+  <div class="services">
+    <div *ngFor="let service of services" class="service-card" (click)="selectService(service.id)">
+      <h3>{{ service.name }}</h3>
+      <p>{{ service.duration }} mins - ${{ service.price }}</p>
+      <span *ngIf="selectedService?.id === service.id" class="selected">Selected</span>
+    </div>
+  </div>
+</div>import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-service-selection',
+  standalone: true,
+  templateUrl: './service-selection.component.html',
+  styleUrls: ['./service-selection.component.css']
+})
+export class ServiceSelectionComponent {
+  services = [
+    { id: 1, name: 'Haircut', duration: 30, price: 25 },
+    { id: 2, name: 'Massage', duration: 60, price: 50 }
+  ];
+
+  selectedService: { id: number; name: string; duration: number; price: number } | null = null;
+
+  selectService(id: number): void {
+    this.selectedService = this.services.find(s => s.id === id) || null;
+    console.log('Service Selected:', this.selectedService);
+  }
+}<div class="staff-selection-container">
+  <h1>Choose Your Expert</h1>
+  <p class="subheadline">Personalize your experience by selecting a specific member of our team. If you don’t have a preference, you can skip this step.</p>
+  <div class="staff">
+    <div *ngFor="let staffMember of staff" class="staff-card">
+      <img src="/assets/images/staff-placeholder.png" alt="{{ staffMember.name }}" class="headshot">
+      <h3>{{ staffMember.name }}</h3>
+      <p>{{ staffMember.role }}</p>
+      <p class="bio">{{ staffMember.bio }}</p>
+      <button (click)="selectStaff(staffMember.id)">Select {{ staffMember.name }}</button>
+      <span *ngIf="selectedStaff?.id === staffMember.id" class="selected">Selected</span>
+    </div>
+  </div>
+  <button class="skip-btn">Continue Without Selecting Staff</button>
+  <p class="gdpr-note">Your staff selection helps us personalize your service. See our <a routerLink="/privacy">Privacy Policy</a> for details.</p>
+</div>import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-staff-selection',
+  standalone: true,
+  imports: [RouterLink], // For Privacy Policy link
+  templateUrl: './staff-selection.component.html',
+  styleUrls: ['./staff-selection.component.css']
+})
+export class StaffSelectionComponent {
+  staff = [
+    { id: 1, name: 'Jane Doe', role: 'Senior Stylist', bio: 'Jane has over 10 years of experience in styling and coloring.' },
+    { id: 2, name: 'John Smith', role: 'Massage Therapist', bio: 'John is known for his deep tissue massage expertise.' }
+  ];
+
+  selectedStaff: { id: number; name: string; role: string; bio: string } | null = null;
+
+  selectStaff(id: number): void {
+    this.selectedStaff = this.staff.find(s => s.id === id) || null;
+    console.log('Staff Selected:', this.selectedStaff);
+  }
+}<div class="success-container">
+  <h1>Your Appointment is Scheduled!</h1>
+  <p>We're excited to confirm your appointment!</p>
+  <div class="confirmation-details">
+    <p><strong>Service:</strong> {{ bookingConfirmation.service }}</p>
+    <p><strong>Staff:</strong> {{ bookingConfirmation.staff }}</p>
+    <p><strong>Date & Time:</strong> {{ bookingConfirmation.date | date:'medium' }}</p>
+    <p><strong>Location:</strong> {{ bookingConfirmation.location }}</p>
+    <p><strong>Your Booking Reference:</strong> {{ bookingConfirmation.confirmationId }}</p>
+  </div>
+  <p>You'll receive a confirmation email with all the details. Need to reschedule or cancel? Use the link in your confirmation email or visit your <a routerLink="/booking/management">Booking Management Page</a>.</p>
+</div>import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-success',
+  standalone: true,
+  imports: [RouterLink], // For link
+  templateUrl: './success.component.html',
+  styleUrls: ['./success.component.css']
+})
+export class SuccessComponent {
+  bookingConfirmation = {
+    service: 'Haircut',
+    staff: 'Jane Doe',
+    date: new Date(),
+    location: 'Salon A, 123 Main St',
+    confirmationId: 'NX-123456'
+  };
+}<div class="time-slot-selection-container">
+  <h1>Find Your Perfect Time Slot</h1>
+  <p class="subheadline">Effortlessly schedule your appointment with Nexora. Select a date and time below, and let's get started!</p>
+  <div class="time-slots">
+    <button *ngFor="let slot of timeSlots" 
+            (click)="selectTime(slot.time)" 
+            [disabled]="!slot.available"
+            [class.selected]="selectedTime === slot.time">
+      {{ slot.time }} {{ slot.available ? '' : '(Booked)' }}
+    </button>
+  </div>
+  <button class="continue-btn">Continue to Booking Details</button>
+  <p class="gdpr-note">By continuing, you agree to our <a routerLink="/terms">Terms of Service</a> and <a routerLink="/privacy">Privacy Policy</a>.</p>
+</div>import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-time-slot-selection',
+  standalone: true,
+  imports: [RouterLink], // For links
+  templateUrl: './time-slot-selection.component.html',
+  styleUrls: ['./time-slot-selection.component.css']
+})
+export class TimeSlotSelectionComponent {
+  timeSlots = [
+    { time: '10:00 AM', available: true },
+    { time: '11:00 AM', available: false },
+    { time: '2:00 PM', available: true }
+  ];
+
+  selectedTime: string | null = null;
+
+  selectTime(time: string): void {
+    const slot = this.timeSlots.find(s => s.time === time);
+    if (slot && slot.available) {
+      this.selectedTime = time;
+      console.log('Time Selected:', this.selectedTime);
+    }
+  }
+}<div class="about-container">
+  <!-- Header and Body Section -->
+  <section class="about-content">
+    <h1>{{ headline }}</h1>
+    <p>{{ body }}</p>
+    <a routerLink="/signup" class="btn">Start Your Free Trial</a>
+  </section>
+
+  <!-- Visual Section -->
+  <section class="about-visual">
+    <img src="/assets/images/team-collaboration.png" alt="Nexora Team Working Collaboratively" class="team-image">
+  </section>
+</div>import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-about',
+  standalone: true,
+  imports: [RouterLink], // For CTA link
+  templateUrl: './about.component.html',
+  styleUrls: ['./about.component.css']
+})
+export class AboutComponent {
+  headline = 'Discover the Nexora Difference';
+  body = "Nexora empowers businesses like yours with a seamless, white-labeled booking experience. We're dedicated to providing a user-friendly platform that enhances customer satisfaction and streamlines your operations.";
+}<div class="contact-container">
+  <h1>Need Help? We're Here.</h1>
+
+  <!-- General Inquiries Section -->
+  <section class="general-inquiries">
+    <h2>General Inquiries</h2>
+    <p>Have questions about Nexora or need assistance? Our team is ready to help.</p>
+    <form class="contact-form">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input id="name" type="text" [(ngModel)]="formData.name" name="name" placeholder="Your Name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input id="email" type="email" [(ngModel)]="formData.email" name="email" placeholder="Your Email" required>
+      </div>
+      <div class="form-group">
+        <label for="subject">Subject:</label>
+        <input id="subject" type="text" [(ngModel)]="formData.subject" name="subject" placeholder="Subject" required>
+      </div>
+      <div class="form-group">
+        <label for="message">Message:</label>
+        <textarea id="message" [(ngModel)]="formData.message" name="message" placeholder="Your Message" rows="4" required></textarea>
+      </div>
+      <div class="form-group consent">
+        <label>
+          <input type="checkbox" [(ngModel)]="formData.consent" name="consent" required>
+          I consent to Nexora collecting and using my data to respond to my inquiry. See our <a routerLink="/privacy">Privacy Policy</a> for details.
+        </label>
+      </div>
+      <button type="button" (click)="submitContact()" [disabled]="!formData.consent">Send Message</button>
+    </form>
+  </section>
+
+  <!-- Support Section -->
+  <section class="support">
+    <h2>Support</h2>
+    <p>For technical support or issues with your booking system, please use the form above or email us directly at <a href="mailto:{{ contactDetails.supportEmail }}">{{ contactDetails.supportEmail }}</a>. Or <a href="#">Click To Chat</a>.</p>
+  </section>
+
+  <!-- Sales Section -->
+  <section class="sales">
+    <h2>Sales</h2>
+    <p>Interested in learning more about how Nexora can benefit your business? Contact our sales team.</p>
+    <p>Call: <a href="tel:{{ contactDetails.phone }}">{{ contactDetails.phone }}</a></p>
+  </section>
+</div>import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-contact',
+  standalone: true,
+  imports: [RouterLink, FormsModule], // Added FormsModule for ngModel
+  templateUrl: './contact.component.html',
+  styleUrls: ['./contact.component.css']
+})
+export class ContactComponent {
+  contactDetails = {
+    email: 'info@nexora.com',      // Your provided email
+    phone: '+91 6355552828',       // Your provided phone
+    supportEmail: 'support@nexora.com' // Placeholder support email; adjust if different
+  };
+
+  formData = {
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+    consent: false
+  };
+
+  submitContact(): void {
+    if (this.formData.consent) {
+      console.log('Contact Form Submitted:', this.formData);
+      // Reset form after submission
+      this.formData = { name: '', email: '', subject: '', message: '', consent: false };
+    } else {
+      console.log('Consent required to submit form');
+    }
+  }
+}<div class="cookie-container">
+  <!-- Headline and Intro -->
+  <h1>We Use Cookies to Enhance Your Nexora Experience</h1>
+  <p *ngFor="let paragraph of intro" class="intro">{{ paragraph }}</p>
+
+  <!-- Sections -->
+  <div class="policy-sections">
+    <div *ngFor="let section of sections" class="section">
+      <h2>{{ section.title }}</h2>
+      <div *ngIf="section.subSections" class="sub-sections">
+        <div *ngFor="let sub of section.subSections" class="sub-section">
+          <h3>{{ sub.name }}</h3>
+          <p>{{ sub.description }}</p>
+        </div>
+      </div>
+      <p *ngIf="section.content">
+        {{ section.content }}
+        <a *ngIf="section.link" [href]="section.link" target="_blank">{{ section.content }}</a>
+        <span *ngIf="section.links">
+          <a *ngFor="let link of section.links" [href]="link.url" target="_blank">{{ link.text }}</a>
+        </span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <p class="last-updated">Last Updated: {{ lastUpdated }}</p>
+</div>import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-cookie',
+  standalone: true,
+  templateUrl: './cookie.component.html',
+  styleUrls: ['./cookie.component.css']
+})
+export class CookieComponent {
+  intro = [
+    'This website uses cookies to improve your browsing experience, personalize content, and analyze our traffic. Cookies are small text files that are stored on your device.',
+    'By using Nexora, you consent to our use of cookies as described in this policy.'
+  ];
+
+  sections = [
+    {
+      title: 'What are Cookies?',
+      content: 'Learn More about Cookies', // Placeholder for external link
+      link: 'https://www.allaboutcookies.org/' // Example external link; adjust as needed
+    },
+    {
+      title: 'How We Use Cookies',
+      subSections: [
+        { name: 'Essential Cookies', description: 'These cookies are necessary for the basic functionality of the website, such as session management and security.' },
+        { name: 'Performance Cookies', description: 'These cookies help us understand how you use our website, allowing us to improve its performance and user experience. Example: Analyzing which pages are most popular.' },
+        { name: 'Functionality Cookies', description: 'These cookies enable us to remember your preferences, such as language settings, to provide a more personalized experience.' }
+        // Marketing Cookies omitted unless confirmed
+      ]
+    },
+    {
+      title: 'Managing Cookies',
+      content: 'You can control and manage cookies in your browser settings. You can choose to block all cookies or only allow certain types. Please note that blocking essential cookies may impact your ability to use some features of this website.',
+      links: [
+        { text: 'Manage Cookies in Chrome', url: 'https://support.google.com/chrome/answer/95647' },
+        { text: 'Manage Cookies in Firefox', url: 'https://support.mozilla.org/en-US/kb/cookies-information-websites-store-on-your-computer' }
+      ]
+    },
+    {
+      title: 'Changes to this Cookie Policy',
+      content: 'We may update this Cookie Policy from time to time. Any changes will be posted on this page.'
+    },
+    {
+      title: 'Contact Us',
+      content: 'If you have any questions about our Cookie Policy, please contact us at info@nexora.com.'
+    }
+  ];
+
+  lastUpdated = 'March 3, 2025'; // Example date; adjust as needed
+}<div class="faq-container">
+  <!-- Introduction Section -->
+  <h1>Frequently Asked Questions</h1>
+  <p>{{ intro }} <a routerLink="/contact">Contact Us</a></p>
+
+  <!-- FAQ List Section with Accordion -->
+  <div class="faq-list">
+    <div *ngFor="let faq of faqs; let i = index" class="faq-item">
+      <h3 (click)="faq.expanded = !faq.expanded" class="faq-question">
+        {{ faq.question }}
+        <span class="toggle-icon">{{ faq.expanded ? '−' : '+' }}</span>
+      </h3>
+      <p *ngIf="faq.expanded" class="faq-answer">
+        {{ faq.answer }}
+        <span *ngIf="faq.question === 'How do I cancel or reschedule my appointment?'">
+          <a routerLink="/terms">Terms of Service</a>
+        </span>
+        <span *ngIf="faq.question === 'Is my personal information secure?'">
+          <a routerLink="/privacy">Privacy Policy</a>
+        </span>
+        <span *ngIf="faq.question === 'What are cookies and how do you use them?'">
+          <a routerLink="/cookie">Cookie Policy</a>
+        </span>
+        <span *ngIf="faq.question === 'How do I contact support?'">
+          <a routerLink="/contact">Contact Us</a>
+        </span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Bottom CTA -->
+  <p class="bottom-cta">Still need help? <a routerLink="/contact">Contact Us</a></p>
+</div>import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-faq',
+  standalone: true,
+  imports: [RouterLink],
+  templateUrl: './faq.component.html',
+  styleUrls: ['./faq.component.css']
+})
+export class FaqComponent {
+  intro = "Got questions? We've got answers! Find quick solutions to common inquiries about using Nexora for your booking needs. If you can't find what you're looking for, please don't hesitate to contact us.";
+
+  faqs = [
+    { question: 'How do I book an appointment?', answer: "Simply select the service you need, choose your preferred staff member (if applicable), select a date and time, and provide your contact information. You'll receive a confirmation email once your booking is complete.", expanded: false },
+    { question: 'What payment methods do you accept?', answer: 'We accept Visa, Mastercard, and PayPal.', expanded: false },
+    { question: 'How do I cancel or reschedule my appointment?', answer: "You can manage your appointments through the 'Booking Management' page link in your confirmation email, or through your profile on our website. Please refer to our Terms of Service for our cancellation policy.", expanded: false },
+    { question: 'Is my personal information secure?', answer: "Yes, your privacy is very important to us. We utilize industry-standard security measures to protect your personal information. Please review our Privacy Policy for more details on how we handle your data.", expanded: false },
+    { question: 'How do I change my email address?', answer: "You can update your email address in the 'Customer Profile' page. After changing your address, you'll receive a verification email to confirm the new account.", expanded: false },
+    { question: 'How do I change my password?', answer: "You can update your password in the 'Customer Profile' page. We recommend using a strong, unique password for security.", expanded: false },
+    { question: 'What are cookies and how do you use them?', answer: "This website uses cookies to enhance your browsing experience and provide personalized services. For details on what cookies we use and how they work, please see our Cookie Policy.", expanded: false },
+    { question: 'How do I contact support?', answer: "You can reach our support team by visiting our Contact Us page.", expanded: false }
+  ];
+}<div class="features-container">
+  <!-- Header Section -->
+  <h1>Streamline Your Business with Nexora's Powerful Booking Features</h1>
+  <p class="intro">{{ intro }}</p>
+
+  <!-- Features Section -->
+  <div class="feature-list">
+    <div *ngFor="let feature of features" class="feature-card">
+      <div class="feature-icon">
+        <!-- Placeholder for icons; replace with actual assets -->
+        <img [src]="'/assets/images/' + feature.name.toLowerCase().replace(' ', '-') + '-icon.png'" [alt]="feature.name + ' Icon'">
+      </div>
+      <h3>{{ feature.name }}</h3>
+      <p>{{ feature.description }}</p>
+      <p class="benefit">{{ feature.benefit }}</p>
+      <p class="compliance" *ngIf="feature.compliance">{{ feature.compliance }}</p>
+    </div>
+  </div>
+
+  <!-- Call to Action -->
+  <div class="cta">
+    <p>Ready to experience Nexora's powerful features?</p>
+    <a routerLink="/signup" class="btn">Start Your Free Trial</a>
+  </div>
+</div>import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-features',
+  standalone: true,
+  imports: [RouterLink], // For CTA link
+  templateUrl: './features.component.html',
+  styleUrls: ['./features.component.css']
+})
+export class FeaturesComponent {
+  intro = 'Nexora simplifies booking management for your business and provides a seamless booking experience for your customers. Discover the key features that make Nexora the perfect booking solution.';
+
+  features = [
+    {
+      name: 'Automated Scheduling',
+      description: 'Automate your scheduling process and eliminate double-bookings. Nexora intelligently manages availability across your staff and services, ensuring seamless appointment management.',
+      benefit: 'Save time, reduce errors, and keep your calendar perfectly organized.',
+      compliance: 'Data secured with end-to-end encryption to meet GDPR standards.'
+    },
+    {
+      name: 'Online Payments',
+      description: 'Securely accept online payments from your customers directly through Nexora. Integrate with leading payment gateways for hassle-free transactions.',
+      benefit: 'Get paid faster and reduce no-shows with upfront payment options.',
+      compliance: 'PCI Compliant payments.'
+    },
+    {
+      name: 'Customizable Booking Pages',
+      description: 'Create booking pages that match your brand and provide a consistent customer experience. Customize colors, logos, and messaging to reflect your unique identity.',
+      benefit: 'Enhance your brand image and create a professional booking experience.'
+    },
+    {
+      name: 'Customer Management',
+      description: 'Keep track of customers on your booking system, allowing for easy communication, booking tracking and insight into customer behaviors.',
+      benefit: 'Allow for the best customer service experience.',
+      compliance: 'Consent for data is required.'
+    },
+    {
+      name: 'Reporting & Analytics',
+      description: 'Track bookings through your business, allowing you to track revenue on a daily, weekly, or monthly basis.',
+      benefit: 'Improved insights into your revenue and customer base.'
+    },
+    {
+      name: 'Staff Management',
+      description: "Keep track of your staff's performance and revenue, and easily manage who is on shift while on the Nexora system.",
+      benefit: 'Improved workforce planning.'
+    }
+  ];
+}<div class="home-container">
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>{{ hero.headline }}</h1>
+      <p class="subheadline">{{ hero.subheadline }}</p>
+      <p class="description">{{ hero.description }}</p>
+      <div class="cta-buttons">
+        <a routerLink="/signup" class="btn primary-btn">Start Your Free Trial</a>
+        <a routerLink="/contact" class="btn secondary-btn">Request a Demo</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <!-- Placeholder for image or video -->
+      <img src="/assets/images/nexora-booking-demo.png" alt="Nexora Booking System on Devices" class="demo-image">
+      <!-- Uncomment for video option -->
+      <!-- <video controls autoplay muted loop>
+        <source src="/assets/videos/nexora-demo.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video> -->
+    </div>
+  </section>
+
+  <!-- Key Features Section -->
+  <section class="features">
+    <h2>Key Features</h2>
+    <div class="feature-list">
+      <div *ngFor="let feature of features" class="feature-card">
+        <h3>{{ feature.name }}</h3>
+        <p>{{ feature.description }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof Section -->
+  <section class="social-proof">
+    <h2>What Our Clients Say</h2>
+    <blockquote>
+      <p>"{{ testimonial.quote }}"</p>
+      <cite>- {{ testimonial.author }}</cite>
+    </blockquote>
+    <div class="client-logos">
+      <!-- Placeholder for company logos -->
+      <p>[Logos of prominent companies using Nexora]</p>
+    </div>
+  </section>
+</div>import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-home',
+  standalone: true,
+  imports: [RouterLink],
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
+})
+export class HomeComponent {
+  hero = {
+    headline: 'Unlock Seamless Booking with Nexora: Empowering Your Business',
+    subheadline: 'The white-labeled booking system designed to streamline your scheduling, delight your customers, and grow your business',
+    description: 'Nexora offers a fully customizable booking platform that seamlessly integrates into your existing website. Offer your clients a branded, effortless booking experience while optimizing your operations and maximizing revenue potential. Start your free trial today and see the difference!'
+  };
+
+  features = [
+    { name: 'Fully White-Labeled', description: 'Your brand, your experience. Seamlessly integrate Nexora into your website and create a consistent brand identity.' },
+    { name: 'Automated Scheduling', description: 'Say goodbye to double-bookings and scheduling headaches. Nexora intelligently manages availability.' },
+    { name: 'Customizable Booking Flows', description: 'Tailor the booking process to your specific needs and services.' },
+    { name: 'Secure Payment Processing', description: 'Accept payments securely and easily with integrated payment gateways.' }
+  ];
+
+  testimonial = {
+    quote: 'Nexora has transformed our booking process and saved us countless hours!',
+    author: '[Client Name], [Business Name]'
+  };
+}<div class="pricing-container">
+  <!-- Header Section -->
+  <h1>{{ 'Unlock the Power of Effortless Booking with Nexora' }}</h1>
+  <p class="subheadline">{{ 'Choose the plan that scales with your business. Simplify scheduling, boost efficiency, and delight your customers.' }}</p>
+
+  <!-- Plans Section -->
+  <div class="plans">
+    <div *ngFor="let plan of plans" class="plan-card">
+      <h2>{{ plan.name }}</h2>
+      <p class="price">{{ plan.price }}</p>
+      <p class="description">{{ plan.description }}</p>
+      <ul class="features">
+        <li *ngFor="let feature of plan.features">{{ feature }}</li>
+      </ul>
+      <a [routerLink]="plan.ctaLink" class="btn">{{ plan.cta }}</a>
+    </div>
+  </div>
+
+  <!-- Small Print Section -->
+  <div class="small-print">
+    <p>{{ smallPrint.taxNote }}</p>
+    <p>{{ smallPrint.trialNote }}</p>
+    <p>{{ smallPrint.cancelNote }}</p>
+    <p>{{ smallPrint.gdprNote }} <a routerLink="/privacy">Privacy Policy</a></p>
+  </div>
+</div>import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-pricing',
+  standalone: true,
+  imports: [RouterLink], // For CTA links
+  templateUrl: './pricing.component.html',
+  styleUrls: ['./pricing.component.css']
+})
+export class PricingComponent {
+  plans = [
+    {
+      name: 'Basic',
+      price: '$29 / month', // Placeholder price; adjust as needed
+      description: 'Perfect for solo entrepreneurs and small teams just getting started.',
+      features: ['Limited Bookings', 'One Staff Account', 'Basic Reporting'],
+      cta: 'Get Started',
+      ctaLink: '/signup'
+    },
+    {
+      name: 'Standard',
+      price: '$79 / month', // Placeholder price; adjust as needed
+      description: 'Our most popular plan - ideal for growing businesses needing more flexibility.',
+      features: ['Unlimited Bookings', 'Multiple Staff Accounts', 'Advanced Reporting', 'Email Reminders'],
+      cta: 'Upgrade Now',
+      ctaLink: '/signup'
+    },
+    {
+      name: 'Premium',
+      price: '$199 / month', // Placeholder price; adjust as needed
+      description: 'Enterprise-grade solution with dedicated support and custom features.',
+      features: ['Everything in Standard', 'Dedicated Support', 'API Access', 'Custom Integrations'],
+      cta: 'Contact Us',
+      ctaLink: '/contact'
+    }
+  ];
+
+  smallPrint = {
+    taxNote: 'Prices exclude applicable taxes.',
+    trialNote: 'All plans come with a 30-day free trial.', // Specified 30 days as an example
+    cancelNote: 'Cancel anytime, no hidden fees.',
+    gdprNote: 'We are committed to GDPR compliance and protecting your data. See our Privacy Policy for details.'
+  };
+}<div class="privacy-container">
+  <!-- Headline and Intro -->
+  <h1>Your Privacy Matters at Nexora</h1>
+  <p class="intro">{{ intro }}</p>
+
+  <!-- Sections -->
+  <div class="policy-sections">
+    <div *ngFor="let section of sections" class="section">
+      <h2>{{ section.title }}</h2>
+      <p>{{ section.content }}
+        <a *ngIf="section.title === '7. Cookies and Tracking Technologies'" routerLink="/cookie">Cookie Policy</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <p class="last-updated">Last Updated: {{ lastUpdated }}</p>
+</div>import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-privacy',
+  standalone: true,
+  imports: [RouterLink], // For Cookie Policy link
+  templateUrl: './privacy.component.html',
+  styleUrls: ['./privacy.component.css']
+})
+export class PrivacyComponent {
+  intro = 'At Nexora, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, and share your data when you use our booking platform. We are compliant with the General Data Protection Regulation (GDPR) and other applicable privacy laws. Please read this policy carefully to understand our practices.';
+
+  sections = [
+    {
+      title: '1. Information We Collect',
+      content: 'We collect your name, email address, and phone number when you create an account or make a booking. We also collect booking details such as the service selected, date, time, and any specific requirements you provide. For website analytics, we collect your IP address and device information to improve user experience (see our Cookie Policy).'
+    },
+    {
+      title: '2. How We Use Your Information',
+      content: 'We use your information to process your bookings, send booking confirmations and reminders, and communicate with you about your appointments. With your consent, we may also send you marketing emails about new services or special offers. We also use data in aggregate to improve our services and prevent fraudulent activity.'
+    },
+    {
+      title: '3. Data Sharing and Disclosure',
+      content: 'We share your information with service providers who assist us in processing payments (e.g., Stripe, PayPal), sending emails, and providing customer support. We may also disclose your information to legal authorities if required by law. We use anonymized and aggregated data with analytics partners to improve our service.'
+    },
+    {
+      title: '4. Data Security',
+      content: 'We implement industry-standard security measures to protect your data from unauthorized access, use, or disclosure. This includes encrypting sensitive data during transmission and storage, using secure servers, and implementing access controls to restrict who can access your data.'
+    },
+    {
+      title: '5. Data Retention',
+      content: 'We retain your personal information for as long as necessary to provide you with our services, comply with legal obligations (such as tax requirements), resolve disputes, and enforce our agreements. After this period, your data will be securely deleted or anonymized.'
+    },
+    {
+      title: '6. Your Rights (GDPR)',
+      content: 'Under GDPR, you have the right to access, rectify, and erase your personal data. You also have the right to restrict the processing of your data, to data portability, and to object to the processing of your data. To exercise these rights, please contact us at info@nexora.com.'
+    },
+    {
+      title: '7. Cookies and Tracking Technologies',
+      content: 'We use cookies and other tracking technologies to improve your browsing experience on our website. For more information, please see our Cookie Policy.'
+    },
+    {
+      title: '8. Changes to This Privacy Policy',
+      content: 'We may update this Privacy Policy from time to time. We will notify you of any significant changes by posting the new policy on our website and, if you are a registered user, by sending you an email.'
+    },
+    {
+      title: '9. Contact Us',
+      content: 'If you have any questions or concerns about this Privacy Policy, please contact us at: Nexora at info@nexora.com.'
+    }
+  ];
+
+  lastUpdated = 'March 3, 2025'; // Example date; adjust as needed
+}<div class="terms-container">
+  <!-- Headline -->
+  <h1>Welcome to Nexora! Please read our Terms of Service carefully.</h1>
+
+  <!-- Sections -->
+  <div class="terms-sections">
+    <div *ngFor="let section of sections" class="section">
+      <h2>{{ section.title }}</h2>
+      <p>{{ section.content }}
+        <a *ngIf="section.title === 'Acceptance of Terms'" routerLink="/privacy">Privacy Policy</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <p class="last-updated">Last Updated: {{ lastUpdated }}</p>
+</div>import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-terms',
+  standalone: true,
+  imports: [RouterLink], // For Privacy Policy link
+  templateUrl: './terms.component.html',
+  styleUrls: ['./terms.component.css']
+})
+export class TermsComponent {
+  sections = [
+    {
+      title: 'Acceptance of Terms',
+      content: 'By accessing and using Nexora, you agree to be bound by these Terms of Service, our Privacy Policy, and all applicable laws and regulations. If you do not agree with any of these terms, you are prohibited from using or accessing this service.'
+    },
+    {
+      title: 'Use License',
+      content: "Permission is granted to temporarily download one copy of the materials (information or software) on Nexora's website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license, you may not: modify or copy the materials; use the materials for any commercial purpose, or for any public display (commercial or non-commercial); attempt to decompile or reverse engineer any software contained on Nexora's website; remove any copyright or other proprietary notations from the materials; or transfer the materials to another person or 'mirror' the materials on any other server."
+    },
+    {
+      title: 'Disclaimer',
+      content: "The materials on Nexora's website are provided on an 'as is' basis. Nexora makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights."
+    },
+    {
+      title: 'Limitations',
+      content: "In no event shall Nexora or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Nexora's website, even if Nexora or a Nexora authorized representative has been notified orally or in writing of the possibility of such damage."
+    },
+    {
+      title: 'Accuracy of Materials',
+      content: "The materials appearing on Nexora's website could include technical, typographical, or photographic errors. Nexora does not warrant that any of the materials on its website are accurate, complete, or current. Nexora may make changes to the materials contained on its website at any time without notice."
+    },
+    {
+      title: 'Links',
+      content: "Nexora has not reviewed all of the sites linked to its website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by Nexora of the site. Use of any such linked website is at the user's own risk."
+    },
+    {
+      title: 'Modifications',
+      content: "Nexora may revise these terms of service for its website at any time without notice. By using this website, you are agreeing to be bound by the then-current version of these Terms of Service."
+    },
+    {
+      title: 'Governing Law',
+      content: 'These terms and conditions are governed by and construed in accordance with the laws of India, and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.' // Placeholder; adjust jurisdiction
+    },
+    {
+      title: 'Contact Us',
+      content: 'If you have any questions about these Terms of Service, please contact us at info@nexora.com.'
+    }
+  ];
+
+  lastUpdated = 'March 3, 2025'; // Example date; adjust as needed
+}import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+
+@Directive({
+  selector: '[appCustom]', // Usage: <div appCustom="red">
+  standalone: true
+})
+export class CustomDirective {
+  @Input('appCustom') color: string = 'blue'; // Default color
+
+  constructor(private el: ElementRef) {
+    this.applyStyle();
+  }
+
+  @HostListener('mouseenter') onMouseEnter() {
+    this.el.nativeElement.style.backgroundColor = this.color;
+  }
+
+  @HostListener('mouseleave') onMouseLeave() {
+    this.el.nativeElement.style.backgroundColor = '';
+  }
+
+  private applyStyle() {
+    this.el.nativeElement.style.cursor = 'pointer';
+  }
+}import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ApiService {
+  private baseUrl = environment.apiUrl; // From environment.ts or environment.prod.ts
+
+  constructor(private http: HttpClient) {}
+
+  get<T>(endpoint: string): Observable<T> {
+    return this.http.get<T>(`${this.baseUrl}/${endpoint}`);
+  }
+
+  post<T>(endpoint: string, data: any): Observable<T> {
+    return this.http.post<T>(`${this.baseUrl}/${endpoint}`, data);
+  }
+}import { Injectable } from '@angular/core';
+import { ApiService } from './api.service';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+  constructor(private api: ApiService) {}
+
+  login(email: string, password: string): Observable<any> {
+    return this.api.post('auth/login', { email, password });
+  }
+
+  signup(email: string, password: string, businessName?: string): Observable<any> {
+    return this.api.post('auth/signup', { email, password, businessName });
+  }
+
+  resetPassword(email: string): Observable<any> {
+    return this.api.post('auth/reset-password', { email });
+  }
+
+  verifyEmail(token: string): Observable<any> {
+    return this.api.post('auth/verify-email', { token });
+  }
+
+  logout(): void {
+    // Placeholder for logout logic (e.g., clear local storage)
+    console.log('User logged out');
+  }
+}import { Injectable } from '@angular/core';
+import { ApiService } from './api.service';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class BookingService {
+  constructor(private api: ApiService) {}
+
+  getServices(): Observable<any[]> {
+    return this.api.get('bookings/services');
+  }
+
+  getStaff(): Observable<any[]> {
+    return this.api.get('bookings/staff');
+  }
+
+  getTimeSlots(date: string): Observable<any[]> {
+    return this.api.get(`bookings/time-slots?date=${date}`);
+  }
+
+  createBooking(booking: any): Observable<any> {
+    return this.api.post('bookings', booking);
+  }
+
+  getBookings(): Observable<any[]> {
+    return this.api.get('bookings');
+  }
+
+  cancelBooking(id: number): Observable<any> {
+    return this.api.post(`bookings/${id}/cancel`, {});
+  }
+}ECHO is on.
+export const environment = {
+    production: true,
+    apiUrl: 'https://your-production-api.com/api', // Replace with your live backend API URL
+    stripePublicKey: 'your_stripe_live_public_key' // Replace with your Stripe live key
+  };export const environment = {
+    production: false,
+    apiUrl: 'http://localhost:3000/api', // Local backend API URL
+    stripePublicKey: 'your_stripe_test_public_key' // Replace with your Stripe test key
+  };

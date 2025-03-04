@@ -1,33 +1,32 @@
-<div class="faq-container">
-  <!-- Introduction Section -->
-  <h1>Frequently Asked Questions</h1>
-  <p>{{ intro }} <a routerLink="/contact">Contact Us</a></p>
+<section class="section">
+  <div class="container">
+    <h1 class="title is-1">Frequently Asked Questions</h1>
+    <p class="content">{{ intro }} <a routerLink="/contact" class="is-link">Contact Us</a></p>
 
-  <!-- FAQ List Section with Accordion -->
-  <div class="faq-list">
-    <div *ngFor="let faq of faqs; let i = index" class="faq-item">
-      <h3 (click)="faq.expanded = !faq.expanded" class="faq-question">
-        {{ faq.question }}
-        <span class="toggle-icon">{{ faq.expanded ? '−' : '+' }}</span>
-      </h3>
-      <p *ngIf="faq.expanded" class="faq-answer">
-        {{ faq.answer }}
-        <span *ngIf="faq.question === 'How do I cancel or reschedule my appointment?'">
-          <a routerLink="/terms">Terms of Service</a>
-        </span>
-        <span *ngIf="faq.question === 'Is my personal information secure?'">
-          <a routerLink="/privacy">Privacy Policy</a>
-        </span>
-        <span *ngIf="faq.question === 'What are cookies and how do you use them?'">
-          <a routerLink="/cookie">Cookie Policy</a>
-        </span>
-        <span *ngIf="faq.question === 'How do I contact support?'">
-          <a routerLink="/contact">Contact Us</a>
-        </span>
-      </p>
+    <div class="box">
+      <div *ngFor="let faq of faqs; let i = index" class="faq-item">
+        <h3 class="title is-4" (click)="faq.expanded = !faq.expanded" [class.has-text-primary]="faq.expanded">
+          {{ faq.question }}
+          <span class="tag is-light">{{ faq.expanded ? '−' : '+' }}</span>
+        </h3>
+        <div *ngIf="faq.expanded" class="content">
+          <p>{{ faq.answer }}</p>
+          <span *ngIf="faq.question === 'How do I cancel or reschedule my appointment?'">
+            <a routerLink="/terms" class="is-link">Terms of Service</a>
+          </span>
+          <span *ngIf="faq.question === 'Is my personal information secure?'">
+            <a routerLink="/privacy" class="is-link">Privacy Policy</a>
+          </span>
+          <span *ngIf="faq.question === 'What are cookies and how do you use them?'">
+            <a routerLink="/cookie" class="is-link">Cookie Policy</a>
+          </span>
+          <span *ngIf="faq.question === 'How do I contact support?'">
+            <a routerLink="/contact" class="is-link">Contact Us</a>
+          </span>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <!-- Bottom CTA -->
-  <p class="bottom-cta">Still need help? <a routerLink="/contact">Contact Us</a></p>
-</div>
+    <p class="content">Still need help? <a routerLink="/contact" class="is-link">Contact Us</a></p>
+  </div>
+</section>

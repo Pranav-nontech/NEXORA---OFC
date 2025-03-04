@@ -1,25 +1,33 @@
-<div class="features-container">
-  <!-- Header Section -->
-  <h1>Streamline Your Business with Nexora's Powerful Booking Features</h1>
-  <p class="intro">{{ intro }}</p>
+<section class="section">
+  <div class="container">
+    <h1 class="title is-1">Streamline Your Business with Nexora's Powerful Booking Features</h1>
+    <p class="content is-size-5">{{ intro }}</p>
 
-  <!-- Features Section -->
-  <div class="feature-list">
-    <div *ngFor="let feature of features" class="feature-card">
-      <div class="feature-icon">
-        <!-- Placeholder for icons; replace with actual assets -->
-        <img [src]="'/assets/images/' + feature.name.toLowerCase().replace(' ', '-') + '-icon.png'" [alt]="feature.name + ' Icon'">
+    <div class="columns is-multiline">
+      <div *ngFor="let feature of features" class="column is-4">
+        <div class="card">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-48x48">
+                  <img [src]="'/assets/images/' + feature.name.toLowerCase().replace(' ', '-') + '-icon.png'" [alt]="feature.name + ' Icon'">
+                </figure>
+              </div>
+              <div class="media-content">
+                <h3 class="title is-4">{{ feature.name }}</h3>
+              </div>
+            </div>
+            <p class="content">{{ feature.description }}</p>
+            <p class="content has-text-weight-bold">{{ feature.benefit }}</p>
+            <p class="content has-text-grey" *ngIf="feature.compliance">{{ feature.compliance }}</p>
+          </div>
+        </div>
       </div>
-      <h3>{{ feature.name }}</h3>
-      <p>{{ feature.description }}</p>
-      <p class="benefit">{{ feature.benefit }}</p>
-      <p class="compliance" *ngIf="feature.compliance">{{ feature.compliance }}</p>
+    </div>
+
+    <div class="has-text-centered">
+      <p class="content">Ready to experience Nexora's powerful features?</p>
+      <a routerLink="/signup" class="button is-primary is-medium">Start Your Free Trial</a>
     </div>
   </div>
-
-  <!-- Call to Action -->
-  <div class="cta">
-    <p>Ready to experience Nexora's powerful features?</p>
-    <a routerLink="/signup" class="btn">Start Your Free Trial</a>
-  </div>
-</div>
+</section>

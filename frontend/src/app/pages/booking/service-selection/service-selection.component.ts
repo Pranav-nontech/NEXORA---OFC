@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { BookingService } from '../../../shared/services/booking.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-service-selection',
@@ -14,8 +16,13 @@ export class ServiceSelectionComponent {
 
   selectedService: { id: number; name: string; duration: number; price: number } | null = null;
 
+  constructor(private bookingService: BookingService, private router: Router) {}
+
   selectService(id: number): void {
     this.selectedService = this.services.find(s => s.id === id) || null;
-    console.log('Service Selected:', this.selectedService);
+    if (this.selectedService) {
+      this.bookingService.setService(this.selectedService);
+      this.router.navigate(['/booking/staff-selection']);
+    }
   }
 }

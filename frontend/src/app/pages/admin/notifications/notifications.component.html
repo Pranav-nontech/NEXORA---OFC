@@ -1,18 +1,30 @@
-<div class="notifications-container">
-    <h1>Notification Settings</h1>
-    <form>
-      <div class="form-group">
-        <label for="emailEnabled">Email Notifications:</label>
-        <input id="emailEnabled" type="checkbox" [(ngModel)]="notificationSettings.emailEnabled" name="emailEnabled">
-      </div>
-      <div class="form-group">
-        <label for="smsEnabled">SMS Notifications:</label>
-        <input id="smsEnabled" type="checkbox" [(ngModel)]="notificationSettings.smsEnabled" name="smsEnabled">
-      </div>
-      <div class="form-group">
-        <label for="reminderHours">Reminder (Hours Before):</label>
-        <input id="reminderHours" type="number" [(ngModel)]="notificationSettings.reminderHours" name="reminderHours" min="1">
-      </div>
-      <button type="button" (click)="saveNotificationSettings()">Save</button>
-    </form>
+<section class="section">
+  <div class="container">
+    <h1 class="title is-1">Notification Settings</h1>
+    <div class="box">
+      <form>
+        <div class="field">
+          <label class="checkbox">
+            <input id="emailEnabled" type="checkbox" [(ngModel)]="notificationSettings.emailEnabled" name="emailEnabled">
+            Email Notifications
+          </label>
+        </div>
+        <div class="field">
+          <label class="checkbox">
+            <input id="smsEnabled" type="checkbox" [(ngModel)]="notificationSettings.smsEnabled" name="smsEnabled">
+            SMS Notifications
+          </label>
+        </div>
+        <div class="field">
+          <label class="label" for="reminderHours">Reminder (Hours Before):</label>
+          <div class="control">
+            <input class="input" id="reminderHours" type="number" [(ngModel)]="notificationSettings.reminderHours" name="reminderHours" min="1">
+          </div>
+        </div>
+        <div class="field">
+          <button class="button is-primary" type="button" (click)="saveNotificationSettings()">Save</button>
+        </div>
+      </form>
+    </div>
   </div>
+</section>

@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
+import { BookingService } from '../../../shared/services/booking.service';
 
 @Component({
   selector: 'app-time-slot-selection',
   standalone: true,
-  imports: [RouterLink], // For links
+  imports: [RouterLink],
   templateUrl: './time-slot-selection.component.html',
   styleUrls: ['./time-slot-selection.component.css']
 })
@@ -17,11 +18,14 @@ export class TimeSlotSelectionComponent {
 
   selectedTime: string | null = null;
 
+  constructor(private bookingService: BookingService, private router: Router) {}
+
   selectTime(time: string): void {
     const slot = this.timeSlots.find(s => s.time === time);
     if (slot && slot.available) {
       this.selectedTime = time;
-      console.log('Time Selected:', this.selectedTime);
+      this.bookingService.setTimeSlot({ time: this.selectedTime });
+      this.router.navigate(['/booking/customer-info']);
     }
   }
 }

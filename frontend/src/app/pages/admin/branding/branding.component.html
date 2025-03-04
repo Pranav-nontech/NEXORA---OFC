@@ -1,24 +1,44 @@
-<div class="branding-container">
-    <h1>Branding Settings</h1>
-    <form>
-      <div class="form-group">
-        <label for="logoUrl">Logo URL:</label>
-        <input id="logoUrl" type="text" [(ngModel)]="branding.logoUrl" name="logoUrl" placeholder="https://example.com/logo.png">
+<section class="section">
+  <div class="container">
+    <h1 class="title is-1">Branding Settings</h1>
+    <div class="columns">
+      <div class="column is-6">
+        <div class="box">
+          <form>
+            <div class="field">
+              <label class="label" for="logoUrl">Logo URL:</label>
+              <div class="control">
+                <input class="input" id="logoUrl" type="text" [(ngModel)]="branding.logoUrl" name="logoUrl" placeholder="https://example.com/logo.png">
+              </div>
+            </div>
+            <div class="field">
+              <label class="label" for="primaryColor">Primary Color:</label>
+              <div class="control">
+                <input class="input" id="primaryColor" type="color" [(ngModel)]="branding.primaryColor" name="primaryColor">
+              </div>
+            </div>
+            <div class="field">
+              <label class="label" for="secondaryColor">Secondary Color:</label>
+              <div class="control">
+                <input class="input" id="secondaryColor" type="color" [(ngModel)]="branding.secondaryColor" name="secondaryColor">
+              </div>
+            </div>
+            <div class="field">
+              <button class="button is-primary" type="button" (click)="updateBranding()">Update Branding</button>
+            </div>
+          </form>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="primaryColor">Primary Color:</label>
-        <input id="primaryColor" type="color" [(ngModel)]="branding.primaryColor" name="primaryColor">
+      <div class="column is-6">
+        <div class="box">
+          <h2 class="title is-3">Preview</h2>
+          <figure class="image" *ngIf="branding.logoUrl">
+            <img [src]="branding.logoUrl" alt="Logo Preview">
+          </figure>
+          <div class="color-preview" [style.backgroundColor]="branding.primaryColor">Primary</div>
+          <div class="color-preview" [style.backgroundColor]="branding.secondaryColor">Secondary</div>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="secondaryColor">Secondary Color:</label>
-        <input id="secondaryColor" type="color" [(ngModel)]="branding.secondaryColor" name="secondaryColor">
-      </div>
-      <button type="button" (click)="updateBranding()">Update Branding</button>
-    </form>
-    <div class="preview">
-      <h2>Preview</h2>
-      <img [src]="branding.logoUrl" alt="Logo Preview" *ngIf="branding.logoUrl">
-      <div [style.backgroundColor]="branding.primaryColor" class="color-preview">Primary</div>
-      <div [style.backgroundColor]="branding.secondaryColor" class="color-preview">Secondary</div>
     </div>
   </div>
+</section>

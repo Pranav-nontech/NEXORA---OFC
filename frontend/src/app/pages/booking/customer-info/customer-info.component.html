@@ -1,0 +1,71 @@
+<section class="section">
+    <div class="container">
+      <h1 class="title is-1">Almost there! Just a few details so we can finalize your booking.</h1>
+      <p class="subtitle is-3">We need some information from you to complete your booking. Please fill out the form below accurately.</p>
+      <form class="box">
+        <div class="field">
+          <label class="label" for="firstName">First Name:</label>
+          <div class="control">
+            <input class="input" id="firstName" type="text" [(ngModel)]="customerInfo.firstName" name="firstName" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label" for="lastName">Last Name:</label>
+          <div class="control">
+            <input class="input" id="lastName" type="text" [(ngModel)]="customerInfo.lastName" name="lastName" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label" for="email">Email Address:</label>
+          <div class="control">
+            <input class="input" id="email" type="email" [(ngModel)]="customerInfo.email" name="email" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label" for="phoneNumber">Phone Number:</label>
+          <div class="control">
+            <input class="input" id="phoneNumber" type="tel" [(ngModel)]="customerInfo.phoneNumber" name="phoneNumber" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label" for="address">Address:</label>
+          <div class="control">
+            <input class="input" id="address" type="text" [(ngModel)]="customerInfo.address" name="address">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label" for="city">City:</label>
+          <div class="control">
+            <input class="input" id="city" type="text" [(ngModel)]="customerInfo.city" name="city">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label" for="state">State/Province:</label>
+          <div class="control">
+            <input class="input" id="state" type="text" [(ngModel)]="customerInfo.state" name="state">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label" for="zipCode">Zip/Postal Code:</label>
+          <div class="control">
+            <input class="input" id="zipCode" type="text" [(ngModel)]="customerInfo.zipCode" name="zipCode">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label" for="notes">Notes/Special Requests:</label>
+          <div class="control">
+            <textarea class="textarea" id="notes" [(ngModel)]="customerInfo.notes" name="notes" placeholder="Any specific needs"></textarea>
+          </div>
+        </div>
+        <div class="field">
+          <label class="checkbox">
+            <input type="checkbox" [(ngModel)]="customerInfo.termsConsent" name="termsConsent" required>
+            I have read and agree to the <a routerLink="/terms">Terms of Service</a> and <a routerLink="/privacy">Privacy Policy</a>.
+          </label>
+        </div>
+        <div class="field">
+          <button class="button is-primary" (click)="submitCustomerInfo()" [disabled]="!customerInfo.termsConsent">Submit Details</button>
+        </div>
+      </form>
+    </div>
+  </section>

@@ -1,28 +1,27 @@
-<div class="cookie-container">
-  <!-- Headline and Intro -->
-  <h1>We Use Cookies to Enhance Your Nexora Experience</h1>
-  <p *ngFor="let paragraph of intro" class="intro">{{ paragraph }}</p>
+<section class="section">
+  <div class="container">
+    <h1 class="title is-1">We Use Cookies to Enhance Your Nexora Experience</h1>
+    <div *ngFor="let paragraph of intro" class="content">{{ paragraph }}</div>
 
-  <!-- Sections -->
-  <div class="policy-sections">
-    <div *ngFor="let section of sections" class="section">
-      <h2>{{ section.title }}</h2>
-      <div *ngIf="section.subSections" class="sub-sections">
-        <div *ngFor="let sub of section.subSections" class="sub-section">
-          <h3>{{ sub.name }}</h3>
-          <p>{{ sub.description }}</p>
+    <div class="box">
+      <div *ngFor="let section of sections">
+        <h2 class="title is-3">{{ section.title }}</h2>
+        <div *ngIf="section.subSections" class="content">
+          <div *ngFor="let sub of section.subSections">
+            <h3 class="subtitle is-5">{{ sub.name }}</h3>
+            <p>{{ sub.description }}</p>
+          </div>
         </div>
+        <p *ngIf="section.content" class="content">
+          {{ section.content }}
+          <a *ngIf="section.link" [href]="section.link" target="_blank" class="is-link">{{ section.content }}</a>
+          <span *ngIf="section.links">
+            <a *ngFor="let link of section.links" [href]="link.url" target="_blank" class="is-link">{{ link.text }}</a>
+          </span>
+        </p>
       </div>
-      <p *ngIf="section.content">
-        {{ section.content }}
-        <a *ngIf="section.link" [href]="section.link" target="_blank">{{ section.content }}</a>
-        <span *ngIf="section.links">
-          <a *ngFor="let link of section.links" [href]="link.url" target="_blank">{{ link.text }}</a>
-        </span>
-      </p>
     </div>
-  </div>
 
-  <!-- Footer -->
-  <p class="last-updated">Last Updated: {{ lastUpdated }}</p>
-</div>
+    <p class="has-text-grey">Last Updated: {{ lastUpdated }}</p>
+  </div>
+</section>

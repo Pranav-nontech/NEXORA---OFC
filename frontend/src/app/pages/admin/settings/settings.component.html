@@ -1,18 +1,30 @@
-<div class="settings-container">
-    <h1>Business Settings</h1>
-    <form>
-      <div class="form-group">
-        <label for="name">Business Name:</label>
-        <input id="name" type="text" [(ngModel)]="businessSettings.name" name="name">
-      </div>
-      <div class="form-group">
-        <label for="hours">Operating Hours:</label>
-        <input id="hours" type="text" [(ngModel)]="businessSettings.hours" name="hours">
-      </div>
-      <div class="form-group">
-        <label for="location">Location:</label>
-        <input id="location" type="text" [(ngModel)]="businessSettings.location" name="location">
-      </div>
-      <button type="button" (click)="saveSettings()">Save</button>
-    </form>
+<section class="section">
+  <div class="container">
+    <h1 class="title is-1">Business Settings</h1>
+    <div class="box">
+      <form>
+        <div class="field">
+          <label class="label" for="name">Business Name:</label>
+          <div class="control">
+            <input class="input" id="name" type="text" [(ngModel)]="businessSettings.name" name="name">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label" for="hours">Operating Hours:</label>
+          <div class="control">
+            <input class="input" id="hours" type="text" [(ngModel)]="businessSettings.hours" name="hours">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label" for="location">Location:</label>
+          <div class="control">
+            <input class="input" id="location" type="text" [(ngModel)]="businessSettings.location" name="location">
+          </div>
+        </div>
+        <div class="field">
+          <button class="button is-primary" type="button" (click)="saveSettings()">Save</button>
+        </div>
+      </form>
+    </div>
   </div>
+</section>

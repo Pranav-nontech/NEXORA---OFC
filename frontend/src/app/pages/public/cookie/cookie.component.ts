@@ -1,12 +1,18 @@
-import { Component } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, PLATFORM_ID, Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-cookie',
   standalone: true,
+  imports: [CommonModule],  
   templateUrl: './cookie.component.html',
-  styleUrls: ['./cookie.component.css']
 })
-export class CookieComponent {
+export class CookieComponent implements OnInit {
+  private platformId: Object;
+  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+    this.platformId = platformId;
+  }
   intro = [
     'This website uses cookies to improve your browsing experience, personalize content, and analyze our traffic. Cookies are small text files that are stored on your device.',
     'By using Nexora, you consent to our use of cookies as described in this policy.'
@@ -46,4 +52,11 @@ export class CookieComponent {
   ];
 
   lastUpdated = 'March 3, 2025'; // Example date; adjust as needed
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      // Add fetch logic here if needed
+    } else {
+       // Adjust property name
+    }
+  }
 }

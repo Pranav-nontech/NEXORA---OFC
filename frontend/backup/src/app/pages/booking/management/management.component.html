@@ -1,0 +1,48 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title is-1">Manage Your Appointments with Ease</h1>
+    <p class="subtitle is-3">View, reschedule, or cancel your appointments quickly and conveniently.</p>
+    <div class="box" *ngIf="bookings.length > 0; else noBookings">
+      <table class="table is-fullwidth is-striped">
+        <thead>
+          <tr>
+            <th>Date & Time</th>
+            <th>Service/Item</th>
+            <th>Provider</th>
+            <th>Location</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let booking of bookings">
+            <td>{{ booking.date | date:'short' }}</td>
+            <td>{{ booking.service }}</td>
+            <td>{{ booking.staff }}</td>
+            <td>{{ booking.location }}</td>
+            <td>
+              <button class="button is-info is-small" (click)="viewDetails(booking)">View Details</button>
+              <button class="button is-danger is-small" (click)="cancelBooking(booking.id)">Cancel</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="box" *ngIf="selectedBooking">
+        <h2 class="title is-3">Appointment Details</h2>
+        <div class="content">
+          <p><strong>Appointment ID:</strong> {{ selectedBooking.id }}</p>
+          <p><strong>Date & Time:</strong> {{ selectedBooking.date | date:'medium' }}</p>
+          <p><strong>Service/Item:</strong> {{ selectedBooking.service }}</p>
+          <p><strong>Provider:</strong> {{ selectedBooking.staff }}</p>
+          <p><strong>Location:</strong> {{ selectedBooking.location }}</p>
+          <p><strong>Cost:</strong> ${{ selectedBooking.cost }}</p>
+          <p><strong>Notes:</strong> {{ selectedBooking.notes || 'None' }}</p>
+          <button class="button is-primary">Reschedule Appointment</button>
+          <button class="button is-danger" (click)="cancelBooking(selectedBooking.id)">Cancel Appointment</button>
+        </div>
+      </div>
+    </div>
+    <ng-template #noBookings>
+      <p class="content">You currently have no upcoming appointments. <a routerLink="/booking/service-selection" class="button is-link">Book Now</a></p>
+    </ng-template>
+  </div>
+</section>

@@ -1,0 +1,29 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title is-1">Unlock the Power of Effortless Booking with Nexora</h1>
+    <p class="subtitle is-3">Choose the plan that scales with your business. Simplify scheduling, boost efficiency, and delight your customers.</p>
+
+    <div class="columns is-multiline">
+      <div *ngFor="let plan of plans" class="column is-4">
+        <div class="card">
+          <div class="card-content">
+            <h2 class="title is-3">{{ plan.name }}</h2>
+            <p class="subtitle is-4">{{ plan.price }}</p>
+            <p class="content">{{ plan.description }}</p>
+            <ul class="content">
+              <li *ngFor="let feature of plan.features">{{ feature }}</li>
+            </ul>
+            <a [routerLink]="plan.ctaLink" class="button is-primary is-fullwidth">{{ plan.cta }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content has-text-grey has-text-centered">
+      <p>{{ smallPrint.taxNote }}</p>
+      <p>{{ smallPrint.trialNote }}</p>
+      <p>{{ smallPrint.cancelNote }}</p>
+      <p>{{ smallPrint.gdprNote }} <a routerLink="/privacy" class="is-link">Privacy Policy</a></p>
+    </div>
+  </div>
+</section>

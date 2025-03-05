@@ -1,15 +1,29 @@
-import { Component } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, PLATFORM_ID, Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-privacy',
   standalone: true,
-  imports: [RouterLink], // For Cookie Policy link
+  imports: [RouterLink, CommonModule], // For Cookie Policy link
   templateUrl: './privacy.component.html',
-  styleUrls: ['./privacy.component.css']
 })
-export class PrivacyComponent {
-  intro = 'At Nexora, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, and share your data when you use our booking platform. We are compliant with the General Data Protection Regulation (GDPR) and other applicable privacy laws. Please read this policy carefully to understand our practices.';
+export class PrivacyComponent implements OnInit {
+  private platformId: Object;
+  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+    /**
+     * Stores the platform ID for isPlatformBrowser() check.
+     * @see {@link https://angular.io/api/common/isPlatformBrowser}
+     */
+    this.platformId = platformId;
+  }
+
+  /**
+   * Introductory text for the privacy policy.
+   * @description This text is displayed at the top of the privacy policy page.
+   */
+  intro = `At Nexora, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, and share your data when you use our booking platform. We are compliant with the General Data Protection Regulation (GDPR) and other applicable privacy laws. Please read this policy carefully to understand our practices.`;
 
   sections = [
     {
@@ -51,4 +65,11 @@ export class PrivacyComponent {
   ];
 
   lastUpdated = 'March 3, 2025'; // Example date; adjust as needed
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      // Add fetch logic here if needed
+    } else {
+       // Adjust property name
+    }
+  }
 }

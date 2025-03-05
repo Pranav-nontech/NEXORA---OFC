@@ -1,0 +1,12 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title is-1">System Health</h1>
+    <div class="box">
+      <div class="content">
+        <p><strong>Backend Status:</strong> <span class="tag is-success" *ngIf="systemStatus.backend === 'Online'">{{ systemStatus.backend }}</span></p>
+        <p><strong>Last Checked:</strong> {{ systemStatus.lastChecked | date:'medium' }}</p>
+      </div>
+      <button class="button is-primary" (click)="checkSystemHealth()">Check Now</button>
+    </div>
+  </div>
+</section>

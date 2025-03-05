@@ -1,14 +1,19 @@
-import { Component } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, PLATFORM_ID, Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule], // For link
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  
+  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+    this.platformId = platformId;
+  }private platformId: Object;
   hero = {
     headline: 'Unlock Seamless Booking with Nexora: Empowering Your Business',
     subheadline: 'The white-labeled booking system designed to streamline your scheduling, delight your customers, and grow your business',
@@ -26,4 +31,11 @@ export class HomeComponent {
     quote: 'Nexora has transformed our booking process and saved us countless hours!',
     author: '[Client Name], [Business Name]'
   };
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      // Add fetch logic here if needed
+    } else {
+      this.features = []; // Adjust property name
+    }
+  }
 }

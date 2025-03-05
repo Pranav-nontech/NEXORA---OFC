@@ -1,0 +1,44 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title is-1">Branding Settings</h1>
+    <div class="columns">
+      <div class="column is-6">
+        <div class="box">
+          <form>
+            <div class="field">
+              <label class="label" for="logoUrl">Logo URL:</label>
+              <div class="control">
+                <input class="input" id="logoUrl" type="text" [(ngModel)]="branding.logoUrl" name="logoUrl" placeholder="https://example.com/logo.png">
+              </div>
+            </div>
+            <div class="field">
+              <label class="label" for="primaryColor">Primary Color:</label>
+              <div class="control">
+                <input class="input" id="primaryColor" type="color" [(ngModel)]="branding.primaryColor" name="primaryColor">
+              </div>
+            </div>
+            <div class="field">
+              <label class="label" for="secondaryColor">Secondary Color:</label>
+              <div class="control">
+                <input class="input" id="secondaryColor" type="color" [(ngModel)]="branding.secondaryColor" name="secondaryColor">
+              </div>
+            </div>
+            <div class="field">
+              <button class="button is-primary" type="button" (click)="updateBranding()">Update Branding</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="column is-6">
+        <div class="box">
+          <h2 class="title is-3">Preview</h2>
+          <figure class="image" *ngIf="branding.logoUrl">
+            <img [src]="branding.logoUrl" alt="Logo Preview">
+          </figure>
+          <div class="color-preview" [style.backgroundColor]="branding.primaryColor">Primary</div>
+          <div class="color-preview" [style.backgroundColor]="branding.secondaryColor">Secondary</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

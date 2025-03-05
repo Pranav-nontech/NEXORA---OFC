@@ -1,20 +1,23 @@
-import { Component } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, PLATFORM_ID, Component, OnInit } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { BookingService } from '../../../shared/services/booking.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-confirmation',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule],
   templateUrl: './confirmation.component.html',
-  styleUrls: ['./confirmation.component.css']
 })
-export class ConfirmationComponent {
+export class ConfirmationComponent implements OnInit {
   bookingData: any;
 
-  constructor(private bookingService: BookingService, private router: Router) {
-    this.bookingData = this.bookingService.getBookingData();
-  }
+  constructor(
+    private bookingService: BookingService,
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   confirmBooking(): void {
     this.bookingService.createBooking(this.bookingData).subscribe({
@@ -28,6 +31,14 @@ export class ConfirmationComponent {
   }
 
   editBooking(): void {
-    this.router.navigate(['/booking/customer-info'], { state: { customerInfo: this.bookingData.customerInfo } });
+    this.router.navigate(['/booking/customer-info'], { state: { customerInfo: this.bookingData?.customerInfo } });
+  }
+
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.bookingData = this.bookingService.getBookingData();
+    } else {
+      this.bookingData = {};
+    }
   }
 }

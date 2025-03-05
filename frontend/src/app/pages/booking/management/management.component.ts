@@ -1,14 +1,19 @@
-import { Component } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, PLATFORM_ID, Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-management',
   standalone: true,
-  imports: [RouterLink], // For links
+  imports: [RouterLink, CommonModule], // For links
   templateUrl: './management.component.html',
-  styleUrls: ['./management.component.css']
 })
-export class ManagementComponent {
+export class ManagementComponent implements OnInit {
+  private platformId: Object;
+  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+    this.platformId = platformId;
+  }
   bookings = [
     { id: 1, service: 'Haircut', staff: 'Jane Doe', date: new Date(), location: 'Salon A', cost: 25, notes: '' }
   ];
@@ -22,5 +27,12 @@ export class ManagementComponent {
 
   viewDetails(booking: any): void {
     this.selectedBooking = booking;
+  }
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      // Add fetch logic here if needed
+    } else {
+      this.bookings = []; // Adjust property name
+    }
   }
 }

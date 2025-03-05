@@ -1,0 +1,16 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title is-1">Welcome to Nexora! Please read our Terms of Service carefully.</h1>
+
+    <div class="box">
+      <div *ngFor="let section of sections">
+        <h2 class="title is-3">{{ section.title }}</h2>
+        <p class="content">{{ section.content }}
+          <a *ngIf="section.title === 'Acceptance of Terms'" routerLink="/privacy" class="is-link">Privacy Policy</a>
+        </p>
+      </div>
+    </div>
+
+    <p class="has-text-grey">Last Updated: {{ lastUpdated }}</p>
+  </div>
+</section>

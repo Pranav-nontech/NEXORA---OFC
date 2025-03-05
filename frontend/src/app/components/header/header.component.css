@@ -1,1 +1,118 @@
-ECHO is on.
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 50px; /* Collapsed width */
+  background-color: #661bb6;
+  transition: width 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebar-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.dot {
+  width: 30px;
+  height: 6px;
+  background-color: #cdbee9;
+  border-radius: 50%;
+  margin: 4px 0;
+}
+
+.sidebar-menu {
+  display: none;
+  width: 200px; /* Expanded width */
+  padding: 10px;
+}
+
+.sidebar-menu.open {
+  display: block;
+}
+
+.sidebar:hover, .sidebar.open {
+  width: 200px; /* Expand on hover or click */
+}
+
+.logo-container {
+  background-color: #e3eaeb; /* White background */
+  text-align: center;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.sidebar-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  margin: 5px 0;
+}
+
+.sidebar-menu a {
+  color: #08080c;
+  text-decoration: none;
+  padding: 5px 10px;
+  display: block;
+}
+
+.sidebar-menu a:hover, .sidebar-menu a.active {
+  background-color: #f8f5f6;
+}
+
+.top-navbar {
+  position: fixed;
+  top: 0;
+  left: 50px; /* Offset for collapsed sidebar */
+  width: calc(100% - 50px);
+  height: 50px; /* Smaller height */
+  background-color: #d6e321;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: left 0.3s ease, width 0.3s ease;
+}
+
+.sidebar:hover ~ .top-navbar, .sidebar.open ~ .top-navbar {
+  left: 200px; /* Adjust for expanded sidebar */
+  width: calc(100% - 200px);
+}
+
+.navbar-content {
+  width: 100%;
+  max-width: 600px; /* Limit search bar width */
+  display: flex;
+  justify-content: center;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.search-form input {
+  width: 100%;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px 0 0 20px;
+  outline: none;
+}
+
+.search-form .search-icon {
+  padding: 5px 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-left: none;
+  border-radius: 0 20px 20px 0;
+}

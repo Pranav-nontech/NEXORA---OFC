@@ -1,0 +1,42 @@
+<section class="hero is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title is-1">{{ hero.headline }}</h1>
+      <p class="subtitle is-3">{{ hero.subheadline }}</p>
+      <p class="content">{{ hero.description }}</p>
+      <div class="buttons">
+        <a routerLink="/signup" class="button is-large is-success">Start Your Free Trial</a>
+        <a routerLink="/contact" class="button is-large is-info">Request a Demo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-2">Key Features</h2>
+    <div class="columns">
+      <div *ngFor="let feature of features" class="column is-3">
+        <div class="card">
+          <div class="card-content">
+            <h3 class="title is-4">{{ feature.name }}</h3>
+            <p>{{ feature.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section has-background-light">
+  <div class="container">
+    <h2 class="title is-2">What Our Clients Say</h2>
+    <blockquote class="box">
+      <p>"{{ testimonial.quote }}"</p>
+      <cite class="is-italic">- {{ testimonial.author }}</cite>
+    </blockquote>
+    <div class="client-logos">
+      <p>[Logos of prominent companies using Nexora]</p>
+    </div>
+  </div>
+</section>

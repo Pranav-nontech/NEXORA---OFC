@@ -1,14 +1,19 @@
-import { Component } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, PLATFORM_ID, Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-features',
   standalone: true,
-  imports: [RouterLink], // For CTA link
+  imports: [RouterLink, CommonModule], // For CTA link
   templateUrl: './features.component.html',
-  styleUrls: ['./features.component.css']
 })
-export class FeaturesComponent {
+export class FeaturesComponent implements OnInit {
+  private platformId: Object;
+  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+    this.platformId = platformId;
+  }
   intro = 'Nexora simplifies booking management for your business and provides a seamless booking experience for your customers. Discover the key features that make Nexora the perfect booking solution.';
 
   features = [
@@ -46,4 +51,11 @@ export class FeaturesComponent {
       benefit: 'Improved workforce planning.'
     }
   ];
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      // Add fetch logic here if needed
+    } else {
+       // Adjust property name
+    }
+  }
 }

@@ -1,14 +1,19 @@
-import { Component } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, PLATFORM_ID, Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-faq',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule], // For link
   templateUrl: './faq.component.html',
-  styleUrls: ['./faq.component.css']
 })
-export class FaqComponent {
+export class FaqComponent implements OnInit {
+  private platformId: Object;
+  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+    this.platformId = platformId;
+  }
   intro = "Got questions? We've got answers! Find quick solutions to common inquiries about using Nexora for your booking needs. If you can't find what you're looking for, please don't hesitate to contact us.";
 
   faqs = [
@@ -21,4 +26,11 @@ export class FaqComponent {
     { question: 'What are cookies and how do you use them?', answer: "This website uses cookies to enhance your browsing experience and provide personalized services. For details on what cookies we use and how they work, please see our Cookie Policy.", expanded: false },
     { question: 'How do I contact support?', answer: "You can reach our support team by visiting our Contact Us page.", expanded: false }
   ];
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      // Add fetch logic here if needed
+    } else {
+       // Adjust property name
+    }
+  }
 }

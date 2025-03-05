@@ -1,20 +1,14 @@
-import { bootstrapApplication } from '@angular/platform-server';
-import { enableProdMode } from '@angular/core';
+import { enableProdMode, isDevMode } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
-import { environment } from './environments/environment';
-import { provideServerRendering } from '@angular/platform-server';
-import { routes } from './app/app.routes.server';
+import { config } from './app/app.config.server';
 
-if (environment.production) {
+if (!isDevMode()) {
   enableProdMode();
 }
 
+// Export the bootstrap function directly
 export default async function bootstrap() {
-  const app = await bootstrapApplication(AppComponent, {
-    providers: [
-      provideServerRendering(),
-      provideRouter(routes)
-    ]
-  });
-  return app;
+  const app = await bootstrapApplication(AppComponent, config);
+  return app; // Return the application ref
 }

@@ -1,14 +1,19 @@
-import { Component } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-pricing',
   standalone: true,
-  imports: [RouterLink], // For CTA links
+  imports: [RouterLink, CommonModule], // For CTA links
   templateUrl: './pricing.component.html',
-  styleUrls: ['./pricing.component.css']
 })
-export class PricingComponent {
+export class PricingComponent implements OnInit {
+  
+  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+    this.platformId = platformId;
+  }private platformId: Object;
   plans = [
     {
       name: 'Basic',
@@ -42,4 +47,11 @@ export class PricingComponent {
     cancelNote: 'Cancel anytime, no hidden fees.',
     gdprNote: 'We are committed to GDPR compliance and protecting your data. See our Privacy Policy for details.'
   };
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      // Add fetch logic here if needed
+    } else {
+      this.plans = []; // Adjust property name
+    }
+  }
 }

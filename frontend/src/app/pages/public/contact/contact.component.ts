@@ -1,15 +1,20 @@
-import { Component } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, PLATFORM_ID, Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [RouterLink, FormsModule], // Added FormsModule for ngModel
+  imports: [RouterLink, FormsModule, CommonModule], // Added FormsModule for ngModel
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.css']
 })
-export class ContactComponent {
+export class ContactComponent implements OnInit {
+  private platformId: Object;
+  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+    this.platformId = platformId;
+  }
   contactDetails = {
     email: 'info@nexora.com',      // Your provided email
     phone: '+91 6355552828',       // Your provided phone
@@ -31,6 +36,13 @@ export class ContactComponent {
       this.formData = { name: '', email: '', subject: '', message: '', consent: false };
     } else {
       console.log('Consent required to submit form');
+    }
+  }
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      // Add fetch logic here if needed
+    } else {
+       // Adjust property name
     }
   }
 }

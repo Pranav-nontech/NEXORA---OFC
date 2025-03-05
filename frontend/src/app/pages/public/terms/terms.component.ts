@@ -1,14 +1,20 @@
-import { Component } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, PLATFORM_ID, Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-terms',
   standalone: true,
-  imports: [RouterLink], // For Privacy Policy link
+  imports: [RouterLink, CommonModule], // For Privacy Policy link
   templateUrl: './terms.component.html',
-  styleUrls: ['./terms.component.css']
 })
-export class TermsComponent {
+export class TermsComponent implements OnInit {
+  private platformId: Object;
+  
+  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+    this.platformId = platformId;
+  }
   sections = [
     {
       title: 'Acceptance of Terms',
@@ -49,4 +55,11 @@ export class TermsComponent {
   ];
 
   lastUpdated = 'March 3, 2025'; // Example date; adjust as needed
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      // Add fetch logic here if needed
+    } else {
+       // Adjust property name
+    }
+  }
 }

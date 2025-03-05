@@ -1,1 +1,48 @@
-ECHO is on.
+.modal-background {
+    background-color: rgba(1, 22, 39, 0.8); /* Rich Black with opacity */
+  }
+  
+  .modal-card {
+    border-radius: 8px;
+    overflow: hidden;
+    max-width: 600px;
+    margin: 1rem;
+  }
+  
+  .modal-card-head {
+    background: linear-gradient(to right, #800b25, #b91372); /* Burgundy to Red Violet */
+    border-bottom: 2px solid #41ead4; /* Turquoise */
+    padding: 1rem 1.5rem;
+  }
+  
+  .modal-card-title {
+    color: #9ff5e8; /* Ice Blue */
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .modal-card-head .delete {
+    background-color: #ff0022; /* Red (CMYK) */
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .modal-card-head .delete:hover {
+    background-color: #f390c8; /* Red Violet 800 */
+  }
+  
+  .modal-card-body {
+    background-color: #034a83; /* Rich Black 600 */
+    color: #ece3e4; /* Mountbatten Pink 900 */
+    padding: 1.5rem;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .modal-card {
+      width: 90%;
+    }
+    .modal-card-title {
+      font-size: 1.25rem;
+    }
+  }

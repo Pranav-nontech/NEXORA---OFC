@@ -1,64 +1,65 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { ApiService } from './api.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookingService {
-  private bookingData: any = {}; // Local state for booking flow
+  private bookingData: any = {};
 
-  constructor(private api: ApiService) {}
+  constructor(
+    private api: ApiService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
-  // Setters for booking steps
-  setService(service: any): void {
-    this.bookingData.service = service;
-  }
+  setService(service: any): void { this.bookingData.service = service; }
+  setStaff(staff: any): void { this.bookingData.staff = staff; }
+  setTimeSlot(timeSlot: any): void { this.bookingData.timeSlot = timeSlot; }
+  setCustomerInfo(customerInfo: any): void { this.bookingData.customerInfo = customerInfo; }
+  getBookingData(): any { return this.bookingData; }
+  clearBookingData(): void { this.bookingData = {}; }
 
-  setStaff(staff: any): void {
-    this.bookingData.staff = staff;
-  }
-
-  setTimeSlot(timeSlot: any): void {
-    this.bookingData.timeSlot = timeSlot;
-  }
-
-  setCustomerInfo(customerInfo: any): void {
-    this.bookingData.customerInfo = customerInfo;
-  }
-
-  // Getter for full booking data
-  getBookingData(): any {
-    return this.bookingData;
-  }
-
-  // Clear data after completion
-  clearBookingData(): void {
-    this.bookingData = {};
-  }
-
-  // Existing API methods
   getServices(): Observable<any[]> {
-    return this.api.get('bookings/services');
+    if (isPlatformBrowser(this.platformId)) {
+      return this.api.get('bookings/services');
+    }
+    return of([]);
   }
 
   getStaff(): Observable<any[]> {
-    return this.api.get('bookings/staff');
+    if (isPlatformBrowser(this.platformId)) {
+      return this.api.get('bookings/staff');
+    }
+    return of([]);
   }
 
   getTimeSlots(date: string): Observable<any[]> {
-    return this.api.get(`bookings/time-slots?date=${date}`);
+    if (isPlatformBrowser(this.platformId)) {
+      return this.api.get(`bookings/time-slots?date=${date}`);
+    }
+    return of([]);
   }
 
   createBooking(booking: any): Observable<any> {
-    return this.api.post('bookings', booking);
+    if (isPlatformBrowser(this.platformId)) {
+      return this.api.post('bookings/create', booking);
+    }
+    return of({});
   }
 
   getBookings(): Observable<any[]> {
-    return this.api.get('bookings');
+    if (isPlatformBrowser(this.platformId)) {
+      return this.api.get('bookings');
+    }
+    return of([]);
   }
 
   cancelBooking(id: number): Observable<any> {
-    return this.api.post(`bookings/${id}/cancel`, {});
+    if (isPlatformBrowser(this.platformId)) {
+      return this.api.post(`bookings/${id}/cancel`, {});
+    }
+    return of({});
   }
 }

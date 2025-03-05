@@ -1,0 +1,58 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title is-1">Need Help? We're Here.</h1>
+
+    <div class="columns">
+      <div class="column is-6">
+        <h2 class="title is-3">General Inquiries</h2>
+        <p class="content">Have questions about Nexora or need assistance? Our team is ready to help.</p>
+        <form class="box">
+          <div class="field">
+            <label class="label" for="name">Name:</label>
+            <div class="control">
+              <input class="input" id="name" type="text" [(ngModel)]="formData.name" name="name" placeholder="Your Name" required>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label" for="email">Email:</label>
+            <div class="control">
+              <input class="input" id="email" type="email" [(ngModel)]="formData.email" name="email" placeholder="Your Email" required>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label" for="subject">Subject:</label>
+            <div class="control">
+              <input class="input" id="subject" type="text" [(ngModel)]="formData.subject" name="subject" placeholder="Subject" required>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label" for="message">Message:</label>
+            <div class="control">
+              <textarea class="textarea" id="message" [(ngModel)]="formData.message" name="message" placeholder="Your Message" rows="4" required></textarea>
+            </div>
+          </div>
+          <div class="field">
+            <label class="checkbox">
+              <input type="checkbox" [(ngModel)]="formData.consent" name="consent" required>
+              I consent to Nexora collecting and using my data to respond to my inquiry. See our <a routerLink="/privacy">Privacy Policy</a>.
+            </label>
+          </div>
+          <div class="field">
+            <button class="button is-primary" (click)="submitContact()" [disabled]="!formData.consent">Send Message</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="column is-6">
+        <div class="content">
+          <h2 class="title is-3">Support</h2>
+          <p>For technical support or issues with your booking system, please use the form or email us at <a href="mailto:{{ contactDetails.supportEmail }}">{{ contactDetails.supportEmail }}</a>. Or <a href="#">Click To Chat</a>.</p>
+          
+          <h2 class="title is-3">Sales</h2>
+          <p>Interested in learning more about how Nexora can benefit your business? Contact our sales team.</p>
+          <p>Call: <a href="tel:{{ contactDetails.phone }}">{{ contactDetails.phone }}</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

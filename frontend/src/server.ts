@@ -1,55 +1,60 @@
 import 'zone.js/node';
-import { enableProdMode } from '@angular/core';
+import { APP_BASE_HREF } from '@angular/common';
 import { renderApplication } from '@angular/platform-server';
-import { provideServerRendering } from '@angular/platform-server';
-import { AppComponent } from './app/app.component';
-import { environment } from './environments/environment';
-import * as express from 'express';
-import { join } from 'path';
+import express from 'express';
+import { join } from 'node:path';
+import bootstrap from './main.server';
+import { readFileSync } from 'fs';
 
-if (environment.production) {
-  enableProdMode();
+const app = express();
+const PORT = 4200;
+const distFolder = join(process.cwd(), 'dist/frontend/browser');
+const indexHtmlPath = join(distFolder, 'index.csr.html'); // Use index.csr.html
+
+// Load index.html with fallback
+let indexHtml: string;
+try {
+  indexHtml = readFileSync(indexHtmlPath, 'utf8');
+  console.log('Loaded index.csr.html successfully');
+} catch (err) {
+  console.warn('index.csr.html not found, using fallback:', err);
+  indexHtml = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <title>Frontend</title>
+      <base href="/">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+      <app-root></app-root>
+    </body>
+    </html>
+  `;
 }
 
-const server = express();
-const distFolder = join(__dirname, '../dist/frontend');
+app.use(express.static(distFolder, { maxAge: '1y' }));
 
-server.set('view engine', 'html');
-server.set('views', distFolder);
+export const reqHandler = async (req: express.Request, res: express.Response) => {
+  try {
+    console.log('Rendering with index.html:', indexHtml.substring(0, 100));
+    const html = await renderApplication(bootstrap, {
+      document: indexHtml,
+      url: req.url,
+      platformProviders: [
+        { provide: APP_BASE_HREF, useValue: req.baseUrl },
+      ],
+    });
+    res.send(html);
+  } catch (err: unknown) {
+    console.error('SSR Error:', err);
+    res.status(500).send('Server rendering error: ' + (err instanceof Error ? err.message : String(err)));
+  }
+};
 
-// Serve static files from /dist/frontend
-server.get('*.*', express.static(distFolder, {
-  maxAge: '1y'
-}));
+app.get('*', reqHandler);
 
-// All regular routes use SSR
-server.get('*', (req, res) => {
-  renderApplication(() => bootstrap(AppComponent), {
-    documentFilePath: join(distFolder, 'index.html'),
-    url: req.url,
-    providers: [
-      provideServerRendering()
-    ]
-  }).then(html => res.send(html))
-    .catch(err => res.status(500).send(err));
+app.listen(PORT, () => {
+  console.log(`Node Express server listening on http://localhost:${PORT}`);
 });
-
-const port = process.env['PORT'] || 4000;
-server.listen(port, () => {
-  console.log(`Node Express server listening on http://localhost:${port}`);
-});
-
-async function bootstrap(appComponent: any) {
-  const { bootstrapApplication } = await import('@angular/platform-server');
-  const {routes} = await import('./app/app.routes.server');
-  return bootstrapApplication(appComponent, {
-    providers: [
-      provideServerRendering(),
-      provideRouter(routes)
-    ]
-  });
-}
-
-function provideRouter(routes: any) {
-  throw new Error('Function not implemented.');
-}

@@ -1,14 +1,19 @@
-import { Component } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, PLATFORM_ID, Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-payment',
   standalone: true,
-  imports: [RouterLink], // For link
+  imports: [RouterLink, CommonModule], // For link
   templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.css']
 })
-export class PaymentComponent {
+export class PaymentComponent implements OnInit {
+  private platformId: Object;
+  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+    this.platformId = platformId;
+  }
   paymentDetails = {
     amount: 25,
     currency: 'USD'
@@ -22,6 +27,13 @@ export class PaymentComponent {
       this.paymentError = '';
     } else {
       this.paymentError = 'Please enter a valid card number.';
+    }
+  }
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      // Add fetch logic here if needed
+    } else {
+      this.paymentDetails = { amount: 0, currency: '' }; // Adjust property name
     }
   }
 }

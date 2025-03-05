@@ -1,0 +1,80 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title is-1">Unlock Seamless Booking for You and Your Customers</h1>
+    <p class="subtitle is-3">Join Nexora and experience effortless appointment scheduling. Whether you're a business looking to streamline your operations or a customer seeking convenient booking, Nexora has you covered.</p>
+    <div class="box">
+      <form class="signup-form">
+        <div class="field">
+          <label class="label">Account Type:</label>
+          <div class="control radio-group">
+            <label class="radio">
+              <input type="radio" [(ngModel)]="signupData.accountType" name="accountType" value="customer" checked>
+              (Customer) Book with Ease
+            </label>
+            <label class="radio">
+              <input type="radio" [(ngModel)]="signupData.accountType" name="accountType" value="business">
+              (Business) Get Booked Effortlessly
+            </label>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label" for="fullName">Full Name:</label>
+          <div class="control">
+            <input class="input" id="fullName" type="text" [(ngModel)]="signupData.fullName" name="fullName" placeholder="Your Full Name" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label" for="email">Email Address:</label>
+          <div class="control">
+            <input class="input" id="email" type="email" [(ngModel)]="signupData.email" name="email" placeholder="Your Email" required>
+            <p class="help">Your information is securely encrypted.</p>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label" for="password">Password:</label>
+          <div class="control">
+            <input class="input" id="password" type="password" [(ngModel)]="signupData.password" name="password" placeholder="Enter Your Password" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label" for="confirmPassword">Confirm Password:</label>
+          <div class="control">
+            <input class="input" id="confirmPassword" type="password" [(ngModel)]="signupData.confirmPassword" name="confirmPassword" placeholder="Confirm Your Password" required>
+          </div>
+        </div>
+        <div class="field" *ngIf="signupData.accountType === 'business'">
+          <label class="label" for="businessName">Business Name:</label>
+          <div class="control">
+            <input class="input" id="businessName" type="text" [(ngModel)]="signupData.businessName" name="businessName" placeholder="Your Business Name">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label" for="phoneNumber">Phone Number (Optional):</label>
+          <div class="control">
+            <input class="input" id="phoneNumber" type="tel" [(ngModel)]="signupData.phoneNumber" name="phoneNumber" placeholder="+91 1234567890">
+          </div>
+        </div>
+        <div class="field consent">
+          <label class="checkbox">
+            <input type="checkbox" [(ngModel)]="signupData.termsConsent" name="termsConsent" required>
+            I agree to the Nexora <a routerLink="/terms">Terms of Service</a> and <a routerLink="/privacy">Privacy Policy</a>.
+          </label>
+        </div>
+        <div class="field consent">
+          <label class="checkbox">
+            <input type="checkbox" [(ngModel)]="signupData.marketingConsent" name="marketingConsent">
+            Subscribe to our newsletter for exclusive offers and updates.
+          </label>
+        </div>
+        <div class="field">
+          <button class="button is-primary is-fullwidth" (click)="signup()" [disabled]="!signupData.termsConsent">Sign Up Now</button>
+          <p class="help is-danger" *ngIf="signupError">{{ signupError }}</p>
+        </div>
+      </form>
+      <p class="content links">
+        Already have an account? <a routerLink="/login" class="has-text-info">Login Here</a><br>
+        Learn more about Nexora <a routerLink="/about" class="has-text-info">Here</a>
+      </p>
+    </div>
+  </div>
+</section>

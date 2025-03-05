@@ -1,13 +1,19 @@
-import { ApplicationConfig } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { provideHttpClient, withFetch } from '@angular/common/http';
-import { provideServer Rendering } from '@angular/platform-server';
-import { routes } from './app.routes.server';
+import { ApplicationConfig, mergeApplicationConfig } from '@angular/core';
+import { provideServerRendering } from '@angular/platform-server';
+import { appConfig } from './app.config';
+import { HttpClient } from '@angular/common/http';
+import { of } from 'rxjs';
 
-export const appConfigServer: ApplicationConfig = {
+const mockHttpClient = {
+  get: () => of([]),
+  post: () => of({})
+};
+
+export const serverConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes),          // Server-side routes
-    provideHttpClient(withFetch()), // HTTP client with fetch API for SSR
-    provideServerRendering()        // Enables SSR functionality
+    provideServerRendering(),
+    { provide: HttpClient, useValue: mockHttpClient }
   ]
 };
+
+export const config = mergeApplicationConfig(appConfig, serverConfig);

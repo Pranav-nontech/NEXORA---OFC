@@ -1,15 +1,34 @@
-<nav class="navbar is-primary" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item logo" routerLink="/">Nexora</a>
-    <button class="navbar-burger" [class.is-active]="isMenuOpen" (click)="toggleMenu()" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </button>
-  </div>
-  <div class="navbar-menu" [class.is-active]="isMenuOpen">
-    <div class="navbar-end">
-      <a class="navbar-item" *ngFor="let link of navLinks" [routerLink]="link.path">{{ link.label }}</a>
+<header>
+  <!-- Sidebar -->
+  <div class="sidebar" (mouseenter)="openSidebar()" (mouseleave)="closeSidebar()">
+    <div class="sidebar-toggle" (click)="toggleSidebar()">
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+    <div class="sidebar-menu" [ngClass]="{'open': isSidebarOpen}">
+      <div class="logo-container">
+        <img [src]="logoSrc" alt="Nexora Logo" height="20" (load)="onLogoLoad()" (error)="onLogoError($event)" />
+      </div>
+      <ul>
+        <li *ngFor="let link of navLinks" [hidden]="isCurrentRoute(link.path)">
+          <a [routerLink]="link.path" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: link.path === '' }">
+            {{ link.label }}
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
-</nav>
+  <!-- Sidebar -->
+
+  <!-- Top Navbar -->
+  <nav class="top-navbar">
+    <div class="navbar-content">
+      <form class="search-form">
+        <input type="search" placeholder="Search" autocomplete="off" />
+        <span class="search-icon"><i class="fas fa-search"></i></span>
+      </form>
+    </div>
+  </nav>
+  <!-- Top Navbar -->
+</header>

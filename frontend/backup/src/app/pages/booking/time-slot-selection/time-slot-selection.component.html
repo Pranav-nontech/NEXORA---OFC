@@ -1,0 +1,19 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title is-1">Find Your Perfect Time Slot</h1>
+    <p class="subtitle is-3">Effortlessly schedule your appointment with Nexora. Select a date and time below, and let's get started!</p>
+    <div class="columns is-multiline">
+      <div *ngFor="let slot of timeSlots" class="column is-3">
+        <button class="button is-fullwidth" 
+                [class.is-primary]="selectedTime === slot.time" 
+                [class.is-light]="!slot.available" 
+                (click)="selectTime(slot.time)" 
+                [disabled]="!slot.available">
+          {{ slot.time }} {{ slot.available ? '' : '(Booked)' }}
+        </button>
+      </div>
+    </div>
+    <button class="button is-primary mt-4">Continue to Booking Details</button>
+    <p class="content has-text-grey mt-2">By continuing, you agree to our <a routerLink="/terms" class="is-link">Terms of Service</a> and <a routerLink="/privacy" class="is-link">Privacy Policy</a>.</p>
+  </div>
+</section>

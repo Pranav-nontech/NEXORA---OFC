@@ -22,17 +22,19 @@ export class ServiceSelectionComponent implements OnInit {
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
+      console.log('Running on browser');
       this.bookingService.getServices().subscribe({
         next: (data) => this.services = data,
         error: (err) => console.error('Failed to fetch services:', err)
       });
     } else {
+      console.log('Running on server');
       this.services = [];
     }
   }
 
   selectService(id: string): void {
-    this.selectedService = this.services.find(s => s._id === id) || null;
+    this.selectedService = this.services.find(s => s.id === id) || null; // Adjusted to 'id' from '_id'
     if (this.selectedService) {
       this.bookingService.setService(this.selectedService);
       this.router.navigate(['/booking/staff-selection']);

@@ -6,29 +6,29 @@ import { CommonModule } from '@angular/common';
   selector: 'app-system-health',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './system-health.component.html',
+  templateUrl: './system-health.component.html'
 })
 export class SystemHealthComponent implements OnInit {
-  private platformId: Object;
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
-    this.platformId = platformId;
-  }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   systemStatus = {
     backend: 'Online',
     lastChecked: new Date()
   };
+
   healthData: any;
 
   checkSystemHealth(): void {
-    // Placeholder for health check
     this.systemStatus.lastChecked = new Date();
     console.log('System Health Checked:', this.systemStatus);
   }
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      console.log('Running on browser');
     } else {
-      this.healthData = {}; // Adjust property name
+      console.log('Running on server');
+      this.healthData = {};
     }
   }
 }

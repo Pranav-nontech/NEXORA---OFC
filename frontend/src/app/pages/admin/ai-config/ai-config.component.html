@@ -1,36 +1,36 @@
-<section class="section">
-  <div class="container">
-    <h1 class="title is-1">AI Assistant Configuration</h1>
-    <div class="box">
-      <form>
-        <div class="field">
-          <label class="label" for="personality">Personality:</label>
-          <div class="control">
-            <div class="select">
-              <select id="personality" [(ngModel)]="aiSettings.personality" name="personality">
+<main class="main">
+  <section id="ai-config" class="section">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>AI Assistant Configuration</h2>
+      </div>
+      <div class="php-email-form" data-aos="fade-up" data-aos-delay="100">
+        <form>
+          <div class="row gy-3">
+            <div class="col-md-12">
+              <label for="personality" class="form-label">Personality</label>
+              <select class="form-select" id="personality" [(ngModel)]="aiSettings.personality" name="personality">
                 <option value="friendly">Friendly</option>
                 <option value="professional">Professional</option>
                 <option value="casual">Casual</option>
               </select>
             </div>
+            <div class="col-md-12">
+              <label for="responseTime" class="form-label">Response Time (ms)</label>
+              <input type="number" class="form-control" id="responseTime" [(ngModel)]="aiSettings.responseTime" name="responseTime" min="100" max="2000">
+            </div>
+            <div class="col-md-12">
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="enabled" [(ngModel)]="aiSettings.enabled" name="enabled">
+                <label class="form-check-label" for="enabled">Enabled</label>
+              </div>
+            </div>
+            <div class="col-md-12 text-center">
+              <button type="button" class="btn btn-primary" (click)="saveSettings()">Save Settings</button>
+            </div>
           </div>
-        </div>
-        <div class="field">
-          <label class="label" for="responseTime">Response Time (ms):</label>
-          <div class="control">
-            <input class="input" id="responseTime" type="number" [(ngModel)]="aiSettings.responseTime" name="responseTime" min="100" max="2000">
-          </div>
-        </div>
-        <div class="field">
-          <label class="checkbox">
-            <input id="enabled" type="checkbox" [(ngModel)]="aiSettings.enabled" name="enabled">
-            Enabled
-          </label>
-        </div>
-        <div class="field">
-          <button class="button is-primary" type="button" (click)="saveSettings()">Save Settings</button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+</main>

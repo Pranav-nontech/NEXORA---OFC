@@ -6,16 +6,14 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [FormsModule, CommonModule], // Added for ngModel
-  templateUrl: './settings.component.html',
+  imports: [FormsModule, CommonModule],
+  templateUrl: './settings.component.html'
 })
 export class SettingsComponent implements OnInit {
-  private platformId: Object;
-  
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
-    this.platformId = platformId;
-  }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   settings: any = {};
+
   businessSettings = {
     name: 'Nexora Salon',
     hours: '9 AM - 5 PM',
@@ -25,11 +23,13 @@ export class SettingsComponent implements OnInit {
   saveSettings(): void {
     console.log('Settings Saved:', this.businessSettings);
   }
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      console.log('Running on browser');
     } else {
-      this.settings = {}; // Adjust property name
+      console.log('Running on server');
+      this.settings = {};
     }
   }
 }

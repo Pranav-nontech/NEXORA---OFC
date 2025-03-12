@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-time-slot-selection',
   standalone: true,
   imports: [RouterLink, CommonModule],
-  templateUrl: './time-slot-selection.component.html',
+  templateUrl: './time-slot-selection.component.html'
 })
 export class TimeSlotSelectionComponent implements OnInit {
   timeSlots = [
@@ -19,8 +19,11 @@ export class TimeSlotSelectionComponent implements OnInit {
 
   selectedTime: string | null = null;
 
-  constructor(private bookingService: BookingService, private router: Router,
-    @Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(
+    private bookingService: BookingService,
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   selectTime(time: string): void {
     const slot = this.timeSlots.find(s => s.time === time);
@@ -30,11 +33,18 @@ export class TimeSlotSelectionComponent implements OnInit {
       this.router.navigate(['/booking/customer-info']);
     }
   }
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      console.log('Running on browser');
+      // Fetch time slots from BookingService if replacing static data
+      this.bookingService.getTimeSlots(new Date().toISOString().split('T')[0]).subscribe({
+        next: (data) => this.timeSlots = data,
+        error: (err) => console.error('Failed to fetch time slots:', err)
+      });
     } else {
-      this.timeSlots = []; // Adjust property name
+      console.log('Running on server');
+      this.timeSlots = [];
     }
   }
 }

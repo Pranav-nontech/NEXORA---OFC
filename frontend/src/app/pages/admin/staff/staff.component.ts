@@ -6,13 +6,11 @@ import { CommonModule } from '@angular/common';
   selector: 'app-staff',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './staff.component.html',
+  templateUrl: './staff.component.html'
 })
 export class StaffComponent implements OnInit {
-  private platformId: Object;
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
-    this.platformId = platformId;
-  }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   staff = [
     { id: 1, name: 'Jane Doe', role: 'Stylist' }
   ];
@@ -21,11 +19,13 @@ export class StaffComponent implements OnInit {
     this.staff.push({ id: this.staff.length + 1, ...staff });
     console.log('Staff Added:', staff);
   }
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      console.log('Running on browser');
     } else {
-      this.staff = []; // Adjust property name
+      console.log('Running on server');
+      this.staff = [];
     }
   }
 }

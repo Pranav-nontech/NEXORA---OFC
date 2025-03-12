@@ -1,11 +1,15 @@
-<section class="section">
-  <div class="container">
-    <h1 class="title is-1">Reports</h1>
-    <div class="box">
-      <div class="content">
-        <p><strong>Bookings This Month:</strong> {{ reportData.bookingsThisMonth }}</p>
-        <p><strong>Revenue This Month:</strong> ${{ reportData.revenueThisMonth }}</p>
+<main class="main">
+  <section id="reports" class="section">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Reports</h2>
+      </div>
+      <div class="info-item" data-aos="fade-up" data-aos-delay="100">
+        <div class="content">
+          <p><strong>Bookings This Month:</strong> {{ reportData.bookingsThisMonth }}</p>
+          <p><strong>Revenue This Month:</strong> ${{ reportData.revenueThisMonth }}</p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+</main>

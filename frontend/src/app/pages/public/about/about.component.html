@@ -1,15 +1,26 @@
-<section class="section">
-  <div class="container">
-    <h1 class="title is-1">{{ headline }}</h1>
-    <p class="content is-size-5">{{ body }}</p>
-    <a routerLink="/signup" class="button is-primary is-medium">Start Your Free Trial</a>
-  </div>
-</section>
+<main class="main">
+  <!-- About Intro Section -->
+  <section id="about" class="about section">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>About Nexora</h2>
+        <p>{{ headline }}</p>
+      </div>
+      <p class="content text-center mb-5" data-aos="fade-up" data-aos-delay="100">{{ body }}</p>
+      <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+        <a routerLink="/signup" class="btn btn-primary">Start Your Free Trial</a>
+      </div>
+    </div>
+  </section>
 
-<section class="section has-background-light">
-  <div class="container">
-    <figure class="image is-4by3">
-      <img src="/assets/images/team-collaboration.png" alt="Nexora Team Working Collaboratively" class="team-image">
-    </figure>
-  </div>
-</section>
+  <!-- Team Image Section -->
+  <section class="section light-background">
+    <div class="container">
+      <div class="row justify-content-center" data-aos="zoom-out">
+        <div class="col-lg-8">
+          <img src="/assets/images/team-collaboration.png" class="img-fluid" alt="Nexora Team Working Collaboratively">
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

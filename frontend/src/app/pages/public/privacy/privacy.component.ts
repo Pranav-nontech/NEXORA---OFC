@@ -6,17 +6,15 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-privacy',
   standalone: true,
-  imports: [RouterLink, CommonModule], // For Cookie Policy link
-  templateUrl: './privacy.component.html',
+  imports: [RouterLink, CommonModule],
+  templateUrl: './privacy.component.html' // No styleUrls; styles from src/styles.css via angular.json
 })
 export class PrivacyComponent implements OnInit {
-  private platformId: Object;
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     /**
      * Stores the platform ID for isPlatformBrowser() check.
      * @see {@link https://angular.io/api/common/isPlatformBrowser}
      */
-    this.platformId = platformId;
   }
 
   /**
@@ -64,12 +62,15 @@ export class PrivacyComponent implements OnInit {
     }
   ];
 
-  lastUpdated = 'March 3, 2025'; // Example date; adjust as needed
+  lastUpdated = 'March 3, 2025';
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      // Client-side logic (e.g., fetch data if needed)
+      console.log('Running on browser');
     } else {
-       // Adjust property name
+      // Server-side fallback (SSR)
+      console.log('Running on server');
     }
   }
 }

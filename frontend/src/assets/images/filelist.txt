@@ -1,4 +1,0 @@
-avatars
-bg.jpg
-filelist.txt
-logo.png

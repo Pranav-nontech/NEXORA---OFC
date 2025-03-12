@@ -6,15 +6,12 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-terms',
   standalone: true,
-  imports: [RouterLink, CommonModule], // For Privacy Policy link
-  templateUrl: './terms.component.html',
+  imports: [RouterLink, CommonModule],
+  templateUrl: './terms.component.html' // No styleUrls; styles from src/styles.css via angular.json
 })
 export class TermsComponent implements OnInit {
-  private platformId: Object;
-  
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
-    this.platformId = platformId;
-  }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   sections = [
     {
       title: 'Acceptance of Terms',
@@ -46,7 +43,7 @@ export class TermsComponent implements OnInit {
     },
     {
       title: 'Governing Law',
-      content: 'These terms and conditions are governed by and construed in accordance with the laws of India, and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.' // Placeholder; adjust jurisdiction
+      content: 'These terms and conditions are governed by and construed in accordance with the laws of India, and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.'
     },
     {
       title: 'Contact Us',
@@ -54,12 +51,15 @@ export class TermsComponent implements OnInit {
     }
   ];
 
-  lastUpdated = 'March 3, 2025'; // Example date; adjust as needed
+  lastUpdated = 'March 3, 2025';
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      // Client-side logic (e.g., fetch data if needed)
+      console.log('Running on browser');
     } else {
-       // Adjust property name
+      // Server-side fallback (SSR)
+      console.log('Running on server');
     }
   }
 }

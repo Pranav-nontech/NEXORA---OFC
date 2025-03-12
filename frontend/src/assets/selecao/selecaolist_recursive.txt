@@ -1,0 +1,244 @@
+ Volume in drive C is Windows-SSD
+ Volume Serial Number is D8A3-1025
+
+ Directory of C:\Nexora\frontend\src\assets\Selecao-1.0.0
+
+06-03-2025  21:06    <DIR>          .
+06-03-2025  19:57    <DIR>          ..
+06-03-2025  20:06    <DIR>          Selecao-1.0.0
+06-03-2025  21:06               173 selecaolist_recursive.txt
+               1 File(s)            173 bytes
+
+ Directory of C:\Nexora\frontend\src\assets\Selecao-1.0.0\Selecao-1.0.0
+
+06-03-2025  20:06    <DIR>          .
+06-03-2025  21:06    <DIR>          ..
+06-03-2025  19:56             6,148 .DS_Store
+06-03-2025  21:04    <DIR>          assets
+06-03-2025  19:56            23,131 blog-details.html
+06-03-2025  19:56            12,812 blog.html
+06-03-2025  19:56    <DIR>          forms
+06-03-2025  19:56            53,211 index.html
+06-03-2025  19:56            10,850 portfolio-details.html
+06-03-2025  19:56               206 Readme.txt
+06-03-2025  19:56            10,144 service-details.html
+06-03-2025  19:56             6,732 starter-page.html
+               8 File(s)        123,234 bytes
+
+ Directory of C:\Nexora\frontend\src\assets\Selecao-1.0.0\Selecao-1.0.0\assets
+
+06-03-2025  21:04    <DIR>          .
+06-03-2025  20:06    <DIR>          ..
+06-03-2025  19:56             6,148 .DS_Store
+06-03-2025  19:56    <DIR>          css
+06-03-2025  19:56    <DIR>          js
+06-03-2025  19:56    <DIR>          scss
+06-03-2025  19:56    <DIR>          vendor
+               1 File(s)          6,148 bytes
+
+ Directory of C:\Nexora\frontend\src\assets\Selecao-1.0.0\Selecao-1.0.0\assets\css
+
+06-03-2025  19:56    <DIR>          .
+06-03-2025  21:04    <DIR>          ..
+06-03-2025  19:56            54,748 main.css
+               1 File(s)         54,748 bytes
+
+ Directory of C:\Nexora\frontend\src\assets\Selecao-1.0.0\Selecao-1.0.0\assets\js
+
+06-03-2025  19:56    <DIR>          .
+06-03-2025  21:04    <DIR>          ..
+06-03-2025  19:56             5,970 main.js
+               1 File(s)          5,970 bytes
+
+ Directory of C:\Nexora\frontend\src\assets\Selecao-1.0.0\Selecao-1.0.0\assets\scss
+
+06-03-2025  19:56    <DIR>          .
+06-03-2025  21:04    <DIR>          ..
+06-03-2025  19:56               136 Readme.txt
+               1 File(s)            136 bytes
+
+ Directory of C:\Nexora\frontend\src\assets\Selecao-1.0.0\Selecao-1.0.0\assets\vendor
+
+06-03-2025  19:56    <DIR>          .
+06-03-2025  21:04    <DIR>          ..
+06-03-2025  19:56    <DIR>          animate.css
+06-03-2025  19:56    <DIR>          aos
+06-03-2025  19:56    <DIR>          bootstrap
+06-03-2025  19:56    <DIR>          bootstrap-icons
+06-03-2025  19:56    <DIR>          glightbox
+06-03-2025  19:56    <DIR>          imagesloaded
+06-03-2025  19:56    <DIR>          isotope-layout
+06-03-2025  19:56    <DIR>          php-email-form
+06-03-2025  19:56    <DIR>          swiper
+               0 File(s)              0 bytes
+
+ Directory of C:\Nexora\frontend\src\assets\Selecao-1.0.0\Selecao-1.0.0\assets\vendor\animate.css
+
+06-03-2025  19:56    <DIR>          .
+06-03-2025  19:56    <DIR>          ..
+06-03-2025  19:56            70,607 animate.compat.css
+06-03-2025  19:56            95,374 animate.css
+06-03-2025  19:56            71,750 animate.min.css
+               3 File(s)        237,731 bytes
+
+ Directory of C:\Nexora\frontend\src\assets\Selecao-1.0.0\Selecao-1.0.0\assets\vendor\aos
+
+06-03-2025  19:56    <DIR>          .
+06-03-2025  19:56    <DIR>          ..
+06-03-2025  19:56            19,941 aos.cjs.js
+06-03-2025  19:56            28,765 aos.css
+06-03-2025  19:56            19,768 aos.esm.js
+06-03-2025  19:56            13,800 aos.js
+06-03-2025  19:56            56,459 aos.js.map
+               5 File(s)        138,733 bytes
+
+ Directory of C:\Nexora\frontend\src\assets\Selecao-1.0.0\Selecao-1.0.0\assets\vendor\bootstrap
+
+06-03-2025  19:56    <DIR>          .
+06-03-2025  19:56    <DIR>          ..
+06-03-2025  19:56    <DIR>          css
+06-03-2025  19:56    <DIR>          js
+               0 File(s)              0 bytes
+
+ Directory of C:\Nexora\frontend\src\assets\Selecao-1.0.0\Selecao-1.0.0\assets\vendor\bootstrap\css
+
+06-03-2025  19:56    <DIR>          .
+06-03-2025  19:56    <DIR>          ..
+06-03-2025  19:56            70,329 bootstrap-grid.css
+06-03-2025  19:56           203,221 bootstrap-grid.css.map
+06-03-2025  19:56            51,795 bootstrap-grid.min.css
+06-03-2025  19:56           115,986 bootstrap-grid.min.css.map
+06-03-2025  19:56            70,403 bootstrap-grid.rtl.css
+06-03-2025  19:56           203,225 bootstrap-grid.rtl.css.map
+06-03-2025  19:56            51,870 bootstrap-grid.rtl.min.css
+06-03-2025  19:56           116,063 bootstrap-grid.rtl.min.css.map
+06-03-2025  19:56            12,065 bootstrap-reboot.css
+06-03-2025  19:56           129,371 bootstrap-reboot.css.map
+06-03-2025  19:56            10,126 bootstrap-reboot.min.css
+06-03-2025  19:56            51,369 bootstrap-reboot.min.css.map
+06-03-2025  19:56            12,058 bootstrap-reboot.rtl.css
+06-03-2025  19:56           129,386 bootstrap-reboot.rtl.css.map
+06-03-2025  19:56            10,198 bootstrap-reboot.rtl.min.css
+06-03-2025  19:56            63,943 bootstrap-reboot.rtl.min.css.map
+06-03-2025  19:56           107,823 bootstrap-utilities.css
+06-03-2025  19:56           267,535 bootstrap-utilities.css.map
+06-03-2025  19:56            85,352 bootstrap-utilities.min.css
+06-03-2025  19:56           180,381 bootstrap-utilities.min.css.map
+06-03-2025  19:56           107,691 bootstrap-utilities.rtl.css
+06-03-2025  19:56           267,476 bootstrap-utilities.rtl.css.map
+06-03-2025  19:56            85,281 bootstrap-utilities.rtl.min.css
+06-03-2025  19:56           180,217 bootstrap-utilities.rtl.min.css.map
+06-03-2025  19:56           281,046 bootstrap.css
+06-03-2025  19:56           679,755 bootstrap.css.map
+06-03-2025  19:56           232,803 bootstrap.min.css
+06-03-2025  19:56           589,892 bootstrap.min.css.map
+06-03-2025  19:56           280,259 bootstrap.rtl.css
+06-03-2025  19:56           679,615 bootstrap.rtl.css.map
+06-03-2025  19:56           232,911 bootstrap.rtl.min.css
+06-03-2025  19:56           589,087 bootstrap.rtl.min.css.map
+06-03-2025  19:56                 4 prb.txt
+              33 File(s)      6,148,536 bytes
+
+ Directory of C:\Nexora\frontend\src\assets\Selecao-1.0.0\Selecao-1.0.0\assets\vendor\bootstrap\js
+
+06-03-2025  19:56    <DIR>          .
+06-03-2025  19:56    <DIR>          ..
+06-03-2025  19:56           207,819 bootstrap.bundle.js
+06-03-2025  19:56           444,579 bootstrap.bundle.js.map
+06-03-2025  19:56            80,721 bootstrap.bundle.min.js
+06-03-2025  19:56           332,090 bootstrap.bundle.min.js.map
+06-03-2025  19:56           135,829 bootstrap.esm.js
+06-03-2025  19:56           305,438 bootstrap.esm.js.map
+06-03-2025  19:56            73,935 bootstrap.esm.min.js
+06-03-2025  19:56           222,455 bootstrap.esm.min.js.map
+06-03-2025  19:56           145,401 bootstrap.js
+06-03-2025  19:56           306,606 bootstrap.js.map
+06-03-2025  19:56            60,635 bootstrap.min.js
+06-03-2025  19:56           220,561 bootstrap.min.js.map
+              12 File(s)      2,536,069 bytes
+
+ Directory of C:\Nexora\frontend\src\assets\Selecao-1.0.0\Selecao-1.0.0\assets\vendor\bootstrap-icons
+
+06-03-2025  19:56    <DIR>          .
+06-03-2025  19:56    <DIR>          ..
+06-03-2025  19:56            98,255 bootstrap-icons.css
+06-03-2025  19:56            52,358 bootstrap-icons.json
+06-03-2025  19:56            85,875 bootstrap-icons.min.css
+06-03-2025  19:56            57,755 bootstrap-icons.scss
+06-03-2025  19:56    <DIR>          fonts
+               4 File(s)        294,243 bytes
+
+ Directory of C:\Nexora\frontend\src\assets\Selecao-1.0.0\Selecao-1.0.0\assets\vendor\bootstrap-icons\fonts
+
+06-03-2025  19:56    <DIR>          .
+06-03-2025  19:56    <DIR>          ..
+06-03-2025  19:56           176,032 bootstrap-icons.woff
+06-03-2025  19:56           130,396 bootstrap-icons.woff2
+               2 File(s)        306,428 bytes
+
+ Directory of C:\Nexora\frontend\src\assets\Selecao-1.0.0\Selecao-1.0.0\assets\vendor\glightbox
+
+06-03-2025  19:56    <DIR>          .
+06-03-2025  19:56    <DIR>          ..
+06-03-2025  19:56    <DIR>          css
+06-03-2025  19:56    <DIR>          js
+               0 File(s)              0 bytes
+
+ Directory of C:\Nexora\frontend\src\assets\Selecao-1.0.0\Selecao-1.0.0\assets\vendor\glightbox\css
+
+06-03-2025  19:56    <DIR>          .
+06-03-2025  19:56    <DIR>          ..
+06-03-2025  19:56            17,372 glightbox.css
+06-03-2025  19:56            13,749 glightbox.min.css
+               2 File(s)         31,121 bytes
+
+ Directory of C:\Nexora\frontend\src\assets\Selecao-1.0.0\Selecao-1.0.0\assets\vendor\glightbox\js
+
+06-03-2025  19:56    <DIR>          .
+06-03-2025  19:56    <DIR>          ..
+06-03-2025  19:56           109,600 glightbox.js
+06-03-2025  19:56            56,300 glightbox.min.js
+               2 File(s)        165,900 bytes
+
+ Directory of C:\Nexora\frontend\src\assets\Selecao-1.0.0\Selecao-1.0.0\assets\vendor\imagesloaded
+
+06-03-2025  19:56    <DIR>          .
+06-03-2025  19:56    <DIR>          ..
+06-03-2025  19:56             5,485 imagesloaded.pkgd.min.js
+               1 File(s)          5,485 bytes
+
+ Directory of C:\Nexora\frontend\src\assets\Selecao-1.0.0\Selecao-1.0.0\assets\vendor\isotope-layout
+
+06-03-2025  19:56    <DIR>          .
+06-03-2025  19:56    <DIR>          ..
+06-03-2025  19:56            91,398 isotope.pkgd.js
+06-03-2025  19:56            35,445 isotope.pkgd.min.js
+               2 File(s)        126,843 bytes
+
+ Directory of C:\Nexora\frontend\src\assets\Selecao-1.0.0\Selecao-1.0.0\assets\vendor\php-email-form
+
+06-03-2025  19:56    <DIR>          .
+06-03-2025  19:56    <DIR>          ..
+06-03-2025  19:56             2,734 validate.js
+               1 File(s)          2,734 bytes
+
+ Directory of C:\Nexora\frontend\src\assets\Selecao-1.0.0\Selecao-1.0.0\assets\vendor\swiper
+
+06-03-2025  19:56    <DIR>          .
+06-03-2025  19:56    <DIR>          ..
+06-03-2025  19:56            18,432 swiper-bundle.min.css
+06-03-2025  19:56           151,102 swiper-bundle.min.js
+06-03-2025  19:56           204,569 swiper-bundle.min.js.map
+               3 File(s)        374,103 bytes
+
+ Directory of C:\Nexora\frontend\src\assets\Selecao-1.0.0\Selecao-1.0.0\forms
+
+06-03-2025  19:56    <DIR>          .
+06-03-2025  20:06    <DIR>          ..
+06-03-2025  19:56             1,341 contact.php
+06-03-2025  19:56               166 Readme.txt
+               2 File(s)          1,507 bytes
+
+     Total Files Listed:
+              85 File(s)     10,559,842 bytes
+              65 Dir(s)  281,093,550,080 bytes free

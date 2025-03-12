@@ -1,44 +1,44 @@
-<section class="section">
-  <div class="container">
-    <h1 class="title is-1">Branding Settings</h1>
-    <div class="columns">
-      <div class="column is-6">
-        <div class="box">
-          <form>
-            <div class="field">
-              <label class="label" for="logoUrl">Logo URL:</label>
-              <div class="control">
-                <input class="input" id="logoUrl" type="text" [(ngModel)]="branding.logoUrl" name="logoUrl" placeholder="https://example.com/logo.png">
-              </div>
-            </div>
-            <div class="field">
-              <label class="label" for="primaryColor">Primary Color:</label>
-              <div class="control">
-                <input class="input" id="primaryColor" type="color" [(ngModel)]="branding.primaryColor" name="primaryColor">
-              </div>
-            </div>
-            <div class="field">
-              <label class="label" for="secondaryColor">Secondary Color:</label>
-              <div class="control">
-                <input class="input" id="secondaryColor" type="color" [(ngModel)]="branding.secondaryColor" name="secondaryColor">
-              </div>
-            </div>
-            <div class="field">
-              <button class="button is-primary" type="button" (click)="updateBranding()">Update Branding</button>
-            </div>
-          </form>
-        </div>
+<main class="main">
+  <section id="branding" class="section">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Branding Settings</h2>
       </div>
-      <div class="column is-6">
-        <div class="box">
-          <h2 class="title is-3">Preview</h2>
-          <figure class="image" *ngIf="branding.logoUrl">
-            <img [src]="branding.logoUrl" alt="Logo Preview">
-          </figure>
-          <div class="color-preview" [style.backgroundColor]="branding.primaryColor">Primary</div>
-          <div class="color-preview" [style.backgroundColor]="branding.secondaryColor">Secondary</div>
+      <div class="row gy-4">
+        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="php-email-form">
+            <form>
+              <div class="row gy-3">
+                <div class="col-md-12">
+                  <label for="logoUrl" class="form-label">Logo URL</label>
+                  <input type="text" class="form-control" id="logoUrl" [(ngModel)]="branding.logoUrl" name="logoUrl" placeholder="https://example.com/logo.png">
+                </div>
+                <div class="col-md-12">
+                  <label for="primaryColor" class="form-label">Primary Color</label>
+                  <input type="color" class="form-control" id="primaryColor" [(ngModel)]="branding.primaryColor" name="primaryColor">
+                </div>
+                <div class="col-md-12">
+                  <label for="secondaryColor" class="form-label">Secondary Color</label>
+                  <input type="color" class="form-control" id="secondaryColor" [(ngModel)]="branding.secondaryColor" name="secondaryColor">
+                </div>
+                <div class="col-md-12 text-center">
+                  <button type="button" class="btn btn-primary" (click)="updateBranding()">Update Branding</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="info-item">
+            <h3>Preview</h3>
+            <figure class="mb-3" *ngIf="branding.logoUrl">
+              <img [src]="branding.logoUrl" alt="Logo Preview" class="img-fluid">
+            </figure>
+            <div class="color-preview mb-2" [style.backgroundColor]="branding.primaryColor">Primary</div>
+            <div class="color-preview" [style.backgroundColor]="branding.secondaryColor">Secondary</div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+</main>

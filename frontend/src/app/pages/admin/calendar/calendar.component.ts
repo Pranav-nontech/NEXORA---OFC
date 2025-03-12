@@ -9,11 +9,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: './calendar.component.html'
 })
 export class CalendarComponent implements OnInit {
-  private platformId: Object;
-  
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
-    this.platformId = platformId;
-  };
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   events = [
     { title: 'Sample Event', date: new Date(), duration: 60 }
   ];
@@ -21,11 +18,13 @@ export class CalendarComponent implements OnInit {
   addEvent(title: string, date: string, duration: string): void {
     this.events.push({ title, date: new Date(date), duration: +duration });
   }
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      console.log('Running on browser');
     } else {
-      this.events = []; // Adjust property name
+      console.log('Running on server');
+      this.events = [];
     }
   }
 }

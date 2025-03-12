@@ -6,15 +6,12 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-notifications',
   standalone: true,
-  imports: [FormsModule, CommonModule], // Added for ngModel
-  templateUrl: './notifications.component.html',
+  imports: [FormsModule, CommonModule],
+  templateUrl: './notifications.component.html'
 })
 export class NotificationsComponent implements OnInit {
-  private platformId: Object;
-  
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
-    this.platformId = platformId;
-  }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   notifications: any[] = [];
 
   notificationSettings = {
@@ -26,11 +23,13 @@ export class NotificationsComponent implements OnInit {
   saveNotificationSettings(): void {
     console.log('Notification Settings Saved:', this.notificationSettings);
   }
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      console.log('Running on browser');
     } else {
-      this.notifications = []; // Adjust property name
+      console.log('Running on server');
+      this.notifications = [];
     }
   }
 }

@@ -6,13 +6,11 @@ import { CommonModule } from '@angular/common';
   selector: 'app-services',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './services.component.html',
+  templateUrl: './services.component.html'
 })
 export class ServicesComponent implements OnInit {
-  private platformId: Object;
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
-    this.platformId = platformId;
-  }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   services = [
     { id: 1, name: 'Haircut', duration: 30, price: 25 }
   ];
@@ -21,11 +19,13 @@ export class ServicesComponent implements OnInit {
     this.services.push({ id: this.services.length + 1, ...service });
     console.log('Service Added:', service);
   }
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      console.log('Running on browser');
     } else {
-      this.services = []; // Adjust property name
+      console.log('Running on server');
+      this.services = [];
     }
   }
 }

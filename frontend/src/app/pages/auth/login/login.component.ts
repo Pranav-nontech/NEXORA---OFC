@@ -7,15 +7,12 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, RouterLink, CommonModule], // FormsModule for ngModel
-  templateUrl: './login.component.html',
+  imports: [FormsModule, RouterLink, CommonModule],
+  templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit {
-  private platformId: Object;
-  
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
-    this.platformId = platformId;
-  }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   loginData = {
     email: '',
     password: ''
@@ -31,11 +28,13 @@ export class LoginComponent implements OnInit {
       this.loginError = 'Please enter both email and password.';
     }
   }
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      console.log('Running on browser');
     } else {
-      this.loginData = { email: '', password: '' }; // Adjust property name
+      console.log('Running on server');
+      this.loginData = { email: '', password: '' };
     }
   }
 }

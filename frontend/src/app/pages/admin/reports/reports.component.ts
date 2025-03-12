@@ -6,25 +6,24 @@ import { CommonModule } from '@angular/common';
   selector: 'app-reports',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './reports.component.html',
+  templateUrl: './reports.component.html'
 })
 export class ReportsComponent implements OnInit {
-  private platformId: Object;
-  
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
-    this.platformId = platformId;
-  }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   reportData = {
     bookingsThisMonth: 20,
     revenueThisMonth: 2000
   };
-  
+
   reports: any[] = [];
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      console.log('Running on browser');
     } else {
-      this.reports = []; // Adjust property name
+      console.log('Running on server');
+      this.reports = [];
     }
   }
 }

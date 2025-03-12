@@ -1,36 +1,36 @@
-<section class="section">
-  <div class="container">
-    <h1 class="title is-1">Services Management</h1>
-    <div class="box">
-      <ul class="list">
-        <li class="list-item" *ngFor="let service of services">
-          {{ service.name }} - {{ service.duration }} mins - ${{ service.price }}
-        </li>
-      </ul>
+<main class="main">
+  <section id="services" class="section">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Services Management</h2>
+      </div>
+      <div class="info-item" data-aos="fade-up" data-aos-delay="100">
+        <ul class="list-unstyled">
+          <li *ngFor="let service of services">
+            {{ service.name }} - {{ service.duration }} mins - ${{ service.price }}
+          </li>
+        </ul>
+      </div>
+      <div class="php-email-form mt-4" data-aos="fade-up" data-aos-delay="200">
+        <h3>Add Service</h3>
+        <div class="row gy-3">
+          <div class="col-md-12">
+            <label for="name" class="form-label">Service Name</label>
+            <input type="text" class="form-control" #name placeholder="Service Name">
+          </div>
+          <div class="col-md-12">
+            <label for="duration" class="form-label">Duration (mins)</label>
+            <input type="number" class="form-control" #duration placeholder="Duration (mins)" min="15">
+          </div>
+          <div class="col-md-12">
+            <label for="price" class="form-label">Price ($)</label>
+            <input type="number" class="form-control" #price placeholder="Price ($)" min="0">
+          </div>
+          <div class="col-md-12 text-center">
+            <button type="button" class="btn btn-primary" (click)="addService({ name: name.value, duration: +duration.value, price: +price.value })">Add</button>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="box">
-      <h2 class="title is-3">Add Service</h2>
-      <div class="field">
-        <label class="label" for="name">Service Name:</label>
-        <div class="control">
-          <input class="input" type="text" #name placeholder="Service Name">
-        </div>
-      </div>
-      <div class="field">
-        <label class="label" for="duration">Duration (mins):</label>
-        <div class="control">
-          <input class="input" type="number" #duration placeholder="Duration (mins)" min="15">
-        </div>
-      </div>
-      <div class="field">
-        <label class="label" for="price">Price ($):</label>
-        <div class="control">
-          <input class="input" type="number" #price placeholder="Price ($)" min="0">
-        </div>
-      </div>
-      <div class="field">
-        <button class="button is-primary" (click)="addService({ name: name.value, duration: +duration.value, price: +price.value })">Add</button>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
+</main>

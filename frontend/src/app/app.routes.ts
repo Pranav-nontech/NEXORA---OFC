@@ -36,6 +36,7 @@ import { SystemHealthComponent } from './pages/admin/system-health/system-health
 export const routes: Routes = [
   // Public Routes
   { path: '', component: HomeComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'features', component: FeaturesComponent },
@@ -76,5 +77,5 @@ export const routes: Routes = [
   { path: 'admin/system-health', component: SystemHealthComponent },
 
   // Wildcard
-  { path: '**', redirectTo: '', pathMatch: 'full' }
+  { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];

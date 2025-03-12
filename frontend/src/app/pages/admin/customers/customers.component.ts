@@ -6,14 +6,11 @@ import { CommonModule } from '@angular/common';
   selector: 'app-customers',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './customers.component.html',
+  templateUrl: './customers.component.html'
 })
 export class CustomersComponent implements OnInit {
-  private platformId: Object;
-  
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
-    this.platformId = platformId;
-  }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   customers = [
     { id: 1, name: 'John Doe', email: 'john@example.com' }
   ];
@@ -22,11 +19,13 @@ export class CustomersComponent implements OnInit {
     this.customers = this.customers.filter(c => c.id !== id);
     console.log('Customer Deleted:', id);
   }
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      console.log('Running on browser');
     } else {
-      this.customers = []; // Adjust property name
+      console.log('Running on server');
+      this.customers = [];
     }
   }
 }

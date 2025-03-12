@@ -6,21 +6,22 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [RouterLink, CommonModule], // For CTA link
-  templateUrl: './about.component.html',
+  imports: [RouterLink, CommonModule],
+  templateUrl: './about.component.html' // No styleUrls; styles from src/styles.css via angular.json
 })
 export class AboutComponent implements OnInit {
-  private platformId: Object;
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
-    this.platformId = platformId;
-  }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   headline = 'Discover the Nexora Difference';
   body = "Nexora empowers businesses like yours with a seamless, white-labeled booking experience. We're dedicated to providing a user-friendly platform that enhances customer satisfaction and streamlines your operations.";
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      // Client-side logic (e.g., fetch data if needed)
+      console.log('Running on browser');
     } else {
-       // Adjust property name
+      // Server-side fallback (SSR)
+      console.log('Running on server');
     }
   }
 }

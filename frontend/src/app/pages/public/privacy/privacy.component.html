@@ -1,17 +1,30 @@
-<section class="section">
-  <div class="container">
-    <h1 class="title is-1">Your Privacy Matters at Nexora</h1>
-    <p class="content is-size-5">{{ intro }}</p>
-
-    <div class="box">
-      <div *ngFor="let section of sections">
-        <h2 class="title is-3">{{ section.title }}</h2>
-        <p class="content">{{ section.content }}
-          <a *ngIf="section.title === '7. Cookies and Tracking Technologies'" routerLink="/cookie" class="is-link">Cookie Policy</a>
-        </p>
+<main class="main">
+  <section id="privacy" class="section">
+    <div class="container">
+      <!-- Page Title -->
+      <div class="section-title" data-aos="fade-up">
+        <h2>Privacy Policy</h2>
+        <p>Your Privacy Matters at Nexora</p>
       </div>
-    </div>
 
-    <p class="has-text-grey">Last Updated: {{ lastUpdated }}</p>
-  </div>
-</section>
+      <!-- Intro -->
+      <p class="content mb-5" data-aos="fade-up" data-aos-delay="100">{{ intro }}</p>
+
+      <!-- Privacy Sections -->
+      <div class="row gy-4">
+        <div *ngFor="let section of sections" class="col-12" data-aos="fade-up" data-aos-delay="200">
+          <div class="info-item">
+            <h3>{{ section.title }}</h3>
+            <p class="content">
+              {{ section.content }}
+              <a *ngIf="section.title === '7. Cookies and Tracking Technologies'" routerLink="/cookie" class="text-primary">Cookie Policy</a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Last Updated -->
+      <p class="text-muted mt-4" data-aos="fade-up" data-aos-delay="300">Last Updated: {{ lastUpdated }}</p>
+    </div>
+  </section>
+</main>

@@ -6,14 +6,11 @@ import { CommonModule } from '@angular/common';
   selector: 'app-dashboard',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './dashboard.component.html',
+  templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
-  private platformId: Object;
-  
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
-    this.platformId = platformId;
-  }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   dashboardData: any = {};
 
   stats = {
@@ -21,11 +18,13 @@ export class DashboardComponent implements OnInit {
     totalCustomers: 50,
     revenue: 1000
   };
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      console.log('Running on browser');
     } else {
-      this.dashboardData = {}; // Adjust property name
+      console.log('Running on server');
+      this.dashboardData = {};
     }
   }
 }

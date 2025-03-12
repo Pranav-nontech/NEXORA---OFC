@@ -1,18 +1,22 @@
-<section class="section">
-  <div class="container">
-    <h1 class="title is-1">Integrations</h1>
-    <div class="box">
-      <ul class="list">
-        <li class="list-item" *ngFor="let integration of integrations">
-          {{ integration.name }} - 
-          <span class="tag" [class.is-success]="integration.connected" [class.is-warning]="!integration.connected">
-            {{ integration.connected ? 'Connected' : 'Not Connected' }}
-          </span>
-          <button class="button is-primary is-small" (click)="connectIntegration(integration.name)" [disabled]="integration.connected">
-            {{ integration.connected ? 'Connected' : 'Connect' }}
-          </button>
-        </li>
-      </ul>
+<main class="main">
+  <section id="integrations" class="section">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Integrations</h2>
+      </div>
+      <div class="info-item" data-aos="fade-up" data-aos-delay="100">
+        <ul class="list-unstyled">
+          <li *ngFor="let integration of integrations" class="d-flex align-items-center mb-2">
+            {{ integration.name }} - 
+            <span class="badge ms-2" [ngClass]="{'bg-success': integration.connected, 'bg-warning': !integration.connected}">
+              {{ integration.connected ? 'Connected' : 'Not Connected' }}
+            </span>
+            <button class="btn btn-primary btn-sm ms-3" (click)="connectIntegration(integration.name)" [disabled]="integration.connected">
+              {{ integration.connected ? 'Connected' : 'Connect' }}
+            </button>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+</main>

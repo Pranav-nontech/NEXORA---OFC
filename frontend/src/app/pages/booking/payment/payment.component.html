@@ -1,23 +1,35 @@
-<section class="section">
-  <div class="container">
-    <h1 class="title is-1">Complete Your Booking with Confidence</h1>
-    <p class="subtitle is-3">Your payment is processed securely through our trusted payment gateway. We accept Visa, Mastercard, American Express, and PayPal. Your financial information is encrypted and protected.</p>
-    <div class="box">
-      <p class="title is-4"><strong>Amount:</strong> {{ paymentDetails.currency }} {{ paymentDetails.amount }}</p>
-      <form>
-        <div class="field">
-          <label class="label" for="cardNumber">Card Number:</label>
-          <div class="control">
-            <input class="input" id="cardNumber" type="text" #cardNumber placeholder="XXXX-XXXX-XXXX-XXXX" required>
+<main class="main">
+  <section id="payment" class="section">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Complete Your Booking</h2>
+        <p>Secure Payment Processing</p>
+      </div>
+      <p class="content text-center mb-5" data-aos="fade-up" data-aos-delay="100">
+        Your payment is processed securely through our trusted payment gateway. We accept Visa, Mastercard, American Express, and PayPal. Your financial information is encrypted and protected.
+      </p>
+
+      <div class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+        <p class="fw-bold mb-4"><strong>Amount:</strong> {{ paymentDetails.currency }} {{ paymentDetails.amount }}</p>
+        <form>
+          <div class="row gy-3">
+            <div class="col-md-12">
+              <label for="cardNumber" class="form-label">Card Number</label>
+              <input type="text" class="form-control" id="cardNumber" #cardNumber placeholder="XXXX-XXXX-XXXX-XXXX" required>
+            </div>
+            <div class="col-md-12 text-center">
+              <button type="button" class="btn btn-primary me-2" (click)="processPayment(cardNumber.value)">Pay Now</button>
+              <button type="button" class="btn btn-outline-primary">Cancel & Return to Booking</button>
+            </div>
+            <div class="col-md-12" *ngIf="paymentError">
+              <p class="text-danger">{{ paymentError }}</p>
+            </div>
           </div>
-        </div>
-        <div class="buttons">
-          <button class="button is-primary" (click)="processPayment(cardNumber.value)">Pay Now</button>
-          <button class="button is-link">Cancel & Return to Booking</button>
-        </div>
-        <p class="has-text-danger" *ngIf="paymentError">{{ paymentError }}</p>
-      </form>
-      <p class="content has-text-grey">Secured by SSL | <a routerLink="/privacy">Privacy Policy</a></p>
+        </form>
+        <p class="text-muted mt-3">
+          Secured by SSL | <a routerLink="/privacy" class="text-primary">Privacy Policy</a>
+        </p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+</main>

@@ -6,14 +6,12 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-faq',
   standalone: true,
-  imports: [RouterLink, CommonModule], // For link
-  templateUrl: './faq.component.html',
+  imports: [RouterLink, CommonModule],
+  templateUrl: './faq.component.html' // No styleUrls; styles from src/styles.css via angular.json
 })
 export class FaqComponent implements OnInit {
-  private platformId: Object;
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
-    this.platformId = platformId;
-  }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   intro = "Got questions? We've got answers! Find quick solutions to common inquiries about using Nexora for your booking needs. If you can't find what you're looking for, please don't hesitate to contact us.";
 
   faqs = [
@@ -26,11 +24,14 @@ export class FaqComponent implements OnInit {
     { question: 'What are cookies and how do you use them?', answer: "This website uses cookies to enhance your browsing experience and provide personalized services. For details on what cookies we use and how they work, please see our Cookie Policy.", expanded: false },
     { question: 'How do I contact support?', answer: "You can reach our support team by visiting our Contact Us page.", expanded: false }
   ];
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      // Client-side logic (e.g., fetch data if needed)
+      console.log('Running on browser');
     } else {
-       // Adjust property name
+      // Server-side fallback (SSR)
+      console.log('Running on server');
     }
   }
 }

@@ -1,118 +1,164 @@
-.sidebar {
+.header {
+  --background-color: #4b4949; /* Override default transparent background */
+  --heading-color: #ffffff; /* White text for contrast */
+  background-color: var(--background-color); /* Use custom variable */
+  padding: 15px 0; /* Reduced padding to fit 90px total height */
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   position: fixed;
+  top: 0;
   left: 0;
-  top: 0;
-  height: 100%;
-  width: 50px; /* Collapsed width */
-  background-color: #661bb6;
-  transition: width 0.3s ease;
+  width: 100%;
   z-index: 1000;
+  opacity: 0.910;
+  height: 90px; /* Explicit height */
+  box-sizing: border-box; /* Ensure padding is included in height */
 }
 
-.sidebar-toggle {
+.header.scrolled {
+  --background-color: rgba(42, 44, 57, 0.9); /* Match styles.css scrolled state */
+  box-shadow: 0px 0 18px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
+}
+
+.logo {
+  margin-right: 20px; /* Space between logo and links */
+}
+
+.logo-wrapper {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: column; /* Stack text vertically */
   align-items: center;
-  height: 50px;
-  cursor: pointer;
-  padding: 10px;
+  justify-content: center;
+  height: 60px; /* Reduced to fit within 90px header */
+  width: auto;
 }
 
-.dot {
-  width: 30px;
-  height: 6px;
-  background-color: #cdbee9;
-  border-radius: 50%;
-  margin: 4px 0;
+.logo-text-main {
+  font-size: 30px; /* Reduced to fit smaller wrapper */
+  font-family: "Playfair Display", var(--heading-font); /* Fallback to Raleway */
+  font-weight: 700; /* Bold */
+  background: linear-gradient(90deg, #FFD700, #00BFFF); /* Bright gold to deep sky blue gradient */
+  background-clip: text; /* Standard property for compatibility */
+  -webkit-background-clip: text; /* Clip gradient to text */
+  -webkit-text-fill-color: transparent; /* Make text transparent to show gradient */
+  text-transform: uppercase; /* Match "NEXORA" style */
+  letter-spacing: 2px; /* Add spacing for elegance */
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.5), 1px 1px 2px rgba(0, 0, 0, 0.3); /* White glow + subtle dark shadow */
+  line-height: 1; /* Tighten line height */
 }
 
-.sidebar-menu {
-  display: none;
-  width: 200px; /* Expanded width */
-  padding: 10px;
+.logo-text-sub {
+  font-size: 14px; /* Smaller, visible subtitle */
+  font-family: "Playfair Display", var(--heading-font); /* Match main font */
+  color: #87CEEB; /* Light sky blue for visibility */
+  text-transform: uppercase; /* Consistent style */
+  letter-spacing: 1px; /* Subtle spacing */
+  margin-top: 2px; /* Small gap between main and sub text */
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.3); /* Subtle glow for visibility */
 }
 
-.sidebar-menu.open {
-  display: block;
+.logo-text-main:hover, .logo-text-sub:hover {
+  opacity: 0.8; /* Match previous hover effect */
 }
 
-.sidebar:hover, .sidebar.open {
-  width: 200px; /* Expand on hover or click */
+.navbar {
+  display: flex;
+  align-items: center;
 }
 
-.logo-container {
-  background-color: #e3eaeb; /* White background */
-  text-align: center;
-  padding: 5px;
-  margin-bottom: 10px;
-}
-
-.sidebar-menu ul {
+.nav-list {
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 20px; /* Adjusted gap for better spacing */
 }
 
-.sidebar-menu li {
-  margin: 5px 0;
+.nav-item {
+  position: relative;
 }
 
-.sidebar-menu a {
-  color: #08080c;
+.nav-link {
+  color: #e5e5e5; /* Revert to previous color */
   text-decoration: none;
-  padding: 5px 10px;
-  display: block;
-}
-
-.sidebar-menu a:hover, .sidebar-menu a.active {
-  background-color: #f8f5f6;
-}
-
-.top-navbar {
-  position: fixed;
-  top: 0;
-  left: 50px; /* Offset for collapsed sidebar */
-  width: calc(100% - 50px);
-  height: 50px; /* Smaller height */
-  background-color: #d6e321;
+  font-size: 14px; /* Increased for visibility */
+  font-family: "Playfair Display", var(--heading-font), var(--nav-font); /* Revert to previous font setup */
+  font-weight: 500; /* Bold but not too heavy */
+  padding: 8px 10px; /* Increased padding for better spacing */
+  border-radius: 5px; /* Subtle rounding */
+  transition: all 0.3s ease;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  transition: left 0.3s ease, width 0.3s ease;
+  align-items: center; /* Horizontal alignment */
+  height: 100%; /* Ensure full height utilization */
+  box-sizing: border-box; /* Include padding in height */
 }
 
-.sidebar:hover ~ .top-navbar, .sidebar.open ~ .top-navbar {
-  left: 200px; /* Adjust for expanded sidebar */
-  width: calc(100% - 200px);
+.nav-link i {
+  font-size: 20px; /* Increased icon size for visibility */
+  color: #e5e5e5; /* Revert to previous color */
+  margin-right: 8px; /* Space between icon and text */
+  transition: all 0.3s ease;
 }
 
-.navbar-content {
-  width: 100%;
-  max-width: 600px; /* Limit search bar width */
-  display: flex;
-  justify-content: center;
+.nav-link:hover, .nav-link.active {
+  background-color: #007bff; /* Revert to previous hover color */
+  color: #fff; /* White text on hover/active */
 }
 
-.search-form {
-  display: flex;
-  align-items: center;
-  width: 100%;
+.nav-link:hover i, .nav-link.active i {
+  color: #fff; /* White icon on hover/active */
 }
 
-.search-form input {
-  width: 100%;
-  padding: 5px 10px;
-  border: 1px solid #ccc;
-  border-radius: 20px 0 0 20px;
-  outline: none;
+.mobile-nav-toggle {
+  display: none; /* Hidden on desktop */
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #e5e5e5; /* Match nav-link color */
+  cursor: pointer;
 }
 
-.search-form .search-icon {
-  padding: 5px 10px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  border-left: none;
-  border-radius: 0 20px 20px 0;
+@media (max-width: 1200px) {
+  .mobile-nav-toggle {
+    display: block; /* Show toggle on mobile */
+  }
+
+  .navbar {
+    display: none; /* Hide by default on mobile */
+    position: absolute;
+    top: 90px; /* Matches new header height */
+    left: 0;
+    width: 100%;
+    background-color: #4b4949; /* Match header background for consistency */
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .navbar.active {
+    display: block; /* Show when toggled */
+  }
+
+  .nav-list {
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center; /* Keep horizontal layout on mobile */
+    padding: 12px 20px;
+    text-align: center;
+  }
+
+  .nav-link i {
+    font-size: 20px; /* Maintain size on mobile */
+    margin-right: 8px; /* Maintain space */
+  }
+
+  .logo-text-main {
+    font-size: 24px; /* Slightly smaller on mobile */
+  }
+
+  .logo-text-sub {
+    font-size: 12px; /* Adjust subtitle size */
+  }
 }

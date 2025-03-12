@@ -1,26 +1,34 @@
-<section class="section">
-  <div class="container">
-    <h1 class="title is-1">Choose Your Expert</h1>
-    <p class="subtitle is-3">Personalize your experience by selecting a specific member of our team. If you don’t have a preference, you can skip this step.</p>
-    <div class="columns is-multiline">
-      <div *ngFor="let staffMember of staff" class="column is-4">
-        <div class="card">
-          <div class="card-image">
-            <figure class="image is-4by3">
-              <img src="/assets/images/staff-placeholder.png" alt="{{ staffMember.name }}" class="headshot">
-            </figure>
-          </div>
-          <div class="card-content">
-            <h3 class="title is-4">{{ staffMember.name }}</h3>
-            <p class="subtitle is-6">{{ staffMember.role }}</p>
-            <p class="content">{{ staffMember.bio }}</p>
-            <button class="button is-primary" (click)="selectStaff(staffMember.id)">Select {{ staffMember.name }}</button>
-            <span class="tag is-success" *ngIf="selectedStaff?.id === staffMember.id">Selected</span>
+<main class="main">
+  <section id="staff-selection" class="section">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Choose Your Expert</h2>
+        <p>Personalize Your Experience</p>
+      </div>
+      <p class="content text-center mb-5" data-aos="fade-up" data-aos-delay="100">
+        Select a specific member of our team or skip this step if you don’t have a preference.
+      </p>
+
+      <div class="row gy-4" data-aos="fade-up" data-aos-delay="200">
+        <div *ngFor="let staffMember of staff" class="col-md-6 col-lg-4">
+          <div class="feature-box">
+            <img src="/assets/images/staff-placeholder.png" [alt]="staffMember.name" class="img-fluid mb-3">
+            <h3>{{ staffMember.name }}</h3>
+            <p class="text-muted">{{ staffMember.role }}</p>
+            <p>{{ staffMember.bio }}</p>
+            <button class="btn btn-primary" (click)="selectStaff(staffMember.id)">Select {{ staffMember.name }}</button>
+            <span class="badge bg-success ms-2" *ngIf="selectedStaff?.id === staffMember.id">Selected</span>
           </div>
         </div>
       </div>
+
+      <div class="text-center mt-4" data-aos="fade-up" data-aos-delay="300">
+        <button class="btn btn-outline-primary">Continue Without Selecting Staff</button>
+      </div>
+      <p class="text-muted mt-2 text-center" data-aos="fade-up" data-aos-delay="400">
+        Your staff selection helps us personalize your service. See our 
+        <a routerLink="/privacy" class="text-primary">Privacy Policy</a> for details.
+      </p>
     </div>
-    <button class="button is-light mt-4">Continue Without Selecting Staff</button>
-    <p class="content has-text-grey mt-2">Your staff selection helps us personalize your service. See our <a routerLink="/privacy" class="is-link">Privacy Policy</a> for details.</p>
-  </div>
-</section>
+  </section>
+</main>

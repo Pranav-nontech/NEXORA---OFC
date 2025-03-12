@@ -1,80 +1,78 @@
-<section class="section">
-  <div class="container">
-    <h1 class="title is-1">Unlock Seamless Booking for You and Your Customers</h1>
-    <p class="subtitle is-3">Join Nexora and experience effortless appointment scheduling. Whether you're a business looking to streamline your operations or a customer seeking convenient booking, Nexora has you covered.</p>
-    <div class="box">
-      <form class="signup-form">
-        <div class="field">
-          <label class="label">Account Type:</label>
-          <div class="control radio-group">
-            <label class="radio">
-              <input type="radio" [(ngModel)]="signupData.accountType" name="accountType" value="customer" checked>
-              (Customer) Book with Ease
-            </label>
-            <label class="radio">
-              <input type="radio" [(ngModel)]="signupData.accountType" name="accountType" value="business">
-              (Business) Get Booked Effortlessly
-            </label>
-          </div>
-        </div>
-        <div class="field">
-          <label class="label" for="fullName">Full Name:</label>
-          <div class="control">
-            <input class="input" id="fullName" type="text" [(ngModel)]="signupData.fullName" name="fullName" placeholder="Your Full Name" required>
-          </div>
-        </div>
-        <div class="field">
-          <label class="label" for="email">Email Address:</label>
-          <div class="control">
-            <input class="input" id="email" type="email" [(ngModel)]="signupData.email" name="email" placeholder="Your Email" required>
-            <p class="help">Your information is securely encrypted.</p>
-          </div>
-        </div>
-        <div class="field">
-          <label class="label" for="password">Password:</label>
-          <div class="control">
-            <input class="input" id="password" type="password" [(ngModel)]="signupData.password" name="password" placeholder="Enter Your Password" required>
-          </div>
-        </div>
-        <div class="field">
-          <label class="label" for="confirmPassword">Confirm Password:</label>
-          <div class="control">
-            <input class="input" id="confirmPassword" type="password" [(ngModel)]="signupData.confirmPassword" name="confirmPassword" placeholder="Confirm Your Password" required>
-          </div>
-        </div>
-        <div class="field" *ngIf="signupData.accountType === 'business'">
-          <label class="label" for="businessName">Business Name:</label>
-          <div class="control">
-            <input class="input" id="businessName" type="text" [(ngModel)]="signupData.businessName" name="businessName" placeholder="Your Business Name">
-          </div>
-        </div>
-        <div class="field">
-          <label class="label" for="phoneNumber">Phone Number (Optional):</label>
-          <div class="control">
-            <input class="input" id="phoneNumber" type="tel" [(ngModel)]="signupData.phoneNumber" name="phoneNumber" placeholder="+91 1234567890">
-          </div>
-        </div>
-        <div class="field consent">
-          <label class="checkbox">
-            <input type="checkbox" [(ngModel)]="signupData.termsConsent" name="termsConsent" required>
-            I agree to the Nexora <a routerLink="/terms">Terms of Service</a> and <a routerLink="/privacy">Privacy Policy</a>.
-          </label>
-        </div>
-        <div class="field consent">
-          <label class="checkbox">
-            <input type="checkbox" [(ngModel)]="signupData.marketingConsent" name="marketingConsent">
-            Subscribe to our newsletter for exclusive offers and updates.
-          </label>
-        </div>
-        <div class="field">
-          <button class="button is-primary is-fullwidth" (click)="signup()" [disabled]="!signupData.termsConsent">Sign Up Now</button>
-          <p class="help is-danger" *ngIf="signupError">{{ signupError }}</p>
-        </div>
-      </form>
-      <p class="content links">
-        Already have an account? <a routerLink="/login" class="has-text-info">Login Here</a><br>
-        Learn more about Nexora <a routerLink="/about" class="has-text-info">Here</a>
+<main class="main">
+  <section id="signup" class="section">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Sign Up for Nexora</h2>
+        <p>Unlock Seamless Booking</p>
+      </div>
+      <p class="content text-center mb-5" data-aos="fade-up" data-aos-delay="100">
+        Join Nexora and experience effortless appointment scheduling. Whether you're a business or a customer, we’ve got you covered.
       </p>
+
+      <div class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+        <form>
+          <div class="row gy-3">
+            <div class="col-md-12">
+              <label class="form-label">Account Type</label>
+              <div class="form-check">
+                <input type="radio" class="form-check-input" id="customer" [(ngModel)]="signupData.accountType" name="accountType" value="customer" checked>
+                <label class="form-check-label" for="customer">(Customer) Book with Ease</label>
+              </div>
+              <div class="form-check">
+                <input type="radio" class="form-check-input" id="business" [(ngModel)]="signupData.accountType" name="accountType" value="business">
+                <label class="form-check-label" for="business">(Business) Get Booked Effortlessly</label>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <label for="fullName" class="form-label">Full Name</label>
+              <input type="text" class="form-control" id="fullName" [(ngModel)]="signupData.fullName" name="fullName" placeholder="Your Full Name" required>
+            </div>
+            <div class="col-md-12">
+              <label for="email" class="form-label">Email Address</label>
+              <input type="email" class="form-control" id="email" [(ngModel)]="signupData.email" name="email" placeholder="Your Email" required>
+              <small class="form-text text-muted">Your information is securely encrypted.</small>
+            </div>
+            <div class="col-md-12">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" [(ngModel)]="signupData.password" name="password" placeholder="Enter Your Password" required>
+            </div>
+            <div class="col-md-12">
+              <label for="confirmPassword" class="form-label">Confirm Password</label>
+              <input type="password" class="form-control" id="confirmPassword" [(ngModel)]="signupData.confirmPassword" name="confirmPassword" placeholder="Confirm Your Password" required>
+            </div>
+            <div class="col-md-12" *ngIf="signupData.accountType === 'business'">
+              <label for="businessName" class="form-label">Business Name</label>
+              <input type="text" class="form-control" id="businessName" [(ngModel)]="signupData.businessName" name="businessName" placeholder="Your Business Name">
+            </div>
+            <div class="col-md-12">
+              <label for="phoneNumber" class="form-label">Phone Number (Optional)</label>
+              <input type="tel" class="form-control" id="phoneNumber" [(ngModel)]="signupData.phoneNumber" name="phoneNumber" placeholder="+91 1234567890">
+            </div>
+            <div class="col-md-12">
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="termsConsent" [(ngModel)]="signupData.termsConsent" name="termsConsent" required>
+                <label class="form-check-label" for="termsConsent">
+                  I agree to the Nexora <a routerLink="/terms" class="text-primary">Terms of Service</a> and <a routerLink="/privacy" class="text-primary">Privacy Policy</a>.
+                </label>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="marketingConsent" [(ngModel)]="signupData.marketingConsent" name="marketingConsent">
+                <label class="form-check-label" for="marketingConsent">Subscribe to our newsletter for exclusive offers and updates.</label>
+              </div>
+            </div>
+            <div class="col-md-12 text-center">
+              <button type="button" class="btn btn-primary w-100" (click)="signup()" [disabled]="!signupData.termsConsent">Sign Up Now</button>
+              <p class="text-danger mt-2" *ngIf="signupError">{{ signupError }}</p>
+            </div>
+          </div>
+        </form>
+        <p class="content text-center mt-3">
+          Already have an account? <a routerLink="/login" class="btn btn-link">Login Here</a><br>
+          Learn more about Nexora <a routerLink="/about" class="btn btn-link">Here</a>
+        </p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+</main>

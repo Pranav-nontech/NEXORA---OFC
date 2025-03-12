@@ -1,30 +1,32 @@
-<section class="section">
-  <div class="container">
-    <h1 class="title is-1">Staff Management</h1>
-    <div class="box">
-      <ul class="list">
-        <li class="list-item" *ngFor="let staffMember of staff">
-          {{ staffMember.name }} - {{ staffMember.role }}
-        </li>
-      </ul>
-    </div>
-    <div class="box">
-      <h2 class="title is-3">Add Staff</h2>
-      <div class="field">
-        <label class="label" for="name">Staff Name:</label>
-        <div class="control">
-          <input class="input" type="text" #name placeholder="Staff Name">
+<main class="main">
+  <section id="staff" class="section">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Staff Management</h2>
+      </div>
+      <div class="info-item" data-aos="fade-up" data-aos-delay="100">
+        <ul class="list-unstyled">
+          <li *ngFor="let staffMember of staff">
+            {{ staffMember.name }} - {{ staffMember.role }}
+          </li>
+        </ul>
+      </div>
+      <div class="php-email-form mt-4" data-aos="fade-up" data-aos-delay="200">
+        <h3>Add Staff</h3>
+        <div class="row gy-3">
+          <div class="col-md-12">
+            <label for="name" class="form-label">Staff Name</label>
+            <input type="text" class="form-control" #name placeholder="Staff Name">
+          </div>
+          <div class="col-md-12">
+            <label for="role" class="form-label">Role</label>
+            <input type="text" class="form-control" #role placeholder="Role">
+          </div>
+          <div class="col-md-12 text-center">
+            <button type="button" class="btn btn-primary" (click)="addStaff({ name: name.value, role: role.value })">Add</button>
+          </div>
         </div>
       </div>
-      <div class="field">
-        <label class="label" for="role">Role:</label>
-        <div class="control">
-          <input class="input" type="text" #role placeholder="Role">
-        </div>
-      </div>
-      <div class="field">
-        <button class="button is-primary" (click)="addStaff({ name: name.value, role: role.value })">Add</button>
-      </div>
     </div>
-  </div>
-</section>
+  </section>
+</main>

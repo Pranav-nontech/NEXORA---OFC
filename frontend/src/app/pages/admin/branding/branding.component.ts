@@ -7,19 +7,16 @@ import { CommonModule } from '@angular/common';
   selector: 'app-branding',
   standalone: true,
   imports: [FormsModule, CommonModule],
-  templateUrl: './branding.component.html',
+  templateUrl: './branding.component.html'
 })
 export class BrandingComponent implements OnInit {
-  private platformId: Object;
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   branding = {
     logoUrl: '',
     primaryColor: '#007bff',
-    secondaryColor: '#6c757d' // Corrected typo from #7c757d to #6c757d (assuming intent was gray)
+    secondaryColor: '#6c757d'
   };
-
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
-    this.platformId = platformId;
-  }
 
   updateBranding(): void {
     console.log('Branding Updated:', this.branding);
@@ -27,8 +24,9 @@ export class BrandingComponent implements OnInit {
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      console.log('Running on browser');
     } else {
+      console.log('Running on server');
       this.branding = {
         logoUrl: '',
         primaryColor: '#007bff',

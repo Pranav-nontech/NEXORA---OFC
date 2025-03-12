@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-staff-selection',
   standalone: true,
   imports: [RouterLink, CommonModule],
-  templateUrl: './staff-selection.component.html',
+  templateUrl: './staff-selection.component.html'
 })
 export class StaffSelectionComponent implements OnInit {
   staff = [
@@ -18,8 +18,11 @@ export class StaffSelectionComponent implements OnInit {
 
   selectedStaff: { id: number; name: string; role: string; bio: string } | null = null;
 
-  constructor(private bookingService: BookingService, private router: Router,
-    @Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(
+    private bookingService: BookingService,
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   selectStaff(id: number): void {
     this.selectedStaff = this.staff.find(s => s.id === id) || null;
@@ -28,11 +31,18 @@ export class StaffSelectionComponent implements OnInit {
       this.router.navigate(['/booking/time-slot-selection']);
     }
   }
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      console.log('Running on browser');
+      // Fetch staff from BookingService if replacing static data
+      this.bookingService.getStaff().subscribe({
+        next: (data) => this.staff = data,
+        error: (err) => console.error('Failed to fetch staff:', err)
+      });
     } else {
-      this.staff = []; // Adjust property name
+      console.log('Running on server');
+      this.staff = [];
     }
   }
 }

@@ -1,58 +1,65 @@
-<section class="section">
-  <div class="container">
-    <h1 class="title is-1">Need Help? We're Here.</h1>
-
-    <div class="columns">
-      <div class="column is-6">
-        <h2 class="title is-3">General Inquiries</h2>
-        <p class="content">Have questions about Nexora or need assistance? Our team is ready to help.</p>
-        <form class="box">
-          <div class="field">
-            <label class="label" for="name">Name:</label>
-            <div class="control">
-              <input class="input" id="name" type="text" [(ngModel)]="formData.name" name="name" placeholder="Your Name" required>
-            </div>
-          </div>
-          <div class="field">
-            <label class="label" for="email">Email:</label>
-            <div class="control">
-              <input class="input" id="email" type="email" [(ngModel)]="formData.email" name="email" placeholder="Your Email" required>
-            </div>
-          </div>
-          <div class="field">
-            <label class="label" for="subject">Subject:</label>
-            <div class="control">
-              <input class="input" id="subject" type="text" [(ngModel)]="formData.subject" name="subject" placeholder="Subject" required>
-            </div>
-          </div>
-          <div class="field">
-            <label class="label" for="message">Message:</label>
-            <div class="control">
-              <textarea class="textarea" id="message" [(ngModel)]="formData.message" name="message" placeholder="Your Message" rows="4" required></textarea>
-            </div>
-          </div>
-          <div class="field">
-            <label class="checkbox">
-              <input type="checkbox" [(ngModel)]="formData.consent" name="consent" required>
-              I consent to Nexora collecting and using my data to respond to my inquiry. See our <a routerLink="/privacy">Privacy Policy</a>.
-            </label>
-          </div>
-          <div class="field">
-            <button class="button is-primary" (click)="submitContact()" [disabled]="!formData.consent">Send Message</button>
-          </div>
-        </form>
+<main class="main">
+  <section id="contact" class="contact section">
+    <div class="container">
+      <!-- Page Title -->
+      <div class="section-title" data-aos="fade-up">
+        <h2>Contact Us</h2>
+        <p>Need Help? We’re Here.</p>
       </div>
 
-      <div class="column is-6">
-        <div class="content">
-          <h2 class="title is-3">Support</h2>
-          <p>For technical support or issues with your booking system, please use the form or email us at <a href="mailto:{{ contactDetails.supportEmail }}">{{ contactDetails.supportEmail }}</a>. Or <a href="#">Click To Chat</a>.</p>
-          
-          <h2 class="title is-3">Sales</h2>
-          <p>Interested in learning more about how Nexora can benefit your business? Contact our sales team.</p>
-          <p>Call: <a href="tel:{{ contactDetails.phone }}">{{ contactDetails.phone }}</a></p>
+      <div class="row gy-4">
+        <!-- General Inquiries (Form) -->
+        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="php-email-form">
+            <h3>General Inquiries</h3>
+            <p>Have questions about Nexora or need assistance? Our team is ready to help.</p>
+            <form>
+              <div class="row gy-3">
+                <div class="col-md-12">
+                  <label for="name" class="form-label">Name</label>
+                  <input type="text" class="form-control" id="name" [(ngModel)]="formData.name" name="name" placeholder="Your Name" required>
+                </div>
+                <div class="col-md-12">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email" [(ngModel)]="formData.email" name="email" placeholder="Your Email" required>
+                </div>
+                <div class="col-md-12">
+                  <label for="subject" class="form-label">Subject</label>
+                  <input type="text" class="form-control" id="subject" [(ngModel)]="formData.subject" name="subject" placeholder="Subject" required>
+                </div>
+                <div class="col-md-12">
+                  <label for="message" class="form-label">Message</label>
+                  <textarea class="form-control" id="message" [(ngModel)]="formData.message" name="message" rows="4" placeholder="Your Message" required></textarea>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="consent" [(ngModel)]="formData.consent" name="consent" required>
+                    <label class="form-check-label" for="consent">
+                      I consent to Nexora collecting and using my data to respond to my inquiry. See our <a routerLink="/privacy" class="text-primary">Privacy Policy</a>.
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-12 text-center">
+                  <button type="button" class="btn btn-primary" (click)="submitContact()" [disabled]="!formData.consent">Send Message</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Support and Sales Info -->
+        <div class="col-lg-6">
+          <div class="info-item" data-aos="fade-up" data-aos-delay="200">
+            <h3>Support</h3>
+            <p>For technical support or issues with your booking system, please use the form or email us at <a href="mailto:{{ contactDetails.supportEmail }}">{{ contactDetails.supportEmail }}</a>. Or <a href="#" class="text-primary">Click To Chat</a>.</p>
+          </div>
+          <div class="info-item" data-aos="fade-up" data-aos-delay="300">
+            <h3>Sales</h3>
+            <p>Interested in learning more about how Nexora can benefit your business? Contact our sales team.</p>
+            <p>Call: <a href="tel:{{ contactDetails.phone }}">{{ contactDetails.phone }}</a></p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+</main>

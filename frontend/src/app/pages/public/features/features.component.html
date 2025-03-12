@@ -1,33 +1,32 @@
-<section class="section">
-  <div class="container">
-    <h1 class="title is-1">Streamline Your Business with Nexora's Powerful Booking Features</h1>
-    <p class="content is-size-5">{{ intro }}</p>
+<main class="main">
+  <section id="features" class="features section" style="padding-top: 80px; padding-bottom: 3rem;">
+    <div class="container">
+      <!-- Page Title -->
+      <div class="section-title text-center" data-aos="fade-up">
+        <p>Streamline Your Business with Nexora</p>
+      </div>
 
-    <div class="columns is-multiline">
-      <div *ngFor="let feature of features" class="column is-4">
-        <div class="card">
-          <div class="card-content">
-            <div class="media">
-              <div class="media-left">
-                <figure class="image is-48x48">
-                  <img [src]="'/assets/images/' + feature.name.toLowerCase().replace(' ', '-') + '-icon.png'" [alt]="feature.name + ' Icon'">
-                </figure>
-              </div>
-              <div class="media-content">
-                <h3 class="title is-4">{{ feature.name }}</h3>
-              </div>
-            </div>
-            <p class="content">{{ feature.description }}</p>
-            <p class="content has-text-weight-bold">{{ feature.benefit }}</p>
-            <p class="content has-text-grey" *ngIf="feature.compliance">{{ feature.compliance }}</p>
+      <!-- Intro -->
+      <p class="content text-center mb-5" data-aos="fade-up" data-aos-delay="100">{{ intro }}</p>
+
+      <!-- Features Grid -->
+      <div class="row gy-4">
+        <div *ngFor="let feature of features" class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="feature-box" style="text-align: center;">
+            <img [src]="getImagePath(feature.name)" [alt]="feature.name + ' Icon'" class="img-fluid mb-3">
+            <h3>{{ feature.name }}</h3>
+            <p>{{ feature.description }}</p>
+            <p class="fw-bold">{{ feature.benefit }}</p>
+            <p class="text-muted" *ngIf="feature.compliance">{{ feature.compliance }}</p>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="has-text-centered">
-      <p class="content">Ready to experience Nexora's powerful features?</p>
-      <a routerLink="/signup" class="button is-primary is-medium">Start Your Free Trial</a>
+      <!-- CTA -->
+      <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="300">
+        <p class="content">Ready to experience Nexora's powerful features?</p>
+        <a routerLink="/signup" class="btn btn-primary">Start Your Free Trial</a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+</main>

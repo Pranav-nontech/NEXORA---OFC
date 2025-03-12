@@ -6,14 +6,12 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-management',
   standalone: true,
-  imports: [RouterLink, CommonModule], // For links
-  templateUrl: './management.component.html',
+  imports: [RouterLink, CommonModule],
+  templateUrl: './management.component.html'
 })
 export class ManagementComponent implements OnInit {
-  private platformId: Object;
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
-    this.platformId = platformId;
-  }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   bookings = [
     { id: 1, service: 'Haircut', staff: 'Jane Doe', date: new Date(), location: 'Salon A', cost: 25, notes: '' }
   ];
@@ -28,11 +26,13 @@ export class ManagementComponent implements OnInit {
   viewDetails(booking: any): void {
     this.selectedBooking = booking;
   }
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      console.log('Running on browser');
     } else {
-      this.bookings = []; // Adjust property name
+      console.log('Running on server');
+      this.bookings = [];
     }
   }
 }

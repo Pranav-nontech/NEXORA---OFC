@@ -1,27 +1,41 @@
-<section class="section">
-  <div class="container">
-    <h1 class="title is-1">We Use Cookies to Enhance Your Nexora Experience</h1>
-    <div *ngFor="let paragraph of intro" class="content">{{ paragraph }}</div>
+<main class="main">
+  <section id="cookie" class="section">
+    <div class="container">
+      <!-- Page Title -->
+      <div class="section-title" data-aos="fade-up">
+        <h2>Cookie Policy</h2>
+        <p>We Use Cookies to Enhance Your Nexora Experience</p>
+      </div>
 
-    <div class="box">
-      <div *ngFor="let section of sections">
-        <h2 class="title is-3">{{ section.title }}</h2>
-        <div *ngIf="section.subSections" class="content">
-          <div *ngFor="let sub of section.subSections">
-            <h3 class="subtitle is-5">{{ sub.name }}</h3>
-            <p>{{ sub.description }}</p>
+      <!-- Intro Paragraphs -->
+      <div class="content mb-5" data-aos="fade-up" data-aos-delay="100">
+        <p *ngFor="let paragraph of intro">{{ paragraph }}</p>
+      </div>
+
+      <!-- Cookie Sections -->
+      <div class="row gy-4">
+        <div *ngFor="let section of sections" class="col-12" data-aos="fade-up" data-aos-delay="200">
+          <div class="info-item">
+            <h3>{{ section.title }}</h3>
+            <div *ngIf="section.subSections" class="content">
+              <div *ngFor="let sub of section.subSections">
+                <h4 class="fw-bold">{{ sub.name }}</h4>
+                <p>{{ sub.description }}</p>
+              </div>
+            </div>
+            <p *ngIf="section.content" class="content">
+              {{ section.content }}
+              <a *ngIf="section.link" [href]="section.link" target="_blank" class="text-primary">{{ section.content }}</a>
+              <span *ngIf="section.links">
+                <a *ngFor="let link of section.links" [href]="link.url" target="_blank" class="text-primary mx-2">{{ link.text }}</a>
+              </span>
+            </p>
           </div>
         </div>
-        <p *ngIf="section.content" class="content">
-          {{ section.content }}
-          <a *ngIf="section.link" [href]="section.link" target="_blank" class="is-link">{{ section.content }}</a>
-          <span *ngIf="section.links">
-            <a *ngFor="let link of section.links" [href]="link.url" target="_blank" class="is-link">{{ link.text }}</a>
-          </span>
-        </p>
       </div>
-    </div>
 
-    <p class="has-text-grey">Last Updated: {{ lastUpdated }}</p>
-  </div>
-</section>
+      <!-- Last Updated -->
+      <p class="text-muted mt-4" data-aos="fade-up" data-aos-delay="300">Last Updated: {{ lastUpdated }}</p>
+    </div>
+  </section>
+</main>

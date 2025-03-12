@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 
@@ -7,22 +8,31 @@ import { RouterLink, RouterLinkActive, Router } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
+  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
   navLinks = [
-    { label: 'Home', path: '' },
+    { label: 'Home', path: '/home' },
     { label: 'Features', path: '/features' },
     { label: 'Pricing', path: '/pricing' },
     { label: 'FAQ', path: '/faq' },
-    { label: 'Contact', path: '/contact' }
+    { label: 'Contact', path: '/contact' },
+    { label: 'Sign In', path: '/login' },
+    { label: 'Sign Up', path: '/signup' }
   ];
 
-  isSidebarOpen = false;
+  isMobileNavActive = false;
   currentRoute: string = '';
-  logoSrc: string = '/assets/images/logo.png'; // Your local logo
+  windowWidth: number = 0;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.windowWidth = window.innerWidth;
+    }
+  }
 
   ngOnInit(): void {
     this.router.events.subscribe(() => {
@@ -30,28 +40,44 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  toggleSidebar(): void {
-    this.isSidebarOpen = !this.isSidebarOpen;
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.windowWidth = window.innerWidth;
+      if (this.windowWidth >= 1200 && this.isMobileNavActive) {
+        this.closeMobileNav();
+      }
+    }
   }
 
-  openSidebar(): void {
-    this.isSidebarOpen = true;
+  toggleMobileNav(): void {
+    this.isMobileNavActive = !this.isMobileNavActive;
+    if (isPlatformBrowser(this.platformId)) {
+      document.body.classList.toggle('mobile-nav-active', this.isMobileNavActive);
+    }
   }
 
-  closeSidebar(): void {
-    this.isSidebarOpen = false;
+  closeMobileNav(): void {
+    this.isMobileNavActive = false;
+    if (isPlatformBrowser(this.platformId)) {
+      document.body.classList.remove('mobile-nav-active');
+    }
   }
 
   isCurrentRoute(path: string): boolean {
-    return this.currentRoute === (path || '/');
+    return this.currentRoute === (path || '/home');
   }
 
-  onLogoLoad(): void {
-    console.log('Logo loaded successfully from /assets/images/logo.png');
-  }
-
-  onLogoError(event: Event): void {
-    console.error('Logo failed to load from /assets/images/logo.png');
-    // No external fallback; log error for debugging
+  getIconClass(label: string): string {
+    const iconMap: { [key: string]: string } = {
+      'Home': 'bi-house',
+      'Features': 'bi-star',
+      'Pricing': 'bi-currency-dollar',
+      'FAQ': 'bi-question-circle',
+      'Contact': 'bi-envelope',
+      'Sign In': 'bi-box-arrow-in-right',
+      'Sign Up': 'bi-person-plus'
+    };
+    return iconMap[label] || 'bi-circle'; // Fallback icon
   }
 }

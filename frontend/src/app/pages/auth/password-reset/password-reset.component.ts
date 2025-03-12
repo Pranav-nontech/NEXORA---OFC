@@ -7,14 +7,12 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-password-reset',
   standalone: true,
-  imports: [FormsModule, RouterLink, CommonModule], // FormsModule for ngModel
-  templateUrl: './password-reset.component.html',
+  imports: [FormsModule, RouterLink, CommonModule],
+  templateUrl: './password-reset.component.html'
 })
 export class PasswordResetComponent implements OnInit {
-  private platformId: Object;
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
-    this.platformId = platformId;
-  }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   email: string = '';
   message: string = '';
   error: string = '';
@@ -30,11 +28,13 @@ export class PasswordResetComponent implements OnInit {
       this.message = '';
     }
   }
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      console.log('Running on browser');
     } else {
-      this.resetStatus = {}; // Adjust property name
+      console.log('Running on server');
+      this.resetStatus = {};
     }
   }
 }

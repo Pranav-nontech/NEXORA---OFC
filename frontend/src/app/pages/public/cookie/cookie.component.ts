@@ -5,14 +5,12 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-cookie',
   standalone: true,
-  imports: [CommonModule],  
-  templateUrl: './cookie.component.html',
+  imports: [CommonModule],
+  templateUrl: './cookie.component.html' // No styleUrls; styles from src/styles.css via angular.json
 })
 export class CookieComponent implements OnInit {
-  private platformId: Object;
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
-    this.platformId = platformId;
-  }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   intro = [
     'This website uses cookies to improve your browsing experience, personalize content, and analyze our traffic. Cookies are small text files that are stored on your device.',
     'By using Nexora, you consent to our use of cookies as described in this policy.'
@@ -21,8 +19,8 @@ export class CookieComponent implements OnInit {
   sections = [
     {
       title: 'What are Cookies?',
-      content: 'Learn More about Cookies', // Placeholder for external link
-      link: 'https://www.allaboutcookies.org/' // Example external link; adjust as needed
+      content: 'Learn More about Cookies',
+      link: 'https://www.allaboutcookies.org/'
     },
     {
       title: 'How We Use Cookies',
@@ -30,7 +28,6 @@ export class CookieComponent implements OnInit {
         { name: 'Essential Cookies', description: 'These cookies are necessary for the basic functionality of the website, such as session management and security.' },
         { name: 'Performance Cookies', description: 'These cookies help us understand how you use our website, allowing us to improve its performance and user experience. Example: Analyzing which pages are most popular.' },
         { name: 'Functionality Cookies', description: 'These cookies enable us to remember your preferences, such as language settings, to provide a more personalized experience.' }
-        // Marketing Cookies omitted unless confirmed
       ]
     },
     {
@@ -51,12 +48,15 @@ export class CookieComponent implements OnInit {
     }
   ];
 
-  lastUpdated = 'March 3, 2025'; // Example date; adjust as needed
+  lastUpdated = 'March 3, 2025';
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      // Client-side logic (e.g., fetch data if needed)
+      console.log('Running on browser');
     } else {
-       // Adjust property name
+      // Server-side fallback (SSR)
+      console.log('Running on server');
     }
   }
 }

@@ -1,32 +1,49 @@
-<section class="section">
-  <div class="container">
-    <h1 class="title is-1">Frequently Asked Questions</h1>
-    <p class="content">{{ intro }} <a routerLink="/contact" class="is-link">Contact Us</a></p>
+<main class="main">
+  <section id="faq" class="faq section">
+    <div class="container">
+      <!-- Page Title -->
+      <div class="section-title" data-aos="fade-up">
+        <h2>Frequently Asked Questions</h2>
+        <p>Your Questions, Answered</p>
+      </div>
 
-    <div class="box">
-      <div *ngFor="let faq of faqs; let i = index" class="faq-item">
-        <h3 class="title is-4" (click)="faq.expanded = !faq.expanded" [class.has-text-primary]="faq.expanded">
-          {{ faq.question }}
-          <span class="tag is-light">{{ faq.expanded ? '−' : '+' }}</span>
-        </h3>
-        <div *ngIf="faq.expanded" class="content">
-          <p>{{ faq.answer }}</p>
-          <span *ngIf="faq.question === 'How do I cancel or reschedule my appointment?'">
-            <a routerLink="/terms" class="is-link">Terms of Service</a>
-          </span>
-          <span *ngIf="faq.question === 'Is my personal information secure?'">
-            <a routerLink="/privacy" class="is-link">Privacy Policy</a>
-          </span>
-          <span *ngIf="faq.question === 'What are cookies and how do you use them?'">
-            <a routerLink="/cookie" class="is-link">Cookie Policy</a>
-          </span>
-          <span *ngIf="faq.question === 'How do I contact support?'">
-            <a routerLink="/contact" class="is-link">Contact Us</a>
-          </span>
+      <!-- Intro -->
+      <p class="content text-center mb-5" data-aos="fade-up" data-aos-delay="100">
+        {{ intro }} <a routerLink="/contact" class="text-primary">Contact Us</a>
+      </p>
+
+      <!-- FAQ Accordion -->
+      <div class="accordion" id="faqAccordion">
+        <div *ngFor="let faq of faqs; let i = index" class="accordion-item" data-aos="fade-up" [attr.data-aos-delay]="100 * (i + 1)">
+          <h3 class="accordion-header">
+            <button class="accordion-button" [class.collapsed]="!faq.expanded" type="button" (click)="faq.expanded = !faq.expanded">
+              {{ faq.question }}
+            </button>
+          </h3>
+          <div class="accordion-collapse" [ngClass]="{'collapse': true, 'show': faq.expanded}">
+            <div class="accordion-body">
+              <p>{{ faq.answer }}</p>
+              <span *ngIf="faq.question === 'How do I cancel or reschedule my appointment?'">
+                <a routerLink="/terms" class="text-primary">Terms of Service</a>
+              </span>
+              <span *ngIf="faq.question === 'Is my personal information secure?'">
+                <a routerLink="/privacy" class="text-primary">Privacy Policy</a>
+              </span>
+              <span *ngIf="faq.question === 'What are cookies and how do you use them?'">
+                <a routerLink="/cookie" class="text-primary">Cookie Policy</a>
+              </span>
+              <span *ngIf="faq.question === 'How do I contact support?'">
+                <a routerLink="/contact" class="text-primary">Contact Us</a>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <p class="content">Still need help? <a routerLink="/contact" class="is-link">Contact Us</a></p>
-  </div>
-</section>
+      <!-- CTA -->
+      <p class="content text-center mt-5" data-aos="fade-up" data-aos-delay="300">
+        Still need help? <a routerLink="/contact" class="text-primary">Contact Us</a>
+      </p>
+    </div>
+  </section>
+</main>

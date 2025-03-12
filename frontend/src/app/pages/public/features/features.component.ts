@@ -6,14 +6,13 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-features',
   standalone: true,
-  imports: [RouterLink, CommonModule], // For CTA link
+  imports: [RouterLink, CommonModule],
   templateUrl: './features.component.html',
+
 })
 export class FeaturesComponent implements OnInit {
-  private platformId: Object;
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
-    this.platformId = platformId;
-  }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   intro = 'Nexora simplifies booking management for your business and provides a seamless booking experience for your customers. Discover the key features that make Nexora the perfect booking solution.';
 
   features = [
@@ -51,11 +50,22 @@ export class FeaturesComponent implements OnInit {
       benefit: 'Improved workforce planning.'
     }
   ];
+
+  isHovered: boolean[] = new Array(this.features.length).fill(false);
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      console.log('Running on browser');
     } else {
-       // Adjust property name
+      console.log('Running on server');
     }
+  }
+
+  getImagePath(featureName: string): string {
+    return `/assets/images/${featureName.toLowerCase().replace(' ', '-')}-icon.png`;
+  }
+
+  onHover(index: number, hover: boolean): void {
+    this.isHovered[index] = hover;
   }
 }

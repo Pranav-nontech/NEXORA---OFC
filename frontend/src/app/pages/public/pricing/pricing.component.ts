@@ -6,14 +6,12 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-pricing',
   standalone: true,
-  imports: [RouterLink, CommonModule], // For CTA links
-  templateUrl: './pricing.component.html',
+  imports: [RouterLink, CommonModule],
+  templateUrl: './pricing.component.html' // No styleUrls; styles from src/styles.css via angular.json
 })
 export class PricingComponent implements OnInit {
-  
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
-    this.platformId = platformId;
-  }private platformId: Object;
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   plans = [
     {
       name: 'Basic',
@@ -43,15 +41,19 @@ export class PricingComponent implements OnInit {
 
   smallPrint = {
     taxNote: 'Prices exclude applicable taxes.',
-    trialNote: 'All plans come with a 30-day free trial.', // Specified 30 days as an example
+    trialNote: 'All plans come with a 30-day free trial.',
     cancelNote: 'Cancel anytime, no hidden fees.',
-    gdprNote: 'We are committed to GDPR compliance and protecting your data. See our Privacy Policy for details.'
+    gdprNote: 'We are committed to GDPR compliance and protecting your data. See our'
   };
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      // Client-side logic (e.g., fetch data if needed)
+      console.log('Running on browser');
     } else {
-      this.plans = []; // Adjust property name
+      // Server-side fallback (SSR)
+      console.log('Running on server');
+      // Keep plans populated for SSR; no need to empty unless fetching dynamically
     }
   }
 }

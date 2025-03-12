@@ -6,21 +6,18 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-email-verification',
   standalone: true,
-  imports: [RouterLink, CommonModule], // For links
-  templateUrl: './email-verification.component.html',
+  imports: [RouterLink, CommonModule],
+  templateUrl: './email-verification.component.html'
 })
 export class EmailVerificationComponent implements OnInit {
-  private platformId: Object;
-  
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
-    this.platformId = platformId;
-  }
-  email: string = 'user@example.com'; // Placeholder; ideally passed via route/service
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
+  email: string = 'user@example.com';
   message: string = 'A verification link has been sent to your email address. Please click the link in the email to activate your Nexora account.';
   resendMessage: string = '';
   canResend: boolean = true;
   currentYear: number = new Date().getFullYear();
-  verificationStatus: any = {}; // Add this property
+  verificationStatus: any = {};
 
   resendVerification(): void {
     if (this.canResend) {
@@ -30,14 +27,16 @@ export class EmailVerificationComponent implements OnInit {
       setTimeout(() => {
         this.canResend = true;
         this.resendMessage += ' You can resend the email in 60 seconds.';
-      }, 60000); // 60-second throttle
+      }, 60000);
     }
   }
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      console.log('Running on browser');
     } else {
-      this.verificationStatus = {}; // Adjust property name
+      console.log('Running on server');
+      this.verificationStatus = {};
     }
   }
 }

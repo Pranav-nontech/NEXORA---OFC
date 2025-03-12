@@ -6,14 +6,12 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, CommonModule], // For link
-  templateUrl: './home.component.html',
+  imports: [RouterLink, CommonModule],
+  templateUrl: './home.component.html' // No styleUrls; styles come from src/styles.css via angular.json
 })
 export class HomeComponent implements OnInit {
-  
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
-    this.platformId = platformId;
-  }private platformId: Object;
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   hero = {
     headline: 'Unlock Seamless Booking with Nexora: Empowering Your Business',
     subheadline: 'The white-labeled booking system designed to streamline your scheduling, delight your customers, and grow your business',
@@ -27,15 +25,27 @@ export class HomeComponent implements OnInit {
     { name: 'Secure Payment Processing', description: 'Accept payments securely and easily with integrated payment gateways.' }
   ];
 
+  featureImages = [
+    '/assets/images/working-1.jpg',
+    '/assets/images/working-2.jpg',
+    '/assets/images/working-3.jpg',
+    '/assets/images/working-4.jpg'
+  ];
+
   testimonial = {
     quote: 'Nexora has transformed our booking process and saved us countless hours!',
     author: '[Client Name], [Business Name]'
   };
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      // Client-side logic (e.g., fetch data if needed)
+      console.log('Running on browser');
     } else {
-      this.features = []; // Adjust property name
+      // Server-side fallback (SSR)
+      console.log('Running on server');
+      // Reverted to keep features populated; emptying was a mistake unless fetching dynamically
+      // this.features = [];
     }
   }
 }

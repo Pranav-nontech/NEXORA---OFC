@@ -1,25 +1,31 @@
-<section class="section">
-  <div class="container">
-    <h1 class="title is-1">Customer Management</h1>
-    <div class="box">
-      <table class="table is-striped is-fullwidth">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let customer of customers">
-            <td>{{ customer.id }}</td>
-            <td>{{ customer.name }}</td>
-            <td>{{ customer.email }}</td>
-            <td><button class="button is-danger is-small" (click)="deleteCustomer(customer.id)">Delete</button></td>
-          </tr>
-        </tbody>
-      </table>
+<main class="main">
+  <section id="customers" class="section">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Customer Management</h2>
+      </div>
+      <div class="table-responsive" data-aos="fade-up" data-aos-delay="100">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let customer of customers">
+              <td>{{ customer.id }}</td>
+              <td>{{ customer.name }}</td>
+              <td>{{ customer.email }}</td>
+              <td>
+                <button class="btn btn-danger btn-sm" (click)="deleteCustomer(customer.id)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+</main>

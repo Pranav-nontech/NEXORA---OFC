@@ -1,29 +1,37 @@
-<section class="section">
-  <div class="container">
-    <h1 class="title is-1">Unlock the Power of Effortless Booking with Nexora</h1>
-    <p class="subtitle is-3">Choose the plan that scales with your business. Simplify scheduling, boost efficiency, and delight your customers.</p>
+<main class="main">
+  <section id="pricing" class="pricing section">
+    <div class="container">
+      <!-- Page Title -->
+      <div class="section-title" data-aos="fade-up">
+        <h2>Pricing</h2>
+        <p>Unlock the Power of Effortless Booking</p>
+      </div>
 
-    <div class="columns is-multiline">
-      <div *ngFor="let plan of plans" class="column is-4">
-        <div class="card">
-          <div class="card-content">
-            <h2 class="title is-3">{{ plan.name }}</h2>
-            <p class="subtitle is-4">{{ plan.price }}</p>
-            <p class="content">{{ plan.description }}</p>
-            <ul class="content">
-              <li *ngFor="let feature of plan.features">{{ feature }}</li>
+      <!-- Subtitle -->
+      <p class="content text-center mb-5" data-aos="fade-up" data-aos-delay="100">Choose the plan that scales with your business. Simplify scheduling, boost efficiency, and delight your customers.</p>
+
+      <!-- Pricing Plans -->
+      <div class="row gy-4">
+        <div *ngFor="let plan of plans" class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="pricing-item">
+            <h3>{{ plan.name }}</h3>
+            <h4><sup>$</sup>{{ plan.price.split(' ')[0] }} <span>/ {{ plan.price.split(' ')[2] }}</span></h4>
+            <p>{{ plan.description }}</p>
+            <ul>
+              <li *ngFor="let feature of plan.features"><i class="bi bi-check-circle"></i> {{ feature }}</li>
             </ul>
-            <a [routerLink]="plan.ctaLink" class="button is-primary is-fullwidth">{{ plan.cta }}</a>
+            <a [routerLink]="plan.ctaLink" class="btn btn-outline-primary">{{ plan.cta }}</a>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="content has-text-grey has-text-centered">
-      <p>{{ smallPrint.taxNote }}</p>
-      <p>{{ smallPrint.trialNote }}</p>
-      <p>{{ smallPrint.cancelNote }}</p>
-      <p>{{ smallPrint.gdprNote }} <a routerLink="/privacy" class="is-link">Privacy Policy</a></p>
+      <!-- Small Print -->
+      <div class="text-center mt-5 text-muted" data-aos="fade-up" data-aos-delay="300">
+        <p>{{ smallPrint.taxNote }}</p>
+        <p>{{ smallPrint.trialNote }}</p>
+        <p>{{ smallPrint.cancelNote }}</p>
+        <p>{{ smallPrint.gdprNote }} <a routerLink="/privacy" class="text-primary">Privacy Policy</a></p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+</main>

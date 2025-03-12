@@ -1,32 +1,52 @@
-<section class="section">
-  <div class="container">
-    <h1 class="title is-1">Review Your Booking Details</h1>
-    <p class="subtitle is-3">Please review the details below to ensure everything is correct. Once confirmed, you’ll be one step closer to your appointment!</p>
-    <div class="box">
-      <h2 class="title is-3">Booking Details</h2>
-      <div class="content">
-        <p><strong>Service/Appointment Name:</strong> {{ bookingData.service?.name }}</p>
-        <p><strong>Date:</strong> {{ bookingData.timeSlot?.date | date:'medium' }}</p>
-        <p><strong>Time:</strong> {{ bookingData.timeSlot?.time }}</p>
-        <p><strong>Location:</strong> {{ bookingData.staff?.location || 'Salon A, 123 Main St' }}</p>
-        <p><strong>Duration:</strong> {{ bookingData.service?.duration }} mins</p>
-        <p><strong>Staff Member:</strong> {{ bookingData.staff?.name }}</p>
+<main class="main">
+  <section id="confirmation" class="section">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Review Your Booking</h2>
+        <p>Please review the details below to ensure everything is correct.</p>
       </div>
-    </div>
-    <div class="box">
-      <h2 class="title is-3">Customer Details</h2>
-      <div class="content">
-        <p><strong>Name:</strong> {{ bookingData.customerInfo?.firstName }} {{ bookingData.customerInfo?.lastName }}</p>
-        <p><strong>Email:</strong> {{ bookingData.customerInfo?.email }}</p>
-        <p><strong>Phone Number:</strong> {{ bookingData.customerInfo?.phoneNumber }}</p>
+      <p class="content text-center mb-5" data-aos="fade-up" data-aos-delay="100">Once confirmed, you’ll be one step closer to your appointment!</p>
+
+      <div class="row gy-4">
+        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="info-item">
+            <h3>Booking Details</h3>
+            <div class="content">
+              <p><strong>Service/Appointment Name:</strong> {{ bookingData.service?.name }}</p>
+              <p><strong>Date:</strong> {{ bookingData.timeSlot?.date | date:'medium' }}</p>
+              <p><strong>Time:</strong> {{ bookingData.timeSlot?.time }}</p>
+              <p><strong>Location:</strong> {{ bookingData.staff?.location || 'Salon A, 123 Main St' }}</p>
+              <p><strong>Duration:</strong> {{ bookingData.service?.duration }} mins</p>
+              <p><strong>Staff Member:</strong> {{ bookingData.staff?.name }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+          <div class="info-item">
+            <h3>Customer Details</h3>
+            <div class="content">
+              <p><strong>Name:</strong> {{ bookingData.customerInfo?.firstName }} {{ bookingData.customerInfo?.lastName }}</p>
+              <p><strong>Email:</strong> {{ bookingData.customerInfo?.email }}</p>
+              <p><strong>Phone Number:</strong> {{ bookingData.customerInfo?.phoneNumber }}</p>
+            </div>
+          </div>
+        </div>
       </div>
+
+      <p class="fw-bold mt-4" data-aos="fade-up" data-aos-delay="400"><strong>Price:</strong> ${{ bookingData.service?.price }}</p>
+      <p class="text-muted" data-aos="fade-up" data-aos-delay="500">
+        By clicking 'Confirm Booking', you agree to our 
+        <a routerLink="/terms" class="text-primary">Terms and Conditions</a> and 
+        <a routerLink="/privacy" class="text-primary">Privacy Policy</a>.
+      </p>
+      <div class="text-center mt-4" data-aos="fade-up" data-aos-delay="600">
+        <button class="btn btn-primary me-2" (click)="confirmBooking()">Confirm Booking</button>
+        <button class="btn btn-outline-primary" (click)="editBooking()">Edit Booking</button>
+      </div>
+      <p class="text-muted mt-3" data-aos="fade-up" data-aos-delay="700">
+        We will use your personal information to process your booking, provide customer support, and send you related notifications. See our 
+        <a routerLink="/privacy" class="text-primary">Privacy Policy</a>.
+      </p>
     </div>
-    <p class="title is-4"><strong>Price:</strong> ${{ bookingData.service?.price }}</p>
-    <p class="content has-text-grey">By clicking 'Confirm Booking', you agree to our <a routerLink="/terms">Terms and Conditions</a> and <a routerLink="/privacy">Privacy Policy</a>.</p>
-    <div class="buttons">
-      <button class="button is-primary" (click)="confirmBooking()">Confirm Booking</button>
-      <button class="button is-link" (click)="editBooking()">Edit Booking</button>
-    </div>
-    <p class="content has-text-grey">We will use your personal information to process your booking, provide customer support, and send you related notifications. See our <a routerLink="/privacy">Privacy Policy</a>.</p>
-  </div>
-</section>
+  </section>
+</main>

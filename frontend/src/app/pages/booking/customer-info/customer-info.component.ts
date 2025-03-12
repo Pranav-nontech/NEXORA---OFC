@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-customer-info',
   standalone: true,
   imports: [FormsModule, RouterLink, CommonModule],
-  templateUrl: './customer-info.component.html',
+  templateUrl: './customer-info.component.html'
 })
 export class CustomerInfoComponent implements OnInit {
   customerInfo = {
@@ -25,8 +25,11 @@ export class CustomerInfoComponent implements OnInit {
     termsConsent: false
   };
 
-  constructor(private bookingService: BookingService, private router: Router,
-    @Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(
+    private bookingService: BookingService,
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   submitCustomerInfo(): void {
     if (this.customerInfo.termsConsent) {
@@ -36,22 +39,18 @@ export class CustomerInfoComponent implements OnInit {
       console.log('Terms consent required');
     }
   }
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      console.log('Running on browser');
+      // Check router state for pre-filled data (e.g., from editBooking)
+      const navigation = this.router.getCurrentNavigation();
+      const state = navigation?.extras.state as { customerInfo?: any };
+      if (state?.customerInfo) {
+        this.customerInfo = { ...this.customerInfo, ...state.customerInfo };
+      }
     } else {
-      this.customerInfo = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        phoneNumber: '',
-        address: '',
-        city: '',
-        state: '',
-        zipCode: '',
-        notes: '',
-        termsConsent: false
-      }; // Adjust property name
+      console.log('Running on server');
     }
   }
 }

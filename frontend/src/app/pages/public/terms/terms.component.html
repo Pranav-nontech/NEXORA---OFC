@@ -1,16 +1,27 @@
-<section class="section">
-  <div class="container">
-    <h1 class="title is-1">Welcome to Nexora! Please read our Terms of Service carefully.</h1>
-
-    <div class="box">
-      <div *ngFor="let section of sections">
-        <h2 class="title is-3">{{ section.title }}</h2>
-        <p class="content">{{ section.content }}
-          <a *ngIf="section.title === 'Acceptance of Terms'" routerLink="/privacy" class="is-link">Privacy Policy</a>
-        </p>
+<main class="main">
+  <section id="terms" class="section">
+    <div class="container">
+      <!-- Page Title -->
+      <div class="section-title" data-aos="fade-up">
+        <h2>Terms of Service</h2>
+        <p>Welcome to Nexora! Please Read Carefully</p>
       </div>
-    </div>
 
-    <p class="has-text-grey">Last Updated: {{ lastUpdated }}</p>
-  </div>
-</section>
+      <!-- Terms Sections -->
+      <div class="row gy-4">
+        <div *ngFor="let section of sections" class="col-12" data-aos="fade-up" data-aos-delay="200">
+          <div class="info-item">
+            <h3>{{ section.title }}</h3>
+            <p class="content">
+              {{ section.content }}
+              <a *ngIf="section.title === 'Acceptance of Terms'" routerLink="/privacy" class="text-primary">Privacy Policy</a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Last Updated -->
+      <p class="text-muted mt-4" data-aos="fade-up" data-aos-delay="300">Last Updated: {{ lastUpdated }}</p>
+    </div>
+  </section>
+</main>

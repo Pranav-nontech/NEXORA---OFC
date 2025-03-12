@@ -1,20 +1,25 @@
-<footer class="footer">
+<footer id="footer" class="footer dark-background">
   <div class="container">
-    <div class="columns">
-      <div class="column is-6">
-        <div class="nav-links content">
-          <a class="navbar-item" *ngFor="let link of navLinks" [routerLink]="link.path">{{ link.label }}</a>
-        </div>
-      </div>
-      <div class="column is-6">
-        <div class="contact-info content">
-          <p>Email: {{ contactInfo.email }}</p>
-          <p>Phone: {{ contactInfo.phone }}</p>
-        </div>
-      </div>
+    <h3 class="sitename">Nexora Booking</h3>
+    <p>Simplify your scheduling with Nexora Booking. Manage appointments effortlessly and stay connected.</p>
+    <div class="social-links d-flex justify-content-center">
+      <a href="https://twitter.com/nexora" target="_blank"><i class="bi bi-twitter-x"></i></a>
+      <a href="https://facebook.com/nexora" target="_blank"><i class="bi bi-facebook"></i></a>
+      <a href="https://instagram.com/nexora" target="_blank"><i class="bi bi-instagram"></i></a>
+      <a href="https://linkedin.com/company/nexora" target="_blank"><i class="bi bi-linkedin"></i></a>
     </div>
-    <div class="content has-text-centered">
-      <p>© {{ currentYear }} Nexora. All rights reserved.</p>
+    <div class="nav-links d-flex justify-content-center flex-wrap mt-4">
+      <a *ngFor="let link of navLinks" [routerLink]="link.path" class="nav-link px-2">{{ link.label }}</a>
+    </div>
+    <div class="contact-info text-center mt-3">
+      <p>Email: <a href="mailto:{{ contactInfo.email }}">{{ contactInfo.email }}</a></p>
+      <p>Phone: {{ contactInfo.phone }}</p>
+    </div>
+    <div class="copyright text-center mt-4">
+      <span>Copyright © {{ currentYear }}</span> <strong class="px-1 sitename">Nexora Booking</strong> <span>All Rights Reserved</span>
+    </div>
+    <div class="credits text-center">
+      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> | Distributed by <a href="https://themewagon.com">ThemeWagon</a>
     </div>
   </div>
 </footer>

@@ -7,16 +7,14 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [FormsModule, RouterLink, CommonModule], // FormsModule for ngModel, RouterLink for links
-  templateUrl: './signup.component.html',
+  imports: [FormsModule, RouterLink, CommonModule],
+  templateUrl: './signup.component.html'
 })
 export class SignupComponent implements OnInit {
-  private platformId: Object;
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
-    this.platformId = platformId;
-  }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   signupData = {
-    accountType: 'customer', // Default to customer
+    accountType: 'customer',
     fullName: '',
     email: '',
     password: '',
@@ -43,10 +41,12 @@ export class SignupComponent implements OnInit {
       this.signupError = 'Passwords do not match.';
     }
   }
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      console.log('Running on browser');
     } else {
+      console.log('Running on server');
       this.signupData = {
         accountType: '',
         fullName: '',
@@ -57,7 +57,7 @@ export class SignupComponent implements OnInit {
         phoneNumber: '',
         termsConsent: false,
         marketingConsent: false
-      }; // Adjust property name
+      };
     }
   }
 }

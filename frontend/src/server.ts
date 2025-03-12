@@ -2,6 +2,7 @@ import 'zone.js/node';
 import { APP_BASE_HREF } from '@angular/common';
 import { renderApplication } from '@angular/platform-server';
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import { join } from 'node:path';
 import bootstrap from './main.server';
 import { readFileSync } from 'fs';
@@ -9,51 +10,45 @@ import { readFileSync } from 'fs';
 const app = express();
 const PORT = 4200;
 const distFolder = join(process.cwd(), 'dist/frontend/browser');
-const indexHtmlPath = join(distFolder, 'index.csr.html'); // Use index.csr.html
+const indexHtmlPath = join(distFolder, 'index.csr.html');
 
-// Load index.html with fallback
 let indexHtml: string;
 try {
   indexHtml = readFileSync(indexHtmlPath, 'utf8');
   console.log('Loaded index.csr.html successfully');
 } catch (err) {
   console.warn('index.csr.html not found, using fallback:', err);
-  indexHtml = `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="utf-8">
-      <title>Frontend</title>
-      <base href="/">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
-    <body>
-      <app-root></app-root>
-    </body>
-    </html>
-  `;
+  indexHtml = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Frontend</title><base href="/"><meta name="viewport" content="width=device-width, initial-scale=1"></head><body><app-root></app-root></body></html>`;
 }
 
 app.use(express.static(distFolder, { maxAge: '1y' }));
+app.use(cookieParser()); // Enable cookie parsing
 
-export const reqHandler = async (req: express.Request, res: express.Response) => {
+app.get('*', async (req, res) => {
+  const isAuthenticated = req.cookies && req.cookies['auth_token'] || false; // Guard against undefined
+  console.log('Request URL:', req.url);
+  if (!isAuthenticated && req.url !== '/login') {
+    console.log('Redirecting to /login');
+    res.redirect('/login');
+    return;
+  }
   try {
-    console.log('Rendering with index.html:', indexHtml.substring(0, 100));
+    console.log('Starting SSR render');
     const html = await renderApplication(bootstrap, {
       document: indexHtml,
       url: req.url,
       platformProviders: [
-        { provide: APP_BASE_HREF, useValue: req.baseUrl },
+        { provide: APP_BASE_HREF, useValue: '/' },
+        { provide: 'isAuthenticated', useValue: isAuthenticated }
       ],
     });
+    console.log('SSR render completed:', html.length, 'bytes');
     res.send(html);
   } catch (err: unknown) {
     console.error('SSR Error:', err);
     res.status(500).send('Server rendering error: ' + (err instanceof Error ? err.message : String(err)));
   }
-};
-
-app.get('*', reqHandler);
+});
 
 app.listen(PORT, () => {
   console.log(`Node Express server listening on http://localhost:${PORT}`);

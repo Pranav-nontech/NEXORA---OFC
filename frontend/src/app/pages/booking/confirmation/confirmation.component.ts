@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-confirmation',
   standalone: true,
   imports: [RouterLink, CommonModule],
-  templateUrl: './confirmation.component.html',
+  templateUrl: './confirmation.component.html'
 })
 export class ConfirmationComponent implements OnInit {
   bookingData: any;
@@ -37,8 +37,10 @@ export class ConfirmationComponent implements OnInit {
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.bookingData = this.bookingService.getBookingData();
+      console.log('Running on browser');
     } else {
       this.bookingData = {};
+      console.log('Running on server');
     }
   }
 }

@@ -6,14 +6,12 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-success',
   standalone: true,
-  imports: [RouterLink, CommonModule], // For link
-  templateUrl: './success.component.html',
+  imports: [RouterLink, CommonModule],
+  templateUrl: './success.component.html'
 })
 export class SuccessComponent implements OnInit {
-  private platformId: Object;
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
-    this.platformId = platformId;
-  }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   bookingConfirmation = {
     service: 'Haircut',
     staff: 'Jane Doe',
@@ -21,17 +19,19 @@ export class SuccessComponent implements OnInit {
     location: 'Salon A, 123 Main St',
     confirmationId: 'NX-123456'
   };
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      console.log('Running on browser');
     } else {
+      console.log('Running on server');
       this.bookingConfirmation = {
         service: '',
         staff: '',
         date: new Date(),
         location: '',
         confirmationId: ''
-      }; // Adjust property name
+      };
     }
   }
 }

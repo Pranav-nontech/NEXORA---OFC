@@ -6,14 +6,11 @@ import { CommonModule } from '@angular/common';
   selector: 'app-integrations',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './integrations.component.html',
+  templateUrl: './integrations.component.html'
 })
 export class IntegrationsComponent implements OnInit {
-  private platformId: Object;
-  
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
-    this.platformId = platformId;
-  }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   integrations = [
     { name: 'Stripe', connected: false },
     { name: 'Google Calendar', connected: false }
@@ -22,11 +19,13 @@ export class IntegrationsComponent implements OnInit {
   connectIntegration(name: string): void {
     console.log('Connecting:', name);
   }
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      console.log('Running on browser');
     } else {
-      this.integrations = []; // Adjust property name
+      console.log('Running on server');
+      this.integrations = [];
     }
   }
 }

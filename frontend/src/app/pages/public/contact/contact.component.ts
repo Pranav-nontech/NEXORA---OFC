@@ -7,18 +7,16 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [RouterLink, FormsModule, CommonModule], // Added FormsModule for ngModel
-  templateUrl: './contact.component.html',
+  imports: [RouterLink, FormsModule, CommonModule],
+  templateUrl: './contact.component.html' // No styleUrls; styles from src/styles.css via angular.json
 })
 export class ContactComponent implements OnInit {
-  private platformId: Object;
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
-    this.platformId = platformId;
-  }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   contactDetails = {
-    email: 'info@nexora.com',      // Your provided email
-    phone: '+91 6355552828',       // Your provided phone
-    supportEmail: 'support@nexora.com' // Placeholder support email; adjust if different
+    email: 'info@nexora.com',
+    phone: '+91 6355552828',
+    supportEmail: 'support@nexora.com'
   };
 
   formData = {
@@ -38,11 +36,14 @@ export class ContactComponent implements OnInit {
       console.log('Consent required to submit form');
     }
   }
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Add fetch logic here if needed
+      // Client-side logic (e.g., fetch data if needed)
+      console.log('Running on browser');
     } else {
-       // Adjust property name
+      // Server-side fallback (SSR)
+      console.log('Running on server');
     }
   }
 }

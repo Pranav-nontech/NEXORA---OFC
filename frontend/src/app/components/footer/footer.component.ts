@@ -13,18 +13,16 @@ export class FooterComponent {
   currentYear: number = new Date().getFullYear();
 
   navLinks = [
-    { label: 'Home', path: '' },
-    { label: 'About', path: '/about' },
-    { label: 'Contact', path: '/contact' },
+    { label: 'Home', path: '/home' },
     { label: 'Features', path: '/features' },
     { label: 'Pricing', path: '/pricing' },
     { label: 'FAQ', path: '/faq' },
-    { label: 'Privacy', path: '/privacy' },
-    { label: 'Terms', path: '/terms' }
+    { label: 'Contact', path: '/contact' },
+    { label: 'Profile', path: '/profile' }
   ];
 
   contactInfo = {
-    email: 'info@nexora.com',      // Updated to your email
-    phone: '+91 6355875252'        // Updated to your phone number
+    email: 'info@nexora.com',      // Kept your email
+    phone: '+91 6355875252'        // Kept your phone number
   };
 }

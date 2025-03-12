@@ -1,4 +1,5 @@
 .footer {
+<<<<<<< HEAD
   color: var(--default-color);
   background-color: var(--background-color); /* #ffffff by default */
   font-size: 14px;
@@ -97,3 +98,53 @@
     padding: 0.5rem 0;
   }
 }
+=======
+    background: linear-gradient(to bottom, #011627, #034a83); /* Rich Black to Rich Black 600 */
+    padding: 2rem 1rem;
+  }
+  
+  .footer .container {
+    max-width: 1200px;
+  }
+  
+  .footer .columns {
+    margin-bottom: 1.5rem;
+  }
+  
+  .footer .navbar-item {
+    color: #9ff5e8; /* Ice Blue */
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .footer .navbar-item:hover {
+    color: #41ead4; /* Turquoise */
+    background-color: rgba(65, 234, 212, 0.1); /* Turquoise with transparency */
+  }
+  
+  .footer .contact-info p {
+    color: #a0757b; /* Mountbatten Pink */
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .footer .content.has-text-centered {
+    border-top: 1px solid #71b0a8; /* Verdigris */
+    padding-top: 1rem;
+    color: #ac84ad; /* African Violet */
+    font-size: 0.9rem;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .footer .columns {
+      flex-direction: column;
+      text-align: center;
+    }
+    .footer .navbar-item {
+      display: block;
+      padding: 0.5rem 0;
+    }
+  }
+>>>>>>> 7e4f730602d78043a52ba0fd86498edd9025c152

@@ -469,9 +469,36 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Features Section */
 .features .feature-box {
+  background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%); /* Soft gray to white gradient */
+  border: 1px solid #e0e4e8; /* Slightly darker border for definition */
+  border-radius: 12px; /* Softer corners */
+  padding: 25px; /* Slightly more padding for a spacious feel */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Softer shadow for depth */
   text-align: center;
-  padding: 20px;
-  transition: all 0.3s ease-in-out;
+  min-height: 350px;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* Smooth transitions */
+  animation: pulseBackground 4s ease infinite; /* Subtle pulse animation */
+}
+
+/* Pulse Animation for Background */
+@keyframes pulseBackground {
+  0% {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05), inset 0 0 0 rgba(28, 177, 236, 0.1); /* Base shadow */
+  }
+  50% {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1), inset 0 0 25px rgba(42, 134, 240, 0.3); /* Enhanced shadow with stronger orange glow */
+  }
+  100% {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05), inset 0 0 0 rgba(45, 221, 245, 0.1); /* Back to base */
+  }
+}
+
+/* Hover Effect for Feature Box */
+.features .feature-box:hover {
+  transform: scale(1.02); /* Slight zoom on hover */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+  background: linear-gradient(135deg, #e8ecef 0%, #ffffff 100%); /* Slightly darker gradient on hover */
 }
 
 .features .feature-box img {
@@ -492,45 +519,35 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }
 
-/* Testimonials Section */
-.testimonials .testimonial-item {
-  text-align: center;
-  margin: 0 auto;
+/* Feature Icon Styling (Static with Subtle Hover Tint) */
+.feature-icon {
+  transition: transform 0.3s ease, filter 0.3s ease; /* Smooth transition for hover */
 }
 
-.testimonials .testimonial-item .quote-icon-left,
-.testimonials .testimonial-item .quote-icon-right {
-  color: color-mix(in srgb, var(--accent-color), transparent 50%);
-  font-size: 26px;
-  line-height: 0;
+/* Hover effect: scale and subtle tint toward #ef6603 */
+.feature-icon:hover {
+  transform: scale(1.1); /* Slight zoom on hover */
+  filter: brightness(1.2) hue-rotate(10deg); /* Slightly brighten and shift hue toward orange */
 }
 
-.testimonials .testimonial-item p {
-  font-style: italic;
-  margin: 0 auto 15px auto;
-}
-
-.testimonials .testimonial-item h3 {
-  font-size: 18px;
-  font-weight: 700;
-  margin: 10px 0 5px 0;
-  color: var(--heading-color);
-}
-
-.testimonials .testimonial-item h4 {
-  font-size: 14px;
-  color: color-mix(in srgb, var(--default-color), transparent 25%);
-  margin: 0;
-}
-
-/* Pricing Section (For Future Use) */
+/* Pricing Section */
 .pricing .pricing-item {
-  padding: 60px 40px;
-  box-shadow: 0 3px 20px -2px rgba(0, 0, 0, 0.1);
-  background: var(--surface-color);
+  background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%); /* Match feature-box gradient */
+  border: 1px solid #e0e4e8; /* Slightly darker border for definition */
+  border-radius: 12px; /* Softer corners */
+  padding: 60px 40px; /* Keep original padding */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Softer shadow for depth */
   height: 100%;
   position: relative;
-  border-radius: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease; /* Smooth transitions */
+  animation: pulseBackground 4s ease infinite; /* Apply same animation as feature-box */
+}
+
+/* Hover Effect for Pricing Item */
+.pricing .pricing-item:hover {
+  transform: scale(1.02); /* Slight zoom on hover */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+  background: linear-gradient(135deg, #e8ecef 0%, #ffffff 100%); /* Slightly darker gradient on hover */
 }
 
 .pricing h3 {
@@ -542,7 +559,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .pricing h4 {
   font-size: 48px;
-  color: var(--accent-color);
+  color: #007bff; /* Change to blue to match other pages */
   font-weight: 700;
   margin-bottom: 15px;
 }
@@ -590,16 +607,53 @@ h1, h2, h3, h4, h5, h6 {
   padding: 12px 40px;
   border-radius: 50px;
   color: var(--contrast-color);
-  transition: none;
+  transition: background-color 0.3s ease; /* Smooth transition for hover */
   font-size: 16px;
   font-weight: 500;
-  transition: 0.3s;
   font-family: var(--heading-font);
-  border: 2px solid var(--accent-color);
 }
 
-.pricing .btn:hover {
-  background: var(--accent-color);
+/* Ensure btn-primary is blue with white text */
+.btn-primary {
+  background-color: #007bff;
+  border: none; /* Remove border for consistency */
+  color: var(--contrast-color);
+}
+
+.btn-primary:hover {
+  background-color: color-mix(in srgb, #007bff, transparent 20%); /* Slightly darker blue on hover */
+  color: var(--contrast-color);
+}
+
+/* Testimonials Section */
+.testimonials .testimonial-item {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.testimonials .testimonial-item .quote-icon-left,
+.testimonials .testimonial-item .quote-icon-right {
+  color: color-mix(in srgb, var(--accent-color), transparent 50%);
+  font-size: 26px;
+  line-height: 0;
+}
+
+.testimonials .testimonial-item p {
+  font-style: italic;
+  margin: 0 auto 15px auto;
+}
+
+.testimonials .testimonial-item h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 10px 0 5px 0;
+  color: var(--heading-color);
+}
+
+.testimonials .testimonial-item h4 {
+  font-size: 14px;
+  color: color-mix(in srgb, var(--default-color), transparent 25%);
+  margin: 0;
 }
 
 /* FAQ Section (For Future Use) */

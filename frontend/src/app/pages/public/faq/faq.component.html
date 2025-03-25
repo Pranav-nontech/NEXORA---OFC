@@ -1,10 +1,10 @@
 <main class="main">
-  <section id="faq" class="faq section">
-    <div class="container">
+  <section id="faq" class="faq section" style="padding-top: 120px; padding-bottom: 3rem; padding-left: 0; padding-right: 0;">
+    <div class="container" style="padding-left: 0; padding-right: 0;">
       <!-- Page Title -->
-      <div class="section-title" data-aos="fade-up">
+      <div class="section-title text-center" data-aos="fade-up" style="padding-bottom: 20px;">
         <h2>Frequently Asked Questions</h2>
-        <p>Your Questions, Answered</p>
+        <p style="margin-top: -0.5px;">Your Questions, Answered</p>
       </div>
 
       <!-- Intro -->
@@ -16,7 +16,7 @@
       <div class="accordion" id="faqAccordion">
         <div *ngFor="let faq of faqs; let i = index" class="accordion-item" data-aos="fade-up" [attr.data-aos-delay]="100 * (i + 1)">
           <h3 class="accordion-header">
-            <button class="accordion-button" [class.collapsed]="!faq.expanded" type="button" (click)="faq.expanded = !faq.expanded">
+            <button class="accordion-button" [class.collapsed]="!faq.expanded" type="button" (click)="faq.expanded = !faq.expanded" [style.color]="faq.expanded ? '#007bff' : ''">
               {{ faq.question }}
             </button>
           </h3>

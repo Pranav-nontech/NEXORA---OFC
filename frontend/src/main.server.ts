@@ -8,12 +8,12 @@ if (!isDevMode()) {
   enableProdMode();
 }
 
-// Export the SSR bootstrap function
 export default async function bootstrap() {
+  console.log('Bootstrapping server application...');
   return await bootstrapApplication(AppComponent, {
     providers: [
       ...appConfig.providers,
-      provideServerRendering() // Enable SSR
+      provideServerRendering()
     ]
   });
 }

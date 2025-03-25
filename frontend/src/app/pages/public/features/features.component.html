@@ -1,31 +1,33 @@
 <main class="main">
-  <section id="features" class="features section" style="padding-top: 80px; padding-bottom: 3rem;">
-    <div class="container">
+  <section id="features" class="features section" style="padding-top: 120px; padding-bottom: 3rem; padding-left: 0; padding-right: 0;">
+    <div class="container" style="padding-left: 0; padding-right: 0;">
       <!-- Page Title -->
-      <div class="section-title text-center" data-aos="fade-up">
-        <p>Streamline Your Business with Nexora</p>
+      <div class="section-title text-center" data-aos="fade-up" style="margin-bottom: 0;">
+        <p style="font-size: 1.5rem; color: #333; font-weight: 600; margin: 0;">Streamline Your Business with Nexora</p>
       </div>
 
       <!-- Intro -->
-      <p class="content text-center mb-5" data-aos="fade-up" data-aos-delay="100">{{ intro }}</p>
+      <p class="content text-center mb-5" data-aos="fade-up" data-aos-delay="100" style="max-width: 800px; margin-left: auto; margin-right: auto; font-size: 1.1rem; color: #444; margin-top: -3rem;">
+        {{ intro }}
+      </p>
 
       <!-- Features Grid -->
-      <div class="row gy-4">
+      <div class="row gy-4" style="justify-content: center;">
         <div *ngFor="let feature of features" class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-          <div class="feature-box" style="text-align: center;">
-            <img [src]="getImagePath(feature.name)" [alt]="feature.name + ' Icon'" class="img-fluid mb-3">
-            <h3>{{ feature.name }}</h3>
-            <p>{{ feature.description }}</p>
-            <p class="fw-bold">{{ feature.benefit }}</p>
-            <p class="text-muted" *ngIf="feature.compliance">{{ feature.compliance }}</p>
+          <div class="feature-box" style="background-color: #fff; border: 1px solid #e9ecef; border-radius: 8px; padding: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; min-height: 350px; position: relative;">
+            <img [src]="getImagePath(feature.name)" [alt]="feature.name + ' Icon'" class="img-fluid mb-3 feature-icon" style="width: 60px; height: 60px;" />
+            <h3 style="font-size: 1.25rem; color: #333; margin-bottom: 0.5rem;">{{ feature.name }}</h3>
+            <p style="font-size: 0.95rem; color: #666; margin-bottom: 0.5rem;">{{ feature.description }}</p>
+            <p class="fw-bold" style="font-size: 0.95rem; color: #007bff; margin-bottom: 0.5rem;">{{ feature.benefit }}</p>
+            <p class="text-muted" style="font-size: 0.85rem;" *ngIf="feature.compliance">{{ feature.compliance }}</p>
           </div>
         </div>
       </div>
 
       <!-- CTA -->
-      <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="300">
-        <p class="content">Ready to experience Nexora's powerful features?</p>
-        <a routerLink="/signup" class="btn btn-primary">Start Your Free Trial</a>
+      <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="300" style="margin-top: 3rem;">
+        <p class="content" style="font-size: 1.1rem; color: #444; margin-bottom: 1.5rem;">Ready to experience Nexora's powerful features?</p>
+        <a routerLink="/signup" class="btn btn-primary" style="padding: 10px 20px; font-size: 1.1rem;">Start Your Free Trial</a>
       </div>
     </div>
   </section>

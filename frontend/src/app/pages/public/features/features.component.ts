@@ -8,7 +8,6 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [RouterLink, CommonModule],
   templateUrl: './features.component.html',
-
 })
 export class FeaturesComponent implements OnInit {
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
@@ -51,8 +50,6 @@ export class FeaturesComponent implements OnInit {
     }
   ];
 
-  isHovered: boolean[] = new Array(this.features.length).fill(false);
-
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       console.log('Running on browser');
@@ -62,10 +59,14 @@ export class FeaturesComponent implements OnInit {
   }
 
   getImagePath(featureName: string): string {
-    return `/assets/images/${featureName.toLowerCase().replace(' ', '-')}-icon.png`;
-  }
-
-  onHover(index: number, hover: boolean): void {
-    this.isHovered[index] = hover;
+    const imageMap: { [key: string]: string } = {
+      'Automated Scheduling': 'assets/images/features/calendar.gif',
+      'Online Payments': 'assets/images/features/payment.gif',
+      'Customizable Booking Pages': 'assets/images/features/customize.gif',
+      'Customer Management': 'assets/images/features/user.gif',
+      'Reporting & Analytics': 'assets/images/features/chart.gif',
+      'Staff Management': 'assets/images/features/staff.gif'
+    };
+    return imageMap[featureName] || 'assets/images/features/question.png';
   }
 }

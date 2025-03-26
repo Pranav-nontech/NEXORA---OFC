@@ -43,6 +43,7 @@
               "node_modules/glightbox/dist/css/glightbox.min.css",
               "node_modules/swiper/swiper-bundle.css",
               "node_modules/animate.css/animate.min.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "src/styles.css"
             ],
             "scripts": [], 

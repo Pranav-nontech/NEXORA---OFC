@@ -1,30 +1,32 @@
 <main class="main">
-  <section id="cookie" class="section">
+  <section id="cookie" class="section" style="padding-top: 120px; padding-bottom: 3rem;">
     <div class="container">
       <!-- Page Title -->
-      <div class="section-title" data-aos="fade-up">
+      <div class="section-title" data-aos="fade-up" style="text-align: center;">
         <h2>Cookie Policy</h2>
         <p>We Use Cookies to Enhance Your Nexora Experience</p>
       </div>
 
       <!-- Intro Paragraphs -->
-      <div class="content mb-5" data-aos="fade-up" data-aos-delay="100">
-        <p *ngFor="let paragraph of intro">{{ paragraph }}</p>
+      <div class="info-item" data-aos="fade-up" data-aos-delay="100" style="background: #ffffff; padding: 2rem; border-radius: 0.5rem; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); border: 1px solid #ddd; margin-bottom: 2rem;">
+        <div class="content">
+          <p *ngFor="let paragraph of intro" style="margin: 0 0 1rem 0; font-size: 1rem; line-height: 1.6;">{{ paragraph }}</p>
+        </div>
       </div>
 
       <!-- Cookie Sections -->
       <div class="row gy-4">
         <div *ngFor="let section of sections" class="col-12" data-aos="fade-up" data-aos-delay="200">
-          <div class="info-item">
-            <h3>{{ section.title }}</h3>
+          <div class="info-item" style="background: #ffffff; padding: 2rem; border-radius: 0.5rem; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); border: 1px solid #ddd;">
+            <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; text-align: center;">{{ section.title }}</h3>
             <div *ngIf="section.subSections" class="content">
               <div *ngFor="let sub of section.subSections">
-                <h4 class="fw-bold">{{ sub.name }}</h4>
-                <p>{{ sub.description }}</p>
+                <h4 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">{{ sub.name }}</h4>
+                <p style="margin: 0 0 1rem 0; font-size: 1rem; line-height: 1.6;">{{ sub.description }}</p>
               </div>
             </div>
-            <p *ngIf="section.content" class="content">
-              {{ section.content }}
+            <p *ngIf="section.content" class="content" style="margin: 0; font-size: 1rem; line-height: 1.6;">
+              <span *ngIf="!section.link">{{ section.content }}</span>
               <a *ngIf="section.link" [href]="section.link" target="_blank" class="text-primary">{{ section.content }}</a>
               <span *ngIf="section.links">
                 <a *ngFor="let link of section.links" [href]="link.url" target="_blank" class="text-primary mx-2">{{ link.text }}</a>
@@ -35,7 +37,9 @@
       </div>
 
       <!-- Last Updated -->
-      <p class="text-muted mt-4" data-aos="fade-up" data-aos-delay="300">Last Updated: {{ lastUpdated }}</p>
+      <div class="info-item mt-4" data-aos="fade-up" data-aos-delay="300" style="background: #ffffff; padding: 1rem; border-radius: 0.5rem; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); border: 1px solid #ddd; text-align: center;">
+        <p class="text-muted" style="margin: 0; font-size: 1rem;">Last Updated: {{ lastUpdated }}</p>
+      </div>
     </div>
   </section>
 </main>

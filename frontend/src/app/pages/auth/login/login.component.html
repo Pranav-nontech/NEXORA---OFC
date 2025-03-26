@@ -1,40 +1,121 @@
 <main class="main">
-  <section id="login" class="section">
+  <section id="login" class="section" style="padding-top: 120px; padding-bottom: 3rem;">
     <div class="container">
-      <div class="section-title" data-aos="fade-up">
+      <!-- Page Title -->
+      <div class="section-title" data-aos="fade-up" style="text-align: center;">
         <h2>Welcome Back</h2>
         <p>Login to Nexora</p>
       </div>
-      <p class="content text-center mb-5" data-aos="fade-up" data-aos-delay="100">
-        Streamline your bookings and manage your appointments with ease.
-      </p>
 
-      <div class="php-email-form" data-aos="fade-up" data-aos-delay="200">
-        <form>
-          <div class="row gy-3">
-            <div class="col-md-12">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" [(ngModel)]="loginData.email" name="email" placeholder="Your registered email address" required>
+      <!-- Login Form -->
+      <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10 col-12" data-aos="fade-up" data-aos-delay="100">
+          <div class="info-item" style="background: #ffffff; padding: 3rem; border-radius: 0.5rem; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); border: 1px solid #ddd;">
+            <!-- Social Login Buttons -->
+            <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem;">
+              <button
+                (click)="loginWithGoogle()"
+                style="background: #ffffff; border: 1px solid #ddd; border-radius: 0.5rem; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; cursor: pointer;"
+              >
+                <i class="fab fa-google" style="font-size: 1.5rem; color: #4285F4;"></i>
+              </button>
+              <button
+                (click)="loginWithApple()"
+                style="background: #ffffff; border: 1px solid #ddd; border-radius: 0.5rem; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; cursor: pointer;"
+              >
+                <i class="fab fa-apple" style="font-size: 1.5rem; color: #000000;"></i>
+              </button>
+              <button
+                (click)="loginWithFacebook()"
+                style="background: #ffffff; border: 1px solid #ddd; border-radius: 0.5rem; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; cursor: pointer;"
+              >
+                <i class="fab fa-facebook-f" style="font-size: 1.5rem; color: #4267B2;"></i>
+              </button>
             </div>
-            <div class="col-md-12">
-              <label for="password" class="form-label">Password</label>
-              <input type="password" class="form-control" id="password" [(ngModel)]="loginData.password" name="password" placeholder="Your secure password" required>
+
+            <!-- Divider -->
+            <div style="text-align: center; margin-bottom: 2rem; position: relative;">
+              <span style="background: #ffffff; padding: 0 10px; color: #6c757d; font-size: 1rem;">or</span>
+              <div style="position: absolute; top: 50%; left: 0; right: 0; border-top: 1px solid #ddd; z-index: -1;"></div>
             </div>
-            <div class="col-md-12 text-center">
-              <button type="button" class="btn btn-primary" (click)="login()">Log In</button>
-            </div>
-            <div class="col-md-12 text-center" *ngIf="loginError">
-              <p class="text-danger">{{ loginError }}</p>
-            </div>
+
+            <!-- Form -->
+            <form (ngSubmit)="onSubmit()">
+              <!-- Error Message -->
+              <div *ngIf="errorMessage" style="color: red; margin-bottom: 1rem; text-align: center;">
+                {{ errorMessage }}
+              </div>
+
+              <!-- Email -->
+              <div style="margin-bottom: 1.5rem;">
+                <label for="email" style="display: block; font-size: 1.1rem; margin-bottom: 0.5rem;">Email address</label>
+                <input
+                  type="email"
+                  id="email"
+                  [(ngModel)]="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  required
+                  style="width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 0.5rem; font-size: 1.1rem;"
+                />
+              </div>
+
+              <!-- Password -->
+              <div style="margin-bottom: 1.5rem; position: relative;">
+                <label for="password" style="display: block; font-size: 1.1rem; margin-bottom: 0.5rem;">Password</label>
+                <input
+                  [type]="showPassword ? 'text' : 'password'"
+                  id="password"
+                  [(ngModel)]="password"
+                  name="password"
+                  placeholder="Enter your password"
+                  required
+                  style="width: 100%; padding: 1rem 2.5rem 1rem 1rem; border: 1px solid #ddd; border-radius: 0.5rem; font-size: 1.1rem;"
+                />
+                <span
+                  (click)="togglePasswordVisibility()"
+                  style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer;"
+                >
+                  <i [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'" style="color: #6c757d; font-size: 1.1rem;"></i>
+                </span>
+              </div>
+
+              <!-- Remember Me and Forget Password -->
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <div>
+                  <input
+                    type="checkbox"
+                    id="rememberMe"
+                    [(ngModel)]="rememberMe"
+                    name="rememberMe"
+                    style="margin-right: 0.5rem;"
+                  />
+                  <label for="rememberMe" style="font-size: 1rem; color: #6c757d;">Remember me for 30 days</label>
+                </div>
+                <a routerLink="/forgot-password" style="font-size: 1rem; color: #007bff;">Forget password?</a>
+              </div>
+
+              <!-- Submit Button -->
+              <button
+                type="submit"
+                style="width: 100%; padding: 1rem; background: #007bff; color: #ffffff; border: none; border-radius: 0.5rem; font-size: 1.1rem; cursor: pointer;"
+              >
+                Sign in
+              </button>
+
+              <!-- Create Account and Privacy Policy Links -->
+              <div style="text-align: center; margin-top: 2rem;">
+                <div style="margin-bottom: 0.5rem;">
+                  <span style="font-size: 1rem; color: #6c757d;">Don't have an account? </span>
+                  <a routerLink="/register" style="font-size: 1rem; color: #007bff;">Create account</a>
+                </div>
+                <div>
+                  <a routerLink="/privacy" style="font-size: 1rem; color: #007bff;">Privacy Policy</a>
+                </div>
+              </div>
+            </form>
           </div>
-        </form>
-        <p class="content text-center mt-3">
-          <a routerLink="/password-reset" class="btn btn-link">Forgot your password?</a><br>
-          Don't have an account? <a routerLink="/signup" class="btn btn-link">Sign Up</a>
-        </p>
-        <p class="text-muted text-center">
-          <a routerLink="/privacy" class="btn btn-link">Privacy Policy</a>
-        </p>
+        </div>
       </div>
     </div>
   </section>

@@ -14,15 +14,15 @@ export class FooterComponent {
 
   navLinks = [
     { label: 'Home', path: '/home' },
-    { label: 'Features', path: '/features' },
-    { label: 'Pricing', path: '/pricing' },
-    { label: 'FAQ', path: '/faq' },
-    { label: 'Contact', path: '/contact' },
-    { label: 'Profile', path: '/profile' }
+    { label: 'Contact Us', path: '/contact' },
+    { label: 'FAQs', path: '/faq' },
+    { label: 'Terms', path: '/terms' },
+    { label: 'Privacy Policy', path: '/privacy' },
+    { label: 'Cookies Policy', path: '/cookie' }
   ];
 
   contactInfo = {
-    email: 'info@nexora.com',      // Kept your email
-    phone: '+91 6355875252'        // Kept your phone number
+    email: 'info@nexora.com',
+    phone: '+91 6355875252'
   };
 }

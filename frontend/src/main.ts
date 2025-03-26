@@ -1,19 +1,14 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideRouter } from '@angular/router';
 import { enableProdMode } from '@angular/core';
 import { AppComponent } from './app/app.component';
-import { routes } from './app/app.routes';
+import { appConfig } from './app/app.config'; // Import appConfig
 import { environment } from './environments/environment';
 
 if (environment.production) {
   enableProdMode();
 }
 
-bootstrapApplication(AppComponent, {
-  providers: [
-    provideRouter(routes)
-  ]
-})
+bootstrapApplication(AppComponent, appConfig) // Use appConfig
   .then(async () => {
     if (typeof window !== 'undefined') {
       const aosModule = await import('aos');

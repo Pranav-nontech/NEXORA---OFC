@@ -20,6 +20,9 @@ import { EmailVerificationComponent } from './pages/auth/email-verification/emai
 import { LoginComponent } from './pages/auth/login/login.component';
 import { PasswordResetComponent } from './pages/auth/password-reset/password-reset.component';
 import { SignupComponent } from './pages/auth/signup/signup.component';
+import { GoogleLoginComponent } from './pages/auth/google-login/google-login.component'; // Added import
+import { AppleLoginComponent } from './pages/auth/apple-login/apple-login.component'; // Added import
+import { FacebookLoginComponent } from './pages/auth/facebook-login/facebook-login.component'; // Added import
 import { AiConfigComponent } from './pages/admin/ai-config/ai-config.component';
 import { BrandingComponent } from './pages/admin/branding/branding.component';
 import { CalendarComponent } from './pages/admin/calendar/calendar.component';
@@ -59,8 +62,11 @@ export const routes: Routes = [
   // Auth Routes
   { path: 'verify-email', component: EmailVerificationComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'password-reset', component: PasswordResetComponent },
-  { path: 'signup', component: SignupComponent },
+  { path: 'forgot-password', component: PasswordResetComponent },
+  { path: 'register', component: SignupComponent },
+  { path: 'auth/google', component: GoogleLoginComponent },
+  { path: 'auth/apple', component: AppleLoginComponent },
+  { path: 'auth/facebook', component: FacebookLoginComponent },
 
   // Admin Routes
   { path: 'admin/ai-config', component: AiConfigComponent },

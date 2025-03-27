@@ -1,13 +1,21 @@
 <main class="main">
-    <section class="section" style="padding-top: 120px; padding-bottom: 3rem;">
-      <div class="container">
-        <div class="section-title" style="text-align: center;">
-          <h2>Google Login</h2>
+  <section class="section" style="padding-top: 120px; padding-bottom: 3rem;">
+    <div class="container">
+      <div class="section-title">
+        <h2>Google Login</h2>
+        @if (isLoading) {
           <p>Authenticating with Google...</p>
-          <div style="margin-top: 1rem;">
-            <i class="fas fa-spinner fa-spin" style="font-size: 1.5rem; color: #4285F4;"></i>
+          <div class="spinner-container">
+            <i class="fas fa-spinner fa-spin"></i>
           </div>
-        </div>
+        }
+        @if (isRedirecting) {
+          <p>Redirecting to login in a few seconds...</p>
+        }
+        @if (errorMessage && !isRedirecting) {
+          <p class="error">{{ errorMessage }}</p>
+        }
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
+</main>

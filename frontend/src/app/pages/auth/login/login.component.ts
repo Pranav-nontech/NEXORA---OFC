@@ -1,10 +1,9 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink, Router } from '@angular/router';
+import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth'; // Import Firebase Auth
-import { NgZone } from '@angular/core'; // Import NgZone
+import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-login',
@@ -13,78 +12,117 @@ import { NgZone } from '@angular/core'; // Import NgZone
   templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit {
-  // Form data
   email: string = '';
   password: string = '';
   rememberMe: boolean = false;
   showPassword: boolean = false;
-  errorMessage: string = ''; // Add error message for displaying login errors
+  errorMessage: string = '';
+
+  private auth: Auth | undefined;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private router: Router,
-    private auth: Auth, // Inject Auth service
-    private ngZone: NgZone // Inject NgZone
-  ) {}
+    private route: ActivatedRoute
+  ) {
+    if (isPlatformBrowser(this.platformId)) {
+      try {
+        this.auth = inject(Auth);
+        console.log('LoginComponent - Auth instance:', this.auth);
+      } catch (error) {
+        console.error('Failed to inject Auth service in LoginComponent:', error);
+        this.errorMessage = 'Authentication service is unavailable. Please try again later.';
+      }
+    } else {
+      console.log('Running on server - skipping Auth injection');
+    }
+  }
 
-  // Toggle password visibility
+  async onSubmit(): Promise<void> {
+    if (!isPlatformBrowser(this.platformId)) {
+      console.log('Running on server - skipping login');
+      return;
+    }
+
+    if (!this.auth) {
+      this.errorMessage = 'Authentication service is unavailable.';
+      return;
+    }
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(this.auth, this.email, this.password);
+      const user = userCredential.user;
+      console.log('Email login successful:', user);
+      const userData = { uid: user.uid, email: user.email };
+      if (this.rememberMe) {
+        localStorage.setItem('user', JSON.stringify(userData));
+      } else {
+        sessionStorage.setItem('user', JSON.stringify(userData));
+      }
+      this.router.navigate(['/home']);
+    } catch (error: unknown) {
+      console.error('Email login failed:', error);
+      const errorMessage = (error as { message?: string }).message;
+      this.errorMessage = errorMessage || 'An error occurred during login.';
+    }
+  }
+
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }
 
-  // Handle form submission
-  async onSubmit(): Promise<void> {
-    if (isPlatformBrowser(this.platformId)) {
-      try {
-        const userCredential = await this.ngZone.run(() =>
-          signInWithEmailAndPassword(this.auth, this.email, this.password)
-        );
-        const user = userCredential.user;
-        console.log('Email login successful:', user);
-
-        // Store user data based on rememberMe
-        const userData = { uid: user.uid, email: user.email };
-        if (this.rememberMe) {
-          localStorage.setItem('user', JSON.stringify(userData));
-        } else {
-          sessionStorage.setItem('user', JSON.stringify(userData));
-        }
-
-        // Navigate to home page
-        this.ngZone.run(() => this.router.navigate(['/home']));
-      } catch (error: any) {
-        console.error('Email login failed:', error);
-        this.errorMessage = error.message; // Display error to user
-      }
-    } else {
-      console.log('Running on server - skipping login');
-    }
-  }
-
-  // Social login methods
   loginWithGoogle(): void {
+    console.log('Google login button clicked');
     if (isPlatformBrowser(this.platformId)) {
-      this.router.navigate(['/auth/google']);
+      this.router.navigate(['/auth/google']).then(success => {
+        console.log('Navigation to /auth/google successful:', success);
+      }).catch(error => {
+        console.error('Navigation to /auth/google failed:', error);
+      });
     }
   }
 
   loginWithApple(): void {
+    console.log('Apple login button clicked');
     if (isPlatformBrowser(this.platformId)) {
-      this.router.navigate(['/auth/apple']);
+      this.router.navigate(['/auth/apple']).then(success => {
+        console.log('Navigation to /auth/apple successful:', success);
+      }).catch(error => {
+        console.error('Navigation to /auth/apple failed:', error);
+      });
     }
   }
 
   loginWithFacebook(): void {
+    console.log('Facebook login button clicked');
     if (isPlatformBrowser(this.platformId)) {
-      this.router.navigate(['/auth/facebook']);
+      this.router.navigate(['/auth/facebook']).then(success => {
+        console.log('Navigation to /auth/facebook successful:', success);
+      }).catch(error => {
+        console.error('Navigation to /auth/facebook failed:', error);
+      });
     }
   }
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       console.log('Running on browser');
+      this.clearSessionStorageFlags();
+      // Listen for navigation events to clear flags on redirect
+      this.route.url.subscribe(() => {
+        console.log('LoginComponent - Navigation detected - Clearing sessionStorage flags');
+        this.clearSessionStorageFlags();
+      });
     } else {
       console.log('Running on server');
     }
+  }
+
+  private clearSessionStorageFlags(): void {
+    console.log('LoginComponent - Clearing sessionStorage flags');
+    sessionStorage.removeItem('googleLoginAttempted');
+    sessionStorage.removeItem('appleLoginAttempted');
+    sessionStorage.removeItem('facebookLoginAttempted');
+    console.log('LoginComponent - googleLoginAttempted after clear:', sessionStorage.getItem('googleLoginAttempted'));
   }
 }

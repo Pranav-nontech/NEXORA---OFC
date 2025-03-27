@@ -35,6 +35,7 @@ import { ServicesComponent } from './pages/admin/services/services.component';
 import { SettingsComponent } from './pages/admin/settings/settings.component';
 import { StaffComponent } from './pages/admin/staff/staff.component';
 import { SystemHealthComponent } from './pages/admin/system-health/system-health.component';
+import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
   // Public Routes
@@ -64,9 +65,9 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'forgot-password', component: PasswordResetComponent },
   { path: 'register', component: SignupComponent },
-  { path: 'auth/google', component: GoogleLoginComponent },
-  { path: 'auth/apple', component: AppleLoginComponent },
-  { path: 'auth/facebook', component: FacebookLoginComponent },
+  { path: 'auth/google', component: GoogleLoginComponent, canActivate: [authGuard] },
+  { path: 'auth/apple', component: AppleLoginComponent, canActivate: [authGuard] },
+  { path: 'auth/facebook', component: FacebookLoginComponent, canActivate: [authGuard] },
 
   // Admin Routes
   { path: 'admin/ai-config', component: AiConfigComponent },

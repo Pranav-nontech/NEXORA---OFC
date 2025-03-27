@@ -3,7 +3,7 @@ export const environment = {
   apiUrl: 'http://localhost:3000/api',
   stripePublicKey: 'your_stripe_test_public_key',
   firebase: {
-    apiKey: "AIzaSyBOSLXUiGZdUXhckMy3Q_9AN8MHNCSDgc", // Corrected apiKey
+    apiKey: "AIzaSyBOSLXUiGZdyUXhckMy3Q_9AN8MHNCSDgc", // Corrected apiKey
     authDomain: "nexora-booking.firebaseapp.com",
     projectId: "nexora-booking",
     storageBucket: "nexora-booking.firebasestorage.app",

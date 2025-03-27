@@ -6,7 +6,6 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { environment } from '@environments/environment';
 import { routes } from './app.routes';
 import { getAnalytics, provideAnalytics, ScreenTrackingService, UserTrackingService } from '@angular/fire/analytics';
-import { initializeAppCheck, ReCaptchaEnterpriseProvider, provideAppCheck } from '@angular/fire/app-check';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getDatabase, provideDatabase } from '@angular/fire/database';
 import { getFunctions, provideFunctions } from '@angular/fire/functions';
@@ -31,10 +30,27 @@ export const appConfig: ApplicationConfig = {
       const auth = getAuth();
       console.log('Auth instance:', auth);
       return auth;
-    }), provideFirebaseApp(() => initializeApp({ projectId: "nexora-booking", appId: "1:623553093405:web:cface174cb72d138b18bf4", storageBucket: "nexora-booking.firebasestorage.app", apiKey: "AIzaSyBOSLXUiGZdyUXhckMy3Q_9AN8MHNCSDgc", authDomain: "nexora-booking.firebaseapp.com", messagingSenderId: "623553093405", measurementId: "G-88MWWJNGWN" })), provideAuth(() => getAuth()), provideAnalytics(() => getAnalytics()), ScreenTrackingService, UserTrackingService, provideAppCheck(() => {
-  // TODO get a reCAPTCHA Enterprise here https://console.cloud.google.com/security/recaptcha?project=_
-  const provider = new ReCaptchaEnterpriseProvider(/* reCAPTCHA Enterprise site key */);
-  return initializeAppCheck(undefined, { provider, isTokenAutoRefreshEnabled: true });
-}), provideFirestore(() => getFirestore()), provideDatabase(() => getDatabase()), provideFunctions(() => getFunctions()), provideMessaging(() => getMessaging()), providePerformance(() => getPerformance()), provideStorage(() => getStorage()), provideRemoteConfig(() => getRemoteConfig()), provideVertexAI(() => getVertexAI()),
+    }),
+    provideFirebaseApp(() => initializeApp({ 
+      projectId: "nexora-booking", 
+      appId: "1:623553093405:web:cface174cb72d138b18bf4", 
+      storageBucket: "nexora-booking.firebasestorage.app", 
+      apiKey: "AIzaSyBOSLXUiGZdyUXhckMy3Q_9AN8MHNCSDgc", 
+      authDomain: "nexora-booking.firebaseapp.com", 
+      messagingSenderId: "623553093405", 
+      measurementId: "G-88MWWJNGWN" 
+    })),
+    provideAuth(() => getAuth()),
+    provideAnalytics(() => getAnalytics()),
+    ScreenTrackingService,
+    UserTrackingService,
+    provideFirestore(() => getFirestore()),
+    provideDatabase(() => getDatabase()),
+    provideFunctions(() => getFunctions()),
+    provideMessaging(() => getMessaging()),
+    providePerformance(() => getPerformance()),
+    provideStorage(() => getStorage()),
+    provideRemoteConfig(() => getRemoteConfig()),
+    provideVertexAI(() => getVertexAI()),
   ]
 };

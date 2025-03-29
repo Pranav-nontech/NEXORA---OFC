@@ -14,6 +14,7 @@ export class FooterComponent {
 
   navLinks = [
     { label: 'Home', path: '/home' },
+    { label: 'About Us', path: '/about' }, // Added About Us link
     { label: 'Contact Us', path: '/contact' },
     { label: 'FAQs', path: '/faq' },
     { label: 'Terms', path: '/terms' },

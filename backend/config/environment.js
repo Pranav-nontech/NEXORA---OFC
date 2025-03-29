@@ -1,6 +1,17 @@
-require('dotenv').config();
+const dotenv = require('dotenv');
+
+dotenv.config();
+
+const requiredEnvVars = ['MONGODB_URI', 'JWT_SECRET', 'PORT'];
+
+requiredEnvVars.forEach((varName) => {
+  if (!process.env[varName]) {
+    throw new Error(`Environment variable ${varName} is missing`);
+  }
+});
 
 module.exports = {
-  port: process.env.PORT || 3000,
-  mongoUri: process.env.MONGO_URI
+  MONGODB_URI: process.env.MONGODB_URI,
+  JWT_SECRET: process.env.JWT_SECRET,
+  PORT: process.env.PORT || 5000,
 };

@@ -24,7 +24,12 @@ export class ServiceSelectionComponent implements OnInit {
     if (isPlatformBrowser(this.platformId)) {
       console.log('Running on browser');
       this.bookingService.getServices().subscribe({
-        next: (data) => this.services = data,
+        next: (data) => {
+          this.services = data;
+          if (this.services.length === 0) {
+            console.error('No services available');
+          }
+        },
         error: (err) => console.error('Failed to fetch services:', err)
       });
     } else {
@@ -34,7 +39,7 @@ export class ServiceSelectionComponent implements OnInit {
   }
 
   selectService(id: string): void {
-    this.selectedService = this.services.find(s => s.id === id) || null; // Adjusted to 'id' from '_id'
+    this.selectedService = this.services.find(s => s._id === id) || null;
     if (this.selectedService) {
       this.bookingService.setService(this.selectedService);
       this.router.navigate(['/booking/staff-selection']);

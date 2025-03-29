@@ -4,10 +4,11 @@
       <div class="section-title" data-aos="fade-up">
         <h2>Staff Management</h2>
       </div>
+      <div *ngIf="error" class="alert alert-danger text-center" data-aos="fade-up">{{ error }}</div>
       <div class="info-item" data-aos="fade-up" data-aos-delay="100">
         <ul class="list-unstyled">
           <li *ngFor="let staffMember of staff">
-            {{ staffMember.name }} - {{ staffMember.role }}
+            {{ staffMember.name }} - {{ staffMember.role || 'Staff' }}
           </li>
         </ul>
       </div>

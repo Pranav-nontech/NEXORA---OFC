@@ -11,12 +11,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: './staff-selection.component.html'
 })
 export class StaffSelectionComponent implements OnInit {
-  staff = [
-    { id: 1, name: 'Jane Doe', role: 'Senior Stylist', bio: 'Jane has over 10 years of experience in styling and coloring.' },
-    { id: 2, name: 'John Smith', role: 'Massage Therapist', bio: 'John is known for his deep tissue massage expertise.' }
-  ];
-
-  selectedStaff: { id: number; name: string; role: string; bio: string } | null = null;
+  staff: any[] = [];
+  selectedStaff: any = null;
 
   constructor(
     private bookingService: BookingService,
@@ -24,20 +20,29 @@ export class StaffSelectionComponent implements OnInit {
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
-  selectStaff(id: number): void {
-    this.selectedStaff = this.staff.find(s => s.id === id) || null;
+  selectStaff(id: string): void {
+    this.selectedStaff = this.staff.find(s => s._id === id) || null;
     if (this.selectedStaff) {
       this.bookingService.setStaff(this.selectedStaff);
       this.router.navigate(['/booking/time-slot-selection']);
     }
   }
 
+  // Public method to handle navigation
+  continueWithoutStaff(): void {
+    this.router.navigate(['/booking/time-slot-selection']);
+  }
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       console.log('Running on browser');
-      // Fetch staff from BookingService if replacing static data
       this.bookingService.getStaff().subscribe({
-        next: (data) => this.staff = data,
+        next: (data) => {
+          this.staff = data;
+          if (this.staff.length === 0) {
+            console.error('No staff available');
+          }
+        },
         error: (err) => console.error('Failed to fetch staff:', err)
       });
     } else {

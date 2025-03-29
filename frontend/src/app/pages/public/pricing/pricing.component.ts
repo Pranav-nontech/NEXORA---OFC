@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-pricing',
   standalone: true,
   imports: [RouterLink, CommonModule],
-  templateUrl: './pricing.component.html' // No styleUrls; styles from src/styles.css via angular.json
+  templateUrl: './pricing.component.html'
 })
 export class PricingComponent implements OnInit {
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
@@ -15,27 +15,27 @@ export class PricingComponent implements OnInit {
   plans = [
     {
       name: 'Basic',
-      price: '$29 / month', // Placeholder price; adjust as needed
+      price: '$29 / month',
       description: 'Perfect for solo entrepreneurs and small teams just getting started.',
       features: ['Limited Bookings', 'One Staff Account', 'Basic Reporting'],
       cta: 'Get Started',
-      ctaLink: '/signup'
+      ctaLink: '/signup' // Reverted to '/signup' to match the updated route
     },
     {
       name: 'Standard',
-      price: '$79 / month', // Placeholder price; adjust as needed
+      price: '$79 / month',
       description: 'Our most popular plan - ideal for growing businesses needing more flexibility.',
       features: ['Unlimited Bookings', 'Multiple Staff Accounts', 'Advanced Reporting', 'Email Reminders'],
       cta: 'Upgrade Now',
-      ctaLink: '/signup'
+      ctaLink: '/login' // Already correct
     },
     {
       name: 'Premium',
-      price: '$199 / month', // Placeholder price; adjust as needed
+      price: '$199 / month',
       description: 'Enterprise-grade solution with dedicated support and custom features.',
       features: ['Everything in Standard', 'Dedicated Support', 'API Access', 'Custom Integrations'],
       cta: 'Contact Us',
-      ctaLink: '/contact'
+      ctaLink: '/contact' // Already correct
     }
   ];
 
@@ -48,12 +48,9 @@ export class PricingComponent implements OnInit {
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Client-side logic (e.g., fetch data if needed)
       console.log('Running on browser');
     } else {
-      // Server-side fallback (SSR)
       console.log('Running on server');
-      // Keep plans populated for SSR; no need to empty unless fetching dynamically
     }
   }
 }

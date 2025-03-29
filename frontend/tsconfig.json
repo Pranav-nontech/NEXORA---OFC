@@ -3,6 +3,7 @@
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
     "strict": true,
+    "strictNullChecks": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
@@ -17,7 +18,8 @@
     "module": "ES2022",
     "baseUrl": "src", // Add this
     "paths": {
-      "@environments/*": ["environments/*"] // Add this
+      "@environments/*": ["environments/*"],
+      "@services/*": ["app/services/*"] // Add this mapping
     }
   },
   "angularCompilerOptions": {

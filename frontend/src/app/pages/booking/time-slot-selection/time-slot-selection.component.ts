@@ -11,13 +11,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: './time-slot-selection.component.html'
 })
 export class TimeSlotSelectionComponent implements OnInit {
-  timeSlots = [
-    { time: '10:00 AM', available: true },
-    { time: '11:00 AM', available: false },
-    { time: '2:00 PM', available: true }
-  ];
-
-  selectedTime: string | null = null;
+  timeSlots: any[] = [];
+  selectedTimeSlot: any = null;
 
   constructor(
     private bookingService: BookingService,
@@ -25,21 +20,37 @@ export class TimeSlotSelectionComponent implements OnInit {
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
-  selectTime(time: string): void {
-    const slot = this.timeSlots.find(s => s.time === time);
-    if (slot && slot.available) {
-      this.selectedTime = time;
-      this.bookingService.setTimeSlot({ time: this.selectedTime });
-      this.router.navigate(['/booking/customer-info']);
+  selectTime(timeSlot: any): void {
+    if (timeSlot.isBooked) return;
+    this.selectedTimeSlot = timeSlot;
+    this.bookingService.setTimeSlot(timeSlot);
+  }
+
+  continueToCustomerInfo(): void {
+    if (!this.selectedTimeSlot) {
+      alert('Please select a time slot');
+      return;
     }
+    this.router.navigate(['/booking/customer-info']);
   }
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       console.log('Running on browser');
-      // Fetch time slots from BookingService if replacing static data
-      this.bookingService.getTimeSlots(new Date().toISOString().split('T')[0]).subscribe({
-        next: (data) => this.timeSlots = data,
+      const bookingData = this.bookingService.getBookingData();
+      const staffId = bookingData.staff?._id;
+      if (!staffId) {
+        alert('Please select a staff member first');
+        this.router.navigate(['/booking/staff-selection']);
+        return;
+      }
+      this.bookingService.getTimeSlots(staffId).subscribe({
+        next: (data) => {
+          this.timeSlots = data;
+          if (this.timeSlots.length === 0) {
+            console.error('No time slots available for this staff member');
+          }
+        },
         error: (err) => console.error('Failed to fetch time slots:', err)
       });
     } else {

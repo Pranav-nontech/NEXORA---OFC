@@ -32,18 +32,23 @@ export class CustomerInfoComponent implements OnInit {
   ) {}
 
   submitCustomerInfo(): void {
-    if (this.customerInfo.termsConsent) {
-      this.bookingService.setCustomerInfo(this.customerInfo);
-      this.router.navigate(['/booking/confirmation']);
-    } else {
-      console.log('Terms consent required');
+    if (!this.customerInfo.termsConsent) {
+      alert('You must agree to the Terms of Service and Privacy Policy');
+      return;
     }
+    this.bookingService.setCustomerInfo(this.customerInfo);
+    this.router.navigate(['/booking/confirmation']);
   }
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       console.log('Running on browser');
-      // Check router state for pre-filled data (e.g., from editBooking)
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      if (user) {
+        this.customerInfo.firstName = user.fullName?.split(' ')[0] || '';
+        this.customerInfo.lastName = user.fullName?.split(' ')[1] || '';
+        this.customerInfo.email = user.email || '';
+      }
       const navigation = this.router.getCurrentNavigation();
       const state = navigation?.extras.state as { customerInfo?: any };
       if (state?.customerInfo) {

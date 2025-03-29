@@ -12,16 +12,17 @@
       <div class="row gy-4" data-aos="fade-up" data-aos-delay="200">
         <div *ngFor="let slot of timeSlots" class="col-md-6 col-lg-3">
           <button class="btn w-100" 
-                  [ngClass]="{'btn-primary': selectedTime === slot.time, 'btn-light': !slot.available, 'btn-outline-primary': slot.available && selectedTime !== slot.time}"
-                  (click)="selectTime(slot.time)" 
-                  [disabled]="!slot.available">
-            {{ slot.time }} {{ slot.available ? '' : '(Booked)' }}
+                  [ngClass]="{'btn-primary': selectedTimeSlot?._id === slot._id, 'btn-light': slot.isBooked, 'btn-outline-primary': !slot.isBooked && selectedTimeSlot?._id !== slot._id}"
+                  (click)="selectTime(slot)" 
+                  [disabled]="slot.isBooked">
+            {{ slot.startTime | date:'medium' }} - {{ slot.endTime | date:'shortTime' }}
+            {{ slot.isBooked ? '(Booked)' : '' }}
           </button>
         </div>
       </div>
 
       <div class="text-center mt-4" data-aos="fade-up" data-aos-delay="300">
-        <button class="btn btn-primary">Continue to Booking Details</button>
+        <button class="btn btn-primary" (click)="continueToCustomerInfo()">Continue to Booking Details</button>
       </div>
       <p class="text-muted mt-2 text-center" data-aos="fade-up" data-aos-delay="400">
         By continuing, you agree to our 

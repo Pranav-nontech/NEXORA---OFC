@@ -4,6 +4,7 @@
       <div class="section-title" data-aos="fade-up">
         <h2>Customer Management</h2>
       </div>
+      <div *ngIf="error" class="alert alert-danger text-center" data-aos="fade-up">{{ error }}</div>
       <div class="table-responsive" data-aos="fade-up" data-aos-delay="100">
         <table class="table table-striped">
           <thead>
@@ -16,11 +17,11 @@
           </thead>
           <tbody>
             <tr *ngFor="let customer of customers">
-              <td>{{ customer.id }}</td>
-              <td>{{ customer.name }}</td>
+              <td>{{ customer._id }}</td>
+              <td>{{ customer.fullName }}</td>
               <td>{{ customer.email }}</td>
               <td>
-                <button class="btn btn-danger btn-sm" (click)="deleteCustomer(customer.id)">Delete</button>
+                <button class="btn btn-danger btn-sm" (click)="deleteCustomer(customer._id)">Delete</button>
               </td>
             </tr>
           </tbody>

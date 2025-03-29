@@ -19,12 +19,19 @@ export class BrandingComponent implements OnInit {
   };
 
   updateBranding(): void {
-    console.log('Branding Updated:', this.branding);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('branding', JSON.stringify(this.branding));
+      alert('Branding Updated Successfully!');
+    }
   }
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       console.log('Running on browser');
+      const savedBranding = localStorage.getItem('branding');
+      if (savedBranding) {
+        this.branding = JSON.parse(savedBranding);
+      }
     } else {
       console.log('Running on server');
       this.branding = {

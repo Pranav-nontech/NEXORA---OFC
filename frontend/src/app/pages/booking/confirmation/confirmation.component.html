@@ -7,17 +7,18 @@
       </div>
       <p class="content text-center mb-5" data-aos="fade-up" data-aos-delay="100">Once confirmed, you’ll be one step closer to your appointment!</p>
 
-      <div class="row gy-4">
+      <div *ngIf="error" class="alert alert-danger text-center" data-aos="fade-up">{{ error }}</div>
+
+      <div class="row gy-4" *ngIf="!error">
         <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
           <div class="info-item">
             <h3>Booking Details</h3>
             <div class="content">
               <p><strong>Service/Appointment Name:</strong> {{ bookingData.service?.name }}</p>
-              <p><strong>Date:</strong> {{ bookingData.timeSlot?.date | date:'medium' }}</p>
-              <p><strong>Time:</strong> {{ bookingData.timeSlot?.time }}</p>
+              <p><strong>Date & Time:</strong> {{ bookingData.timeSlot?.startTime | date:'medium' }} - {{ bookingData.timeSlot?.endTime | date:'shortTime' }}</p>
               <p><strong>Location:</strong> {{ bookingData.staff?.location || 'Salon A, 123 Main St' }}</p>
               <p><strong>Duration:</strong> {{ bookingData.service?.duration }} mins</p>
-              <p><strong>Staff Member:</strong> {{ bookingData.staff?.name }}</p>
+              <p><strong>Staff Member:</strong> {{ bookingData.staff?.name || 'Not specified' }}</p>
             </div>
           </div>
         </div>

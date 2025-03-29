@@ -13,20 +13,32 @@ import { CommonModule } from '@angular/common';
 export class PasswordResetComponent implements OnInit {
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
-  email: string = '';
+  identifier: string = ''; // Changed from 'email' to 'identifier'
   message: string = '';
   error: string = '';
   resetStatus: any = {};
 
   resetPassword(): void {
-    if (this.email) {
-      this.message = 'Password reset link sent to ' + this.email;
-      this.error = '';
-      console.log('Reset Password Requested:', this.email);
-    } else {
-      this.error = 'Please enter your email.';
+    if (!this.identifier) {
+      this.error = 'Please enter your email address, user ID, or mobile number.';
       this.message = '';
+      return;
     }
+
+    // Basic validation to determine the type of identifier
+    let identifierType: string;
+    if (this.identifier.includes('@') && this.identifier.includes('.')) {
+      identifierType = 'email';
+    } else if (/^\+?\d{10,15}$/.test(this.identifier.replace(/\s/g, ''))) {
+      identifierType = 'mobile number';
+    } else {
+      identifierType = 'user ID';
+    }
+
+    // Simulate password reset logic
+    this.message = `Password reset instructions sent to your ${identifierType}: ${this.identifier}`;
+    this.error = '';
+    console.log(`Reset Password Requested - Type: ${identifierType}, Value: ${this.identifier}`);
   }
 
   ngOnInit(): void {

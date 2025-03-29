@@ -19,12 +19,19 @@ export class AiConfigComponent implements OnInit {
   };
 
   saveSettings(): void {
-    console.log('AI Settings Saved:', this.aiSettings);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('aiSettings', JSON.stringify(this.aiSettings));
+      alert('AI Settings Saved Successfully!');
+    }
   }
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       console.log('Running on browser');
+      const savedSettings = localStorage.getItem('aiSettings');
+      if (savedSettings) {
+        this.aiSettings = JSON.parse(savedSettings);
+      }
     } else {
       console.log('Running on server');
       this.aiSettings = {

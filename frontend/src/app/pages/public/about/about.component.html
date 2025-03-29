@@ -1,24 +1,38 @@
 <main class="main">
   <!-- About Intro Section -->
-  <section id="about" class="about section">
-    <div class="container">
-      <div class="section-title" data-aos="fade-up">
-        <h2>About Nexora</h2>
-        <p>{{ headline }}</p>
-      </div>
-      <p class="content text-center mb-5" data-aos="fade-up" data-aos-delay="100">{{ body }}</p>
-      <div class="text-center" data-aos="fade-up" data-aos-delay="200">
-        <a routerLink="/signup" class="btn btn-primary">Start Your Free Trial</a>
+  <section id="about" class="about section" style="padding-top: 120px; padding-bottom: 4rem;">
+    <div class="container" style="max-width: 1100px;">
+      <!-- Tile Behind Content -->
+      <div class="auth-tile" style="background: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); padding: 3rem; width: 100%;">
+        <!-- Section Title -->
+        <div class="section-title text-center" data-aos="fade-up" style="margin-bottom: 1.5rem;">
+          <h2 style="font-size: 2.5rem; margin-bottom: 0.5rem; color: #1a1a1a;">About Nexora</h2>
+        </div>
+        <!-- Headline: Bold and Shifted Further Upwards -->
+        <p class="text-center" data-aos="fade-up" data-aos-delay="50" style="font-size: 1.5rem; font-weight: bold; margin-top: -3.5rem; margin-bottom: 1.75rem;">{{ headline }}</p>
+        <!-- Body Content with Subsections -->
+        <div class="content text-center mb-4" data-aos="fade-up" data-aos-delay="100">
+          <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">{{ body.split('\n\n')[0] }}</p>
+          <h4 style="font-size: 1.75rem; margin-bottom: 1rem;">Why Choose Nexora?</h4>
+          <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">{{ body.split('\n\n')[1] }}</p>
+          <p style="font-size: 1.2rem;">{{ body.split('\n\n')[2] }}</p>
+        </div>
+        <!-- CTA Button -->
+        <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+          <a routerLink="/signup" class="btn btn-primary" style="font-size: 1.2rem; padding: 0.75rem 2rem;">Start Your Free Trial</a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Team Image Section -->
-  <section class="section light-background">
+  <section class="section light-background" style="padding-top: 2rem; padding-bottom: 4rem;">
     <div class="container">
       <div class="row justify-content-center" data-aos="zoom-out">
         <div class="col-lg-8">
-          <img src="/assets/images/team-collaboration.png" class="img-fluid" alt="Nexora Team Working Collaboratively">
+          <img src="/assets/images/team-collaboration.jpg" class="img-fluid" alt="Nexora Team Working Collaboratively">
+          <!-- Caption: Bold -->
+          <p class="text-center mt-3 text-muted" style="font-weight: bold;">Our team is dedicated to helping your business succeed.</p>
         </div>
       </div>
     </div>

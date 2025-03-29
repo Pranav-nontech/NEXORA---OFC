@@ -14,16 +14,16 @@
           <div class="feature-box">
             <img src="/assets/images/staff-placeholder.png" [alt]="staffMember.name" class="img-fluid mb-3">
             <h3>{{ staffMember.name }}</h3>
-            <p class="text-muted">{{ staffMember.role }}</p>
-            <p>{{ staffMember.bio }}</p>
-            <button class="btn btn-primary" (click)="selectStaff(staffMember.id)">Select {{ staffMember.name }}</button>
-            <span class="badge bg-success ms-2" *ngIf="selectedStaff?.id === staffMember.id">Selected</span>
+            <p class="text-muted">Staff Member</p>
+            <p>Available: {{ staffMember.available ? 'Yes' : 'No' }}</p>
+            <button class="btn btn-primary" (click)="selectStaff(staffMember._id)">Select {{ staffMember.name }}</button>
+            <span class="badge bg-success ms-2" *ngIf="selectedStaff?._id === staffMember._id">Selected</span>
           </div>
         </div>
       </div>
 
       <div class="text-center mt-4" data-aos="fade-up" data-aos-delay="300">
-        <button class="btn btn-outline-primary">Continue Without Selecting Staff</button>
+        <button class="btn btn-outline-primary" (click)="continueWithoutStaff()">Continue Without Selecting Staff</button>
       </div>
       <p class="text-muted mt-2 text-center" data-aos="fade-up" data-aos-delay="400">
         Your staff selection helps us personalize your service. See our 

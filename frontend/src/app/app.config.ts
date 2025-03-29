@@ -2,7 +2,7 @@ import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideAuth, getAuth, browserLocalPersistence } from '@angular/fire/auth';
 import { environment } from '@environments/environment';
 import { routes } from './app.routes';
 import { getAnalytics, provideAnalytics, ScreenTrackingService, UserTrackingService } from '@angular/fire/analytics';
@@ -20,27 +20,30 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(withFetch()),
     provideFirebaseApp(() => {
-      console.log('Initializing Firebase app');
+      console.log('Initializing Firebase app with config:', environment.firebase);
       const app = initializeApp(environment.firebase);
-      console.log('Firebase app initialized:', app);
+      console.log('Firebase app initialized:', {
+        name: app.name,
+        options: app.options
+      });
       return app;
     }),
     provideAuth(() => {
       console.log('Providing Auth service');
       const auth = getAuth();
-      console.log('Auth instance:', auth);
+      auth.setPersistence(browserLocalPersistence)
+        .then(() => {
+          console.log('Auth persistence set to local');
+        })
+        .catch((error) => {
+          console.error('Error setting auth persistence:', error);
+        });
+      console.log('Auth instance provided:', {
+        appName: auth.app.name,
+        config: auth.config
+      });
       return auth;
     }),
-    provideFirebaseApp(() => initializeApp({ 
-      projectId: "nexora-booking", 
-      appId: "1:623553093405:web:cface174cb72d138b18bf4", 
-      storageBucket: "nexora-booking.firebasestorage.app", 
-      apiKey: "AIzaSyBOSLXUiGZdyUXhckMy3Q_9AN8MHNCSDgc", 
-      authDomain: "nexora-booking.firebaseapp.com", 
-      messagingSenderId: "623553093405", 
-      measurementId: "G-88MWWJNGWN" 
-    })),
-    provideAuth(() => getAuth()),
     provideAnalytics(() => getAnalytics()),
     ScreenTrackingService,
     UserTrackingService,
@@ -51,6 +54,6 @@ export const appConfig: ApplicationConfig = {
     providePerformance(() => getPerformance()),
     provideStorage(() => getStorage()),
     provideRemoteConfig(() => getRemoteConfig()),
-    provideVertexAI(() => getVertexAI()),
+    provideVertexAI(() => getVertexAI())
   ]
 };

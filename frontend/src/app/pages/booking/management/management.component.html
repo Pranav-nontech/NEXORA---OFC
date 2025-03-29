@@ -9,7 +9,9 @@
         View, reschedule, or cancel your appointments quickly and conveniently.
       </p>
 
-      <div class="row" *ngIf="bookings.length > 0; else noBookings" data-aos="fade-up" data-aos-delay="200">
+      <div *ngIf="error" class="alert alert-danger text-center" data-aos="fade-up">{{ error }}</div>
+
+      <div class="row" *ngIf="bookings.length > 0 && !error; else noBookings" data-aos="fade-up" data-aos-delay="200">
         <div class="col-12">
           <div class="table-responsive">
             <table class="table table-striped">
@@ -24,13 +26,13 @@
               </thead>
               <tbody>
                 <tr *ngFor="let booking of bookings">
-                  <td>{{ booking.date | date:'short' }}</td>
-                  <td>{{ booking.service }}</td>
-                  <td>{{ booking.staff }}</td>
-                  <td>{{ booking.location }}</td>
+                  <td>{{ booking.timeSlot | date:'short' }}</td>
+                  <td>{{ booking.serviceId.name }}</td>
+                  <td>{{ booking.staffId?.name || 'Not specified' }}</td>
+                  <td>{{ booking.staffId?.location || 'Salon A, 123 Main St' }}</td>
                   <td>
                     <button class="btn btn-info btn-sm me-2" (click)="viewDetails(booking)">View Details</button>
-                    <button class="btn btn-danger btn-sm" (click)="cancelBooking(booking.id)">Cancel</button>
+                    <button class="btn btn-danger btn-sm" (click)="cancelBooking(booking._id)">Cancel</button>
                   </td>
                 </tr>
               </tbody>
@@ -39,15 +41,15 @@
           <div class="info-item mt-4" *ngIf="selectedBooking" data-aos="fade-up" data-aos-delay="300">
             <h3>Appointment Details</h3>
             <div class="content">
-              <p><strong>Appointment ID:</strong> {{ selectedBooking.id }}</p>
-              <p><strong>Date & Time:</strong> {{ selectedBooking.date | date:'medium' }}</p>
-              <p><strong>Service/Item:</strong> {{ selectedBooking.service }}</p>
-              <p><strong>Provider:</strong> {{ selectedBooking.staff }}</p>
-              <p><strong>Location:</strong> {{ selectedBooking.location }}</p>
-              <p><strong>Cost:</strong> ${{ selectedBooking.cost }}</p>
-              <p><strong>Notes:</strong> {{ selectedBooking.notes || 'None' }}</p>
-              <button class="btn btn-primary me-2">Reschedule Appointment</button>
-              <button class="btn btn-danger" (click)="cancelBooking(selectedBooking.id)">Cancel Appointment</button>
+              <p><strong>Appointment ID:</strong> {{ selectedBooking._id }}</p>
+              <p><strong>Date & Time:</strong> {{ selectedBooking.timeSlot | date:'medium' }}</p>
+              <p><strong>Service/Item:</strong> {{ selectedBooking.serviceId.name }}</p>
+              <p><strong>Provider:</strong> {{ selectedBooking.staffId?.name || 'Not specified' }}</p>
+              <p><strong>Location:</strong> {{ selectedBooking.staffId?.location || 'Salon A, 123 Main St' }}</p>
+              <p><strong>Cost:</strong> ${{ selectedBooking.serviceId.price }}</p>
+              <p><strong>Notes:</strong> None</p>
+              <button class="btn btn-primary me-2" (click)="rescheduleBooking()">Reschedule Appointment</button>
+              <button class="btn btn-danger" (click)="cancelBooking(selectedBooking._id)">Cancel Appointment</button>
             </div>
           </div>
         </div>

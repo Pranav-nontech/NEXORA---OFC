@@ -12,8 +12,6 @@ import { CommonModule } from '@angular/common';
 export class NotificationsComponent implements OnInit {
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
-  notifications: any[] = [];
-
   notificationSettings = {
     emailEnabled: true,
     smsEnabled: false,
@@ -21,15 +19,26 @@ export class NotificationsComponent implements OnInit {
   };
 
   saveNotificationSettings(): void {
-    console.log('Notification Settings Saved:', this.notificationSettings);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('notificationSettings', JSON.stringify(this.notificationSettings));
+      alert('Notification Settings Saved Successfully!');
+    }
   }
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       console.log('Running on browser');
+      const savedSettings = localStorage.getItem('notificationSettings');
+      if (savedSettings) {
+        this.notificationSettings = JSON.parse(savedSettings);
+      }
     } else {
       console.log('Running on server');
-      this.notifications = [];
+      this.notificationSettings = {
+        emailEnabled: false,
+        smsEnabled: false,
+        reminderHours: 0
+      };
     }
   }
 }

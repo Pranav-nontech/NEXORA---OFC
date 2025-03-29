@@ -17,12 +17,23 @@ export class IntegrationsComponent implements OnInit {
   ];
 
   connectIntegration(name: string): void {
-    console.log('Connecting:', name);
+    if (isPlatformBrowser(this.platformId)) {
+      const integration = this.integrations.find(i => i.name === name);
+      if (integration) {
+        integration.connected = true;
+        localStorage.setItem('integrations', JSON.stringify(this.integrations));
+        alert(`${name} Connected Successfully!`);
+      }
+    }
   }
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       console.log('Running on browser');
+      const savedIntegrations = localStorage.getItem('integrations');
+      if (savedIntegrations) {
+        this.integrations = JSON.parse(savedIntegrations);
+      }
     } else {
       console.log('Running on server');
       this.integrations = [];

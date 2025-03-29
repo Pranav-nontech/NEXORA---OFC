@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class ConfirmationComponent implements OnInit {
   bookingData: any;
+  error: string | null = null;
 
   constructor(
     private bookingService: BookingService,
@@ -20,13 +21,36 @@ export class ConfirmationComponent implements OnInit {
   ) {}
 
   confirmBooking(): void {
-    this.bookingService.createBooking(this.bookingData).subscribe({
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.error = 'You must be logged in to confirm a booking';
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (user.accountType !== 'customer') {
+      this.error = 'Only customers can create bookings';
+      return;
+    }
+
+    const bookingPayload = {
+      serviceId: this.bookingData.service._id,
+      staffId: this.bookingData.staff?._id,
+      timeSlotId: this.bookingData.timeSlot._id,
+      customerId: user.id,
+    };
+
+    this.bookingService.createBooking(bookingPayload).subscribe({
       next: (response) => {
         console.log('Booking Created:', response);
         this.bookingService.clearBookingData();
-        this.router.navigate(['/booking/success']);
+        this.router.navigate(['/booking/success'], { state: { booking: response.booking } });
       },
-      error: (err) => console.error('Booking Failed:', err)
+      error: (err) => {
+        this.error = err.error.message || 'Failed to create booking';
+        console.error('Booking Failed:', err);
+      }
     });
   }
 
@@ -37,6 +61,10 @@ export class ConfirmationComponent implements OnInit {
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.bookingData = this.bookingService.getBookingData();
+      if (!this.bookingData.service || !this.bookingData.timeSlot) {
+        this.error = 'Incomplete booking data';
+        this.router.navigate(['/booking/service-selection']);
+      }
       console.log('Running on browser');
     } else {
       this.bookingData = {};

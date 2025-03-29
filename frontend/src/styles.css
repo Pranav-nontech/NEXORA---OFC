@@ -11,7 +11,6 @@
 
 body {
   color: #333; /* Ensure text is visible */
-  background-color: #fff; /* Default background */
 }
 .table td, .table th {
   padding: 0.5rem;
@@ -41,10 +40,10 @@ main {
   min-height: 100vh; /* Full viewport height per page */
 }
 :root {
-  --default-font: "Roboto", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --heading-font: "Raleway", sans-serif;
+  --default-font: "Raleway", Arial, sans-serif; /* Updated to use Raleway as the default font */
+  --heading-font: "Playfair Display", Georgia, serif; /* Updated to use Playfair Display for headings */
   --nav-font: "Poppins", sans-serif;
-  --background-color: #fffafa;
+  --background-color: linear-gradient(135deg, #f5e6f0 0%, #e6f0fa 100%); /* Updated to gradient */
   --default-color: #444444;
   --heading-color: #2a2c39;
   --accent-color: #ef6603;
@@ -60,12 +59,12 @@ main {
 
 /* Color Presets */
 .light-background {
-  --background-color: #f9f9f9;
+  --background-color: linear-gradient(135deg, #f5e6f0 0%, #e6f0fa 100%); /* Keep the gradient for light background */
   --surface-color: #f9f7f7;
 }
 
 .dark-background {
-  --background-color: #2a2c39;
+  --background-color: #2a2c39; /* Keep the dark background as a solid color */
   --default-color: #ffffff;
   --heading-color: #ffffff;
   --surface-color: #404356;
@@ -80,7 +79,8 @@ main {
 /* General Styling & Shared Classes */
 body {
   color: var(--default-color);
-  background-color: var(--background-color);
+  background: var(--background-color); /* Updated to use the variable */
+  background-attachment: fixed; /* Ensures the gradient doesn't scroll with the content */
   font-family: var(--default-font);
 }
 
@@ -98,6 +98,7 @@ a:hover {
 h1, h2, h3, h4, h5, h6 {
   color: var(--heading-color);
   font-family: var(--heading-font);
+  font-weight: 700; /* Ensure headings use the bold weight */
 }
 
 /* Preloader */
@@ -203,17 +204,6 @@ h1, h2, h3, h4, h5, h6 {
 @keyframes php-email-form-loading {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
-}
-
-/* Header */
-.header {
-  --background-color: rgba(255, 255, 255, 0);
-  --heading-color: #ffffff;
-  color: var(--default-color);
-  background-color: var(--background-color);
-  padding: 20px 0;
-  transition: all 0.5s;
-  z-index: 997;
 }
 
 .header.scrolled {
@@ -377,7 +367,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 120px 0 60px 0;
   display: flex;
   align-items: center;
-  background: linear-gradient(0deg, var(--background-color) 0%, color-mix(in srgb, var(--background-color) 90%, white 10%) 100%);
+  background: var(--background-color); /* Use the global gradient */
 }
 
 .hero h1 {
@@ -433,7 +423,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Section Title */
 .section-title {
-  padding-bottom: 60px;
+  padding-bottom: 40px;
   position: relative;
 }
 
@@ -441,7 +431,6 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 14px;
   font-weight: 500;
   padding: 0;
-  line-height: 1px;
   margin: 0;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -467,15 +456,14 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--heading-font);
 }
 
-/* Features Section */
-.features .feature-box {
+/* Feature Box (Global Styling for Feature-Like Tiles) */
+.feature-box {
   background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%); /* Soft gray to white gradient */
   border: 1px solid #e0e4e8; /* Slightly darker border for definition */
   border-radius: 12px; /* Softer corners */
   padding: 25px; /* Slightly more padding for a spacious feel */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Softer shadow for depth */
-  text-align: center;
-  min-height: 350px;
+  min-height: 200px; /* Reduced min-height for Contact page */
   position: relative;
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* Smooth transitions */
   animation: pulseBackground 4s ease infinite; /* Subtle pulse animation */
@@ -495,26 +483,24 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Hover Effect for Feature Box */
-.features .feature-box:hover {
+.feature-box:hover {
   transform: scale(1.02); /* Slight zoom on hover */
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
-  background: linear-gradient(135deg, #e8ecef 0%, #ffffff 100%); /* Slightly darker gradient on hover */
 }
 
-.features .feature-box img {
+.feature-box img {
   max-width: 100%;
   margin-bottom: 15px;
   transition: all 0.3s ease-in-out;
 }
 
-.features .feature-box h3 {
+.feature-box h3 {
   font-weight: 700;
   margin-bottom: 15px;
   font-size: 18px;
   color: var(--heading-color);
 }
 
-.features .feature-box p {
+.feature-box p {
   font-size: 14px;
   margin: 0;
 }
@@ -528,6 +514,56 @@ h1, h2, h3, h4, h5, h6 {
 .feature-icon:hover {
   transform: scale(1.1); /* Slight zoom on hover */
   filter: brightness(1.2) hue-rotate(10deg); /* Slightly brighten and shift hue toward orange */
+}
+
+/* Form Styling Inside Feature Box (Contact Page) */
+.feature-box form {
+  margin-top: 1.5rem;
+}
+
+.feature-box .form-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #717171;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+.feature-box .form-control {
+  border-radius: 4px;
+  font-size: 1rem;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  transition: border-color 0.3s ease;
+}
+
+.feature-box .form-control:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 5px rgba(239, 102, 3, 0.3); /* Subtle glow on focus */
+}
+
+.feature-box textarea.form-control {
+  resize: vertical; /* Allow vertical resizing only */
+}
+
+.feature-box .form-check {
+  text-align: left;
+}
+
+.feature-box .form-check-label {
+  font-size: 0.9rem;
+  color: var(--default-color);
+}
+
+.feature-box .btn-primary {
+  margin-top: 1rem;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+}
+
+/* Contact Page Specific Adjustments */
+.contact .feature-box h3 {
+  text-align: left; /* Align headings to the left on Contact page */
 }
 
 /* Pricing Section */
@@ -693,7 +729,7 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--default-color);
 }
 
-/* Contact Section (For Future Use) */
+/* Contact Section (Updated to Remove .php-email-form Dependency) */
 .contact .info-item {
   background: var(--surface-color);
   padding: 30px;
@@ -718,47 +754,6 @@ h1, h2, h3, h4, h5, h6 {
 .contact .info-item p {
   margin: 0;
   font-size: 14px;
-}
-
-.contact .php-email-form {
-  width: 100%;
-  background: var(--surface-color);
-  padding: 30px;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-}
-
-.contact .php-email-form input,
-.contact .php-email-form textarea {
-  border-radius: 0;
-  box-shadow: none;
-  font-size: 14px;
-  border-radius: 4px;
-}
-
-.contact .php-email-form input:focus,
-.contact .php-email-form textarea:focus {
-  border-color: var(--accent-color);
-}
-
-.contact .php-email-form input {
-  padding: 10px 15px;
-}
-
-.contact .php-email-form textarea {
-  padding: 12px 15px;
-}
-
-.contact .php-email-form button[type=submit] {
-  background: var(--accent-color);
-  border: 0;
-  padding: 12px 40px;
-  color: var(--contrast-color);
-  transition: 0.4s;
-  border-radius: 50px;
-}
-
-.contact .php-email-form button[type=submit]:hover {
-  background: color-mix(in srgb, var(--accent-color), transparent 20%);
 }
 
 /* Modal Styling */
@@ -824,4 +819,102 @@ h1, h2, h3, h4, h5, h6 {
   .modal .modal-title {
     font-size: 1.25rem;
   }
+}
+
+/* Auth Tile Styling (Shared with Feature Box) */
+.auth-tile {
+  background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%); /* Soft gray to white gradient */
+  border: 1px solid #e0e4e8; /* Slightly darker border for definition */
+  border-radius: 12px; /* Softer corners */
+  padding: 25px; /* Slightly more padding for a spacious feel */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Softer shadow for depth */
+  min-height: 350px;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* Smooth transitions */
+  animation: pulseBackground 4s ease infinite; /* Subtle pulse animation */;
+}
+
+/* Hover Effect for Auth Tile */
+.auth-tile:hover {
+  transform: scale(1.02); /* Slight zoom on hover */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+  background: linear-gradient(135deg, #e8ecef 0%, #ffffff 100%); /* Slightly darker gradient on hover */
+}
+
+/* Left-align the heading inside auth-tile */
+.auth-tile h3 {
+  text-align: left;
+  font-weight: 700;
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: var(--heading-color);
+}
+
+/* Ensure form elements inside the tile are styled appropriately */
+.auth-tile .form-label,
+.auth-tile .form-check-label,
+.auth-tile .form-text,
+.auth-tile .content {
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Form Styling Inside Auth Tile (Login/Signup Pages) */
+.auth-tile form {
+  margin-top: 1.5rem;
+}
+
+.auth-tile .form-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #717171;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+.auth-tile .form-control {
+  border-radius: 4px;
+  font-size: 1rem;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  transition: border-color 0.3s ease;
+}
+
+.auth-tile .form-control:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 5px rgba(239, 102, 3, 0.3);
+}
+
+.auth-tile .form-check {
+  text-align: left;
+}
+
+.auth-tile .form-check-label {
+  font-size: 0.9rem;
+  color: var(--default-color);
+}
+
+.auth-tile .btn-primary {
+  margin-top: 1rem;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+}
+
+/* Optional: Style for icons inside the tile (if you add any) */
+.auth-tile .feature-icon {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.auth-tile .feature-icon:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2) hue-rotate(10deg);
+}
+/* Darken titles and subtitles in section-title across all pages */
+.section-title h2 {
+  color: #1a1a1a !important; /* Dark color for main titles */
+  font-weight: bold; /* Ensure boldness (already applied in some pages) */
+}
+
+.section-title p {
+  color: #333333 !important; /* Slightly lighter dark color for subtitles */
 }

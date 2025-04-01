@@ -27,7 +27,7 @@ export class PricingComponent implements OnInit {
       description: 'Our most popular plan - ideal for growing businesses needing more flexibility.',
       features: ['Unlimited Bookings', 'Multiple Staff Accounts', 'Advanced Reporting', 'Email Reminders'],
       cta: 'Upgrade Now',
-      ctaLink: '/login' // Already correct
+      ctaLink: '/auth/login' // Already correct
     },
     {
       name: 'Premium',

@@ -50,7 +50,7 @@ export class ManagementComponent implements OnInit {
       const token = localStorage.getItem('token');
       if (!token) {
         this.error = 'You must be logged in to view bookings';
-        this.router.navigate(['/login']);
+        this.router.navigate(['/auth/login']);
         return;
       }
       this.bookingService.getBookings().subscribe({

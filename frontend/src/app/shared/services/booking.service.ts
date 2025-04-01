@@ -1,3 +1,4 @@
+// frontend/src/app/shared/services/booking.service.ts
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { ApiService } from './api.service';
 import { Observable, of } from 'rxjs';
@@ -72,6 +73,17 @@ export class BookingService {
         Authorization: `Bearer ${token}`,
       });
       return this.api.delete(`bookings/${bookingId}`, { headers });
+    }
+    return of({});
+  }
+
+  updateBookingStatus(bookingId: string, status: string): Observable<any> { // Added method
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('token');
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+      return this.api.post(`bookings/${bookingId}/status`, { status }, { headers });
     }
     return of({});
   }

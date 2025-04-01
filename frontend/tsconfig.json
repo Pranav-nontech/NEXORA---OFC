@@ -19,7 +19,7 @@
     "baseUrl": "src", // Add this
     "paths": {
       "@environments/*": ["environments/*"],
-      "@services/*": ["app/services/*"] // Add this mapping
+      "@services/*": ["app/services/*"], // Add this mapping
     }
   },
   "angularCompilerOptions": {

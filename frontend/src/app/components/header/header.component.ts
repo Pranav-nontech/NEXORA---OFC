@@ -17,8 +17,8 @@ export class HeaderComponent implements OnInit {
     { label: 'Pricing', path: '/pricing' },
     { label: 'FAQ', path: '/faq' },
     { label: 'Contact', path: '/contact' },
-    { label: 'Sign In', path: '/login' },
-    { label: 'Sign Up', path: '/signup' } // Changed from '/register' to '/signup'
+    { label: 'Sign In', path: '/auth/login' },
+    { label: 'Sign Up', path: '/auth/signup' } // Changed from '/register' to '/signup'
   ];
 
   isMobileNavActive = false;

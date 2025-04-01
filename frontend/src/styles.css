@@ -36,9 +36,7 @@ html, body {
   padding: 0;
   scroll-behavior: smooth;
 }
-main {
-  min-height: 100vh; /* Full viewport height per page */
-}
+
 :root {
   --default-font: "Raleway", Arial, sans-serif; /* Updated to use Raleway as the default font */
   --heading-font: "Playfair Display", Georgia, serif; /* Updated to use Playfair Display for headings */
@@ -918,3 +916,5 @@ h1, h2, h3, h4, h5, h6 {
 .section-title p {
   color: #333333 !important; /* Slightly lighter dark color for subtitles */
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

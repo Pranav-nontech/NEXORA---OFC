@@ -22,7 +22,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     '/terms',
     '/cookie',
   ];
-  const authRoutes = ['/signup', '/login', '/forgot-password', '/verify-email'];
+  const authRoutes = ['/auth/signup', '/auth/login', '/auth/forgot-password', '/auth/verify-email'];
   if (publicRoutes.includes(state.url) || authRoutes.includes(state.url)) {
     console.log(`authGuard - Allowing navigation to ${state.url} without auth check`);
     return true;
@@ -30,7 +30,7 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   if (!isPlatformBrowser(platformId)) {
     console.log('authGuard - Running on server - redirecting to login');
-    return router.createUrlTree(['/login']);
+    return router.createUrlTree(['/auth/login']);
   }
 
   // Check for JWT token in localStorage
@@ -39,7 +39,7 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   if (!isLoggedIn || !currentUser || !currentUser.id) {
     console.log('authGuard - No token or user found - redirecting to login');
-    return router.createUrlTree(['/login']);
+    return router.createUrlTree(['/auth/login']);
   }
 
   // Role-based access control

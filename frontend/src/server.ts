@@ -27,9 +27,9 @@ app.use(cookieParser()); // Enable cookie parsing
 app.get('*', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   const isAuthenticated = req.cookies && req.cookies['auth_token'] || false;
   console.log('Request URL:', req.url);
-  if (!isAuthenticated && req.url !== '/login') {
+  if (!isAuthenticated && req.url !== '/auth/login') {
     console.log('Redirecting to /login');
-    res.redirect('/login');
+    res.redirect('/auth/login');
     return;
   }
   try {

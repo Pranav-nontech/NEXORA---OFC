@@ -3,7 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Auth } from '@angular/fire/auth';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, map, of } from 'rxjs';
-import { User } from 'app/models/user.model';
+import { User } from '../models/user.model';
 
 interface RegistrationResponse {
   message: string;

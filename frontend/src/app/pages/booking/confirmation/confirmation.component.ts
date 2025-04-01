@@ -24,7 +24,7 @@ export class ConfirmationComponent implements OnInit {
     const token = localStorage.getItem('token');
     if (!token) {
       this.error = 'You must be logged in to confirm a booking';
-      this.router.navigate(['/login']);
+      this.router.navigate(['/auth/login']);
       return;
     }
 

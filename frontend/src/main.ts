@@ -3,12 +3,25 @@ import { enableProdMode } from '@angular/core';
 import { AppComponent } from './app/app.component';
 import { appConfig } from './app/app.config'; // Import appConfig
 import { environment } from './environments/environment';
+import { provideHttpClient } from '@angular/common/http'; // Required for MatIconRegistry
+import { importProvidersFrom } from '@angular/core'; // To provide MatIconModule
+import { MatIconModule } from '@angular/material/icon'; // Import MatIconModule
 
 if (environment.production) {
   enableProdMode();
 }
 
-bootstrapApplication(AppComponent, appConfig) // Use appConfig
+// Merge the existing appConfig with additional providers for MatIconModule
+const updatedAppConfig = {
+  ...appConfig,
+  providers: [
+    ...(appConfig.providers || []), // Keep existing providers from appConfig
+    provideHttpClient(), // Provides HttpClient for MatIconRegistry
+    importProvidersFrom(MatIconModule), // Provides MatIconModule providers
+  ],
+};
+
+bootstrapApplication(AppComponent, updatedAppConfig) // Use updatedAppConfig
   .then(async () => {
     if (typeof window !== 'undefined') {
       const aosModule = await import('aos');
@@ -21,7 +34,7 @@ bootstrapApplication(AppComponent, appConfig) // Use appConfig
         '/assets/scripts/glightbox.min.js',
         '/assets/scripts/imagesloaded.pkgd.min.js',
         '/assets/scripts/isotope.pkgd.min.js',
-        '/assets/scripts/swiper-bundle.min.js'
+        '/assets/scripts/swiper-bundle.min.js',
       ];
       for (const src of scriptLoaders) {
         const script = document.createElement('script');
@@ -33,4 +46,4 @@ bootstrapApplication(AppComponent, appConfig) // Use appConfig
       }
     }
   })
-  .catch(err => console.error('Bootstrap error:', err));
+  .catch((err) => console.error('Bootstrap error:', err));

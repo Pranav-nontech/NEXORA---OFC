@@ -1,0 +1,23 @@
+<main class="main">
+  <section id="service-selection" class="section">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Choose Your Service</h2>
+        <p>Select the Perfect Option for You</p>
+      </div>
+      <p class="content text-center mb-5" data-aos="fade-up" data-aos-delay="100">
+        Explore our range of services and book the one that’s right for you.
+      </p>
+
+      <div class="row gy-4" data-aos="fade-up" data-aos-delay="200">
+        <div *ngFor="let service of services" class="col-md-6 col-lg-4">
+          <div class="feature-box" (click)="selectService(service.id)">
+            <h3>{{ service.name }}</h3>
+            <p>{{ service.duration }} mins - ${{ service.price }}</p>
+            <span class="badge bg-success" *ngIf="selectedService?.id === service.id">Selected</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

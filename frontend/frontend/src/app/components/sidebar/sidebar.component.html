@@ -1,0 +1,15 @@
+<nav class="sidebar">
+    <!-- Navigation Links -->
+    <div class="nav-links">
+      @for (route of routes; track $index) {
+        <a
+          [routerLink]="route.path"
+          routerLinkActive="active"
+          class="sidebar-link"
+        >
+          <i class="fas {{ route.icon }} me-3"></i>
+          <span>{{ route.name }}</span>
+        </a>
+      }
+    </div>
+  </nav>

@@ -1,45 +1,282 @@
 .layout-wrapper {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Header styles (fixed, not affected by light/dark mode) */
+.layout-wrapper .header {
+  background: linear-gradient(135deg, #2c3e50, #1a252f) !important;
+  padding: 15px 20px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.layout-wrapper .header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  background: linear-gradient(45deg, #ffd700, #00bfff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* CSS variables for light mode (default) - only for dashboard content */
+:root {
+  --background-color: #f4f6f9;
+  --text-color: #333;
+  --secondary-text-color: #666;
+  --card-background: #fff;
+  --card-border: #e9ecef;
+  --card-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  --primary-color: #007bff;
+  --danger-color: #721c24;
+  --danger-background: #f8d7da;
+  --danger-border: #f5c6cb;
+}
+
+/* Dark mode overrides - only for dashboard content */
+.main-content.dark-mode {
+  --background-color: #1a1a1a;
+  --text-color: #e0e0e0;
+  --secondary-text-color: #b0b0b0;
+  --card-background: #2c2c2c;
+  --card-border: #444;
+  --card-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  --primary-color: #4da8ff;
+  --danger-color: #f4a8a8;
+  --danger-background: #5c2526;
+  --danger-border: #a94442;
+}
+
+.main-content {
+  margin-left: var(--sidebar-width, 70px); /* Adjusted to match the sidebar width */
+  margin-top: 60px;
+  flex-grow: 1;
+  background-color: var(--background-color);
+  transition: margin-left 0.3s ease, background-color 0.3s ease;
+  overflow-y: auto;
+}
+
+.sidebar.collapsed ~ .main-content {
+  margin-left: var(--sidebar-width-collapsed, 70px); /* Adjusted for collapsed state */
+}
+
+.content {
+  padding: 20px;
+}
+
+/* Shared styles for admin pages */
+.section {
+  padding: 40px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.section-title {
+  text-align: center !important; /* Ensure centering */
+  margin: 0; /* Remove any margin to avoid extra spacing */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Ensure section-title text is visible in both modes */
+.section-title h2 {
+  font-size: 2rem;
+  color: var(--text-color);
+  margin-bottom: 10px;
+  transition: color 0.3s ease;
+}
+
+.section-title p {
+  font-size: 1.1rem;
+  color: var(--secondary-text-color);
+  transition: color 0.3s ease;
+}
+
+/* Override global styles from style.css for dark mode */
+.main-content.dark-mode .section-title h2,
+.main-content.dark-mode .section-title p {
+  color: #ffffff !important;
+}
+
+/* Tile behind section-title (visible only in dark mode) */
+.section-title-card {
+  background: transparent !important; /* Ensure transparency in light mode */
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0;
+  margin-bottom: 40px;
+  display: flex; /* Make the tile a flex container */
+  flex-direction: column; /* Stack the h2 and p vertically */
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  min-height: 120px; /* Increase height to ensure proper centering */
+  width: 100%; /* Ensure the tile takes full width */
+}
+
+.main-content.dark-mode .section-title-card.dark-mode-only {
+  background: var(--card-background); /* #2c2c2c in dark mode */
+  border: 1px solid var(--card-border); /* #444 in dark mode */
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: var(--card-shadow); /* 0 2px 5px rgba(0, 0, 0, 0.3) in dark mode */
+}
+
+.alert {
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.alert-danger {
+  background-color: var(--danger-background);
+  color: var(--danger-color);
+  border: 1px solid var(--danger-border);
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+.metrics-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.metric-card {
+  background: var(--card-background);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: var(--card-shadow);
+  flex: 1;
+  min-width: 200px;
+  transition: background 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.metric-card mat-card-title {
+  font-size: 1.3rem;
+  color: var(--text-color);
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease;
+}
+
+.metric-card mat-card-title i {
+  color: var(--primary-color);
+  margin-right: 10px;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.metric-card mat-card-content {
+  font-size: 2rem;
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}
+
+/* Chart Section */
+.chart-section {
+  margin-top: 20px;
+}
+
+.chart-tile {
+  background: var(--card-background);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: var(--card-shadow);
+}
+
+.feature-box {
+  background: var(--card-background);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: var(--card-shadow);
+  transition: background 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-box mat-card-title {
+  font-size: 1.25rem;
+  color: var(--text-color);
+  margin-bottom: 15px;
+  transition: color 0.3s ease;
+}
+
+.feature-box mat-card-content {
+  font-size: 1rem;
+  color: var(--secondary-text-color);
+  transition: color 0.3s ease;
+}
+
+.mat-elevation-z8 {
+  box-shadow: var(--card-shadow);
+  transition: box-shadow 0.3s ease;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.mt-3 {
+  margin-top: 1rem;
+}
+
+/* Mode Toggle Button */
+.mode-toggle {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: var(--card-background);
+  border: 1px solid var(--card-border);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--card-shadow);
+  cursor: pointer;
+  z-index: 1000;
+  transition: background 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mode-toggle mat-icon {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  transition: color 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .metric-card {
+    min-width: 100%;
   }
-  
-  .header {
-    background: linear-gradient(135deg, #2c3e50, #1a252f);
-    padding: 15px 20px;
-    height: 60px;
-    display: flex;
-    justify-content: center; /* Center text */
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 10;
+
+  .mode-toggle {
+    bottom: 10px;
+    left: 10px;
+    width: 40px;
+    height: 40px;
   }
-  
-  .header h2 {
-    margin: 0;
-    font-size: 1.5rem;
-    background: linear-gradient(45deg, #ffd700, #00bfff);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+
+  .mode-toggle mat-icon {
+    font-size: 1.2rem;
   }
-  
-  .main-content {
-    margin-left: var(--sidebar-width);
-    margin-top: 60px;
-    flex-grow: 1;
-    background-color: #f4f6f9;
-    transition: margin-left 0.3s ease;
-    overflow-y: auto;
-  }
-  
-  .sidebar.collapsed ~ .main-content {
-    margin-left: var(--sidebar-width-collapsed);
-  }
-  
-  .content {
-    padding: 20px;
-  }
+}

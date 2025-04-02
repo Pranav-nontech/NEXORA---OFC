@@ -1,0 +1,37 @@
+<main class="main">
+  <section id="pricing" class="pricing section" style="padding-top: 200px; padding-bottom: 3rem; padding-left: 0; padding-right: 0;">
+    <div class="container" style="padding-left: 0; padding-right: 0;">
+      <!-- Page Title -->
+      <div class="section-title text-center" data-aos="fade-up" style="padding-bottom: 20px;">
+        <h2>Pricing</h2>
+        <p>Unlock the Power of Effortless Booking</p>
+      </div>
+
+      <!-- Subtitle -->
+      <p class="content text-center mb-5" data-aos="fade-up" data-aos-delay="100">Choose the plan that scales with your business. Simplify scheduling, boost efficiency, and delight your customers.</p>
+
+      <!-- Pricing Plans -->
+      <div class="row gy-4">
+        <div *ngFor="let plan of plans" class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="pricing-item">
+            <h3>{{ plan.name }}</h3>
+            <h4><sup>$</sup>{{ plan.price.split(' ')[0] }} <span>/ {{ plan.price.split(' ')[2] }}</span></h4>
+            <p>{{ plan.description }}</p>
+            <ul>
+              <li *ngFor="let feature of plan.features"><i class="bi bi-check-circle"></i> {{ feature }}</li>
+            </ul>
+            <a [routerLink]="plan.ctaLink" class="btn btn-primary">{{ plan.cta }}</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Small Print -->
+      <div class="text-center mt-5 text-muted" data-aos="fade-up" data-aos-delay="300">
+        <p>{{ smallPrint.taxNote }}</p>
+        <p>{{ smallPrint.trialNote }}</p>
+        <p>{{ smallPrint.cancelNote }}</p>
+        <p>{{ smallPrint.gdprNote }} <a [routerLink]="['/privacy']" class="text-primary">Privacy Policy</a></p>
+      </div>
+    </div>
+  </section>
+</main>

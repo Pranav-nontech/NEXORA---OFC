@@ -1,0 +1,96 @@
+ Volume in drive C is Windows-SSD
+ Volume Serial Number is D8A3-1025
+
+ Directory of C:\Nexora\frontend\src\assets\images
+
+06-03-2025  20:08    <DIR>          .
+06-03-2025  19:57    <DIR>          ..
+06-03-2025  03:08         4,134,826 bg.jpg
+06-03-2025  19:56    <DIR>          blog
+06-03-2025  20:07               942 imagelist_full.txt
+06-03-2025  20:08               127 imagelist_recursive.txt
+06-03-2025  02:37            39,845 logo.png
+06-03-2025  19:58    <DIR>          masonry-portfolio
+06-03-2025  19:56    <DIR>          portfolio
+06-03-2025  19:56            54,414 services.jpg
+06-03-2025  19:56    <DIR>          team
+06-03-2025  19:56    <DIR>          testimonials
+06-03-2025  19:56           122,091 working-1.jpg
+06-03-2025  19:56            54,824 working-2.jpg
+06-03-2025  19:56            91,314 working-3.jpg
+06-03-2025  19:56            98,318 working-4.jpg
+               9 File(s)      4,596,701 bytes
+
+ Directory of C:\Nexora\frontend\src\assets\images\blog
+
+06-03-2025  19:56    <DIR>          .
+06-03-2025  20:08    <DIR>          ..
+06-03-2025  19:56            83,878 blog-1.jpg
+06-03-2025  19:56           112,816 blog-2.jpg
+06-03-2025  19:56            93,369 blog-3.jpg
+06-03-2025  19:56           104,099 blog-4.jpg
+06-03-2025  19:56           121,809 blog-5.jpg
+06-03-2025  19:56            72,443 blog-6.jpg
+06-03-2025  19:56            35,548 blog-author-2.jpg
+06-03-2025  19:56            73,372 blog-author-3.jpg
+06-03-2025  19:56            55,460 blog-author-4.jpg
+06-03-2025  19:56            39,169 blog-author-5.jpg
+06-03-2025  19:56            42,826 blog-author-6.jpg
+06-03-2025  19:56            64,790 blog-author.jpg
+06-03-2025  19:56            85,335 blog-inside-post.jpg
+06-03-2025  19:56            17,444 comments-1.jpg
+06-03-2025  19:56            15,407 comments-2.jpg
+06-03-2025  19:56            17,041 comments-3.jpg
+06-03-2025  19:56            17,774 comments-4.jpg
+06-03-2025  19:56            10,855 comments-5.jpg
+06-03-2025  19:56            14,253 comments-6.jpg
+              19 File(s)      1,077,688 bytes
+
+ Directory of C:\Nexora\frontend\src\assets\images\masonry-portfolio
+
+06-03-2025  19:58    <DIR>          .
+06-03-2025  20:08    <DIR>          ..
+06-03-2025  19:56           146,969 masonry-portfolio-2.jpg
+06-03-2025  19:56            19,157 masonry-portfolio-3.jpg
+06-03-2025  19:56            17,934 masonry-portfolio-4.jpg
+06-03-2025  19:56            21,473 masonry-portfolio-5.jpg
+06-03-2025  19:56            21,797 masonry-portfolio-6.jpg
+06-03-2025  19:56            96,574 masonry-portfolio-7.jpg
+06-03-2025  19:56            29,790 masonry-portfolio-8.jpg
+06-03-2025  19:56            23,422 masonry-portfolio-9.jpg
+               8 File(s)        377,116 bytes
+
+ Directory of C:\Nexora\frontend\src\assets\images\portfolio
+
+06-03-2025  19:56    <DIR>          .
+06-03-2025  20:08    <DIR>          ..
+06-03-2025  19:56            67,064 app-1.jpg
+06-03-2025  19:56            80,146 books-1.jpg
+06-03-2025  19:56            25,514 branding-1.jpg
+06-03-2025  19:56            62,035 product-1.jpg
+               4 File(s)        234,759 bytes
+
+ Directory of C:\Nexora\frontend\src\assets\images\team
+
+06-03-2025  19:56    <DIR>          .
+06-03-2025  20:08    <DIR>          ..
+06-03-2025  19:56            64,386 team-1.jpg
+06-03-2025  19:56            34,427 team-2.jpg
+06-03-2025  19:56            25,992 team-3.jpg
+06-03-2025  19:56            54,623 team-4.jpg
+               4 File(s)        179,428 bytes
+
+ Directory of C:\Nexora\frontend\src\assets\images\testimonials
+
+06-03-2025  19:56    <DIR>          .
+06-03-2025  20:08    <DIR>          ..
+06-03-2025  19:56            39,727 testimonials-1.jpg
+06-03-2025  19:56            57,584 testimonials-2.jpg
+06-03-2025  19:56            17,247 testimonials-3.jpg
+06-03-2025  19:56            20,220 testimonials-4.jpg
+06-03-2025  19:56            22,595 testimonials-5.jpg
+               5 File(s)        157,373 bytes
+
+     Total Files Listed:
+              49 File(s)      6,623,065 bytes
+              17 Dir(s)  281,132,834,816 bytes free

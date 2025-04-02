@@ -1,0 +1,33 @@
+<main class="main">
+  <section id="email-verification" class="section">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Email Verification</h2>
+        <p>Thanks for Signing Up!</p>
+      </div>
+      <p class="content text-center mb-5" data-aos="fade-up" data-aos-delay="100">{{ message }}</p>
+      <p class="content text-center" data-aos="fade-up" data-aos-delay="200">
+        Verification email sent to: <strong>{{ email }}</strong>
+      </p>
+      <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+        <button class="btn btn-primary" (click)="resendVerification()" [disabled]="!canResend">Resend Verification Email</button>
+      </div>
+      <p class="content text-center mt-3" *ngIf="resendMessage" data-aos="fade-up" data-aos-delay="400">{{ resendMessage }}</p>
+      <p class="content text-center" data-aos="fade-up" data-aos-delay="500">
+        Need help? <a routerLink="/contact" class="btn btn-link">Contact our support team</a>
+      </p>
+      <p class="text-muted text-center mt-3" data-aos="fade-up" data-aos-delay="600">
+        By verifying your email, you agree to our 
+        <a routerLink="/terms" class="text-primary">Terms of Service</a> and 
+        <a routerLink="/privacy" class="text-primary">Privacy Policy</a>. 
+        We will use your email address to send you important updates and notifications about your account and bookings. 
+        You can manage your communication preferences in your profile.
+      </p>
+      <p class="text-muted text-center" data-aos="fade-up" data-aos-delay="700">
+        Copyright Nexora {{ currentYear }}. All rights reserved. 
+        <a routerLink="/terms" class="text-primary">Terms of Service</a> 
+        <a routerLink="/privacy" class="text-primary">Privacy Policy</a>
+      </p>
+    </div>
+  </section>
+</main>

@@ -1,0 +1,121 @@
+<main class="main">
+  <section id="login" class="section">
+    <div class="container">
+      <!-- Greeting Text -->
+      <div class="section-title" data-aos="fade-up">
+        <h2>Welcome Back</h2>
+        <p>Login to Nexora</p>
+      </div>
+
+      <!-- Login Form Tile -->
+      <div class="auth-tile" data-aos="fade-up" data-aos-delay="100">
+        <!-- Social Login Buttons -->
+        <div class="social-login-container">
+          <button
+            (click)="loginWithGoogle()"
+            [disabled]="isLoading.google"
+            class="social-login-btn google"
+          >
+            <i class="fab fa-google"></i>
+          </button>
+          <button
+            (click)="loginWithApple()"
+            [disabled]="isLoading.apple"
+            class="social-login-btn apple"
+          >
+            <i class="fab fa-apple"></i>
+          </button>
+          <button
+            (click)="loginWithFacebook()"
+            [disabled]="isLoading.facebook"
+            class="social-login-btn facebook"
+          >
+            <i class="fab fa-facebook-f"></i>
+          </button>
+        </div>
+
+        <!-- Divider -->
+        <div class="divider">
+          <span>OR</span>
+        </div>
+
+        <!-- Form -->
+        <form (ngSubmit)="onSubmit()">
+          <!-- Email/Password Error Message -->
+          <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email" class="form-label">
+              <i class="fas fa-envelope"></i>
+              Email ID
+            </label>
+            <input
+              type="email"
+              id="email"
+              [(ngModel)]="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+              class="form-input"
+            />
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label for="password" class="form-label">
+              <i class="fas fa-lock"></i>
+              Password
+            </label>
+            <div class="password-wrapper">
+              <input
+                [type]="showPassword ? 'text' : 'password'"
+                id="password"
+                [(ngModel)]="password"
+                name="password"
+                placeholder="Enter your password"
+                required
+                class="form-input"
+              />
+              <span (click)="togglePasswordVisibility()" class="password-toggle">
+                <i [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+              </span>
+            </div>
+          </div>
+
+          <!-- Remember Me and Forget Password -->
+          <div class="form-options">
+            <div class="remember-me">
+              <input
+                type="checkbox"
+                id="rememberMe"
+                [(ngModel)]="rememberMe"
+                name="rememberMe"
+              />
+              <label for="rememberMe">Remember me for 30 days</label>
+            </div>
+            <a routerLink="/forgot-password" class="forgot-password">Forget password?</a>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" [disabled]="isLoading.email" class="login-btn">
+            {{ isLoading.email ? 'Signing in...' : 'LOGIN' }}
+          </button>
+
+          <!-- Create Account and Privacy Policy Links -->
+          <div class="form-links">
+            <div>
+              <span>Don't have an account? </span>
+              <a routerLink="/signup">Create account</a> <!-- Ensure this is '/signup' -->
+            </div>
+            <div>
+              <a routerLink="/privacy">Privacy Policy</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>

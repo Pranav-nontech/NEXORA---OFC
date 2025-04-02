@@ -19,7 +19,7 @@ export class PricingComponent implements OnInit {
       description: 'Perfect for solo entrepreneurs and small teams just getting started.',
       features: ['Limited Bookings', 'One Staff Account', 'Basic Reporting'],
       cta: 'Get Started',
-      ctaLink: '/signup' // Reverted to '/signup' to match the updated route
+      ctaLink: '/auth/signup' // Updated to correct path
     },
     {
       name: 'Standard',
@@ -27,7 +27,7 @@ export class PricingComponent implements OnInit {
       description: 'Our most popular plan - ideal for growing businesses needing more flexibility.',
       features: ['Unlimited Bookings', 'Multiple Staff Accounts', 'Advanced Reporting', 'Email Reminders'],
       cta: 'Upgrade Now',
-      ctaLink: '/auth/login' // Already correct
+      ctaLink: '/auth/login'
     },
     {
       name: 'Premium',
@@ -35,7 +35,7 @@ export class PricingComponent implements OnInit {
       description: 'Enterprise-grade solution with dedicated support and custom features.',
       features: ['Everything in Standard', 'Dedicated Support', 'API Access', 'Custom Integrations'],
       cta: 'Contact Us',
-      ctaLink: '/contact' // Already correct
+      ctaLink: '/contact'
     }
   ];
 

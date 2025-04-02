@@ -1,0 +1,99 @@
+.footer {
+  color: var(--default-color);
+  background-color: var(--background-color); /* #ffffff by default */
+  font-size: 14px;
+  text-align: center;
+  padding: 30px 0;
+  position: relative;
+}
+
+.footer.dark-background {
+  background-color: #2a2c39; /* Selecao’s dark background */
+  color: #ffffff;
+}
+
+.footer .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer .sitename {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--heading-color); /* #2a2c39 or #ffffff in dark mode */
+  margin-bottom: 10px;
+}
+
+.footer p {
+  margin: 0 0 20px;
+}
+
+.footer .social-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin: 0 5px;
+  color: var(--contrast-color); /* #ffffff */
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+.footer .social-links a:hover {
+  color: var(--accent-color); /* #ef6603 */
+}
+
+.footer .nav-links {
+  margin-bottom: 20px;
+}
+
+.footer .nav-link {
+  color: var(--contrast-color); /* #ffffff */
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  transition: color 0.3s ease;
+}
+
+.footer .nav-link:hover {
+  color: var(--accent-color); /* #ef6603 */
+}
+
+.footer .contact-info p {
+  color: var(--contrast-color); /* #ffffff */
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.footer .contact-info a {
+  color: var(--accent-color); /* #ef6603 */
+  text-decoration: none;
+}
+
+.footer .contact-info a:hover {
+  text-decoration: underline;
+}
+
+.footer .copyright {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 15px;
+  margin-top: 20px;
+  font-size: 0.9rem;
+}
+
+.footer .credits {
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+.footer .credits a {
+  color: var(--accent-color); /* #ef6603 */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer .nav-link {
+    display: block;
+    padding: 0.5rem 0;
+  }
+}

@@ -1,0 +1,45 @@
+.layout-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .header {
+    background: linear-gradient(135deg, #2c3e50, #1a252f);
+    padding: 15px 20px;
+    height: 60px;
+    display: flex;
+    justify-content: center; /* Center text */
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+  }
+  
+  .header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    background: linear-gradient(45deg, #ffd700, #00bfff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .main-content {
+    margin-left: var(--sidebar-width);
+    margin-top: 60px;
+    flex-grow: 1;
+    background-color: #f4f6f9;
+    transition: margin-left 0.3s ease;
+    overflow-y: auto;
+  }
+  
+  .sidebar.collapsed ~ .main-content {
+    margin-left: var(--sidebar-width-collapsed);
+  }
+  
+  .content {
+    padding: 20px;
+  }

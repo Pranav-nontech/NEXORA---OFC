@@ -1,0 +1,33 @@
+<main class="main">
+  <section id="staff" class="section">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Staff Management</h2>
+      </div>
+      <div *ngIf="error" class="alert alert-danger text-center" data-aos="fade-up">{{ error }}</div>
+      <div class="info-item" data-aos="fade-up" data-aos-delay="100">
+        <ul class="list-unstyled">
+          <li *ngFor="let staffMember of staff">
+            {{ staffMember.name }} - {{ staffMember.role || 'Staff' }}
+          </li>
+        </ul>
+      </div>
+      <div class="php-email-form mt-4" data-aos="fade-up" data-aos-delay="200">
+        <h3>Add Staff</h3>
+        <div class="row gy-3">
+          <div class="col-md-12">
+            <label for="name" class="form-label">Staff Name</label>
+            <input type="text" class="form-control" #name placeholder="Staff Name">
+          </div>
+          <div class="col-md-12">
+            <label for="role" class="form-label">Role</label>
+            <input type="text" class="form-control" #role placeholder="Role">
+          </div>
+          <div class="col-md-12 text-center">
+            <button type="button" class="btn btn-primary" (click)="addStaff({ name: name.value, role: role.value })">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

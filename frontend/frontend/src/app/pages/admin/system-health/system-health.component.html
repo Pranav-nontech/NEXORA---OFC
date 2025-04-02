@@ -1,0 +1,23 @@
+<main class="main">
+  <section id="system-health" class="section">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>System Health</h2>
+      </div>
+      <div *ngIf="error" class="alert alert-danger text-center" data-aos="fade-up">{{ error }}</div>
+      <div class="info-item" data-aos="fade-up" data-aos-delay="100">
+        <div class="content">
+          <p><strong>Backend Status:</strong> 
+            <span class="badge" [ngClass]="{'bg-success': systemStatus.backend === 'Online', 'bg-danger': systemStatus.backend === 'Offline', 'bg-warning': systemStatus.backend === 'Unknown'}">
+              {{ systemStatus.backend }}
+            </span>
+          </p>
+          <p><strong>Last Checked:</strong> {{ systemStatus.lastChecked | date:'medium' }}</p>
+        </div>
+        <div class="text-center mt-3">
+          <button class="btn btn-primary" (click)="checkSystemHealth()">Check Now</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

@@ -1,0 +1,64 @@
+<main class="main" style="background-color: #f8f9fa; color: #333;">
+  <!-- Hero Section -->
+  <section id="hero" class="hero section" style="padding: 80px 0; background-color: #fff;">
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
+          <h1 data-aos="fade-up" style="color: #333;">{{ hero.headline }}</h1>
+          <p data-aos="fade-up" data-aos-delay="100" style="color: #666;">{{ hero.subheadline }}</p>
+          <p class="content" data-aos="fade-up" data-aos-delay="200" style="color: #666;">{{ hero.description }}</p>
+          <div class="d-flex flex-wrap gap-3" data-aos="fade-up" data-aos-delay="300">
+            <a routerLink="/signup" class="btn btn-primary">Start Your Free Trial</a>
+            <a routerLink="/contact" class="btn btn-outline-primary">Request a Demo</a>
+          </div>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-out">
+          <img src="/assets/images/services.jpg" class="img-fluid animated" alt="Nexora Booking" style="max-width: 100%;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features section" style="padding: 50px 0; background-color: #f8f9fa;">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2 style="color: #333;">Key Features</h2>
+        <p style="color: #666;">Why Choose Nexora</p>
+      </div>
+      <div class="row gy-4">
+        <div *ngFor="let feature of features; let i = index" class="col-md-6 col-lg-3" [attr.data-aos]="i % 2 === 0 ? 'fade-right' : 'fade-left'" [attr.data-aos-delay]="100 * (i + 1)">
+          <div class="feature-box" style="background-color: #fff; padding: 20px; border: 1px solid #dee2e6;">
+            <img [src]="featureImages[i]" class="img-fluid" [alt]="feature.name" style="max-width: 100%;">
+            <h3 style="color: #333;">{{ feature.name }}</h3>
+            <p style="color: #666;">{{ feature.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="testimonials section light-background" style="padding: 50px 0; background-color: #f1f3f5;">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2 style="color: #333;">Testimonials</h2>
+        <p style="color: #666;">What Our Clients Say</p>
+      </div>
+      <div class="testimonial-item" data-aos="fade-up" data-aos-delay="100" style="background-color: #fff; padding: 20px; border: 1px solid #dee2e6;">
+        <p style="color: #666;">
+          <i class="bi bi-quote quote-icon-left" style="color: #007bff;"></i>
+          <span>{{ testimonial.quote }}</span>
+          <i class="bi bi-quote quote-icon-right" style="color: #007bff;"></i>
+        </p>
+        <div>
+          <h3 style="color: #333;">{{ testimonial.author.split(', ')[0] }}</h3>
+          <h4 style="color: #666;">{{ testimonial.author.split(', ')[1] }}</h4>
+        </div>
+      </div>
+      <div class="client-logos text-center mt-4" data-aos="fade-up" data-aos-delay="200">
+        <p style="color: #666;">[Logos of prominent companies using Nexora]</p>
+      </div>
+    </div>
+  </section>
+</main>

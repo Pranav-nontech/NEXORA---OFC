@@ -1,0 +1,27 @@
+<main class="main">
+  <section id="terms" class="section" style="padding-top: 120px; padding-bottom: 3rem;">
+    <div class="container">
+      <!-- Page Title -->
+      <div class="section-title" data-aos="fade-up" style="text-align: center;">
+        <h2>Terms of Service</h2>
+        <p>Welcome to Nexora! Please Read Carefully</p>
+      </div>
+
+      <!-- Terms Sections -->
+      <div class="row gy-4">
+        <div *ngFor="let section of sections" class="col-12" data-aos="fade-up" data-aos-delay="200">
+          <div class="info-item" style="background: #ffffff; padding: 2rem; border-radius: 0.5rem; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); border: 1px solid #ddd;">
+            <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; text-align: center;">{{ section.title }}</h3>
+            <p class="content" style="margin: 0; font-size: 1rem; line-height: 1.6;">
+              {{ section.content }}
+              <a *ngIf="section.title === 'Acceptance of Terms'" routerLink="/privacy" class="text-primary">Privacy Policy</a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Last Updated -->
+      <p class="text-muted mt-4" data-aos="fade-up" data-aos-delay="300" style="text-align: center;">Last Updated: {{ lastUpdated }}</p>
+    </div>
+  </section>
+</main>

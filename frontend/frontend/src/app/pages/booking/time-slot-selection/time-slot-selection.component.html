@@ -1,0 +1,34 @@
+<main class="main">
+  <section id="time-slot-selection" class="section">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Find Your Time Slot</h2>
+        <p>Schedule Your Appointment Effortlessly</p>
+      </div>
+      <p class="content text-center mb-5" data-aos="fade-up" data-aos-delay="100">
+        Select a date and time below, and let’s get started!
+      </p>
+
+      <div class="row gy-4" data-aos="fade-up" data-aos-delay="200">
+        <div *ngFor="let slot of timeSlots" class="col-md-6 col-lg-3">
+          <button class="btn w-100" 
+                  [ngClass]="{'btn-primary': selectedTimeSlot?._id === slot._id, 'btn-light': slot.isBooked, 'btn-outline-primary': !slot.isBooked && selectedTimeSlot?._id !== slot._id}"
+                  (click)="selectTime(slot)" 
+                  [disabled]="slot.isBooked">
+            {{ slot.startTime | date:'medium' }} - {{ slot.endTime | date:'shortTime' }}
+            {{ slot.isBooked ? '(Booked)' : '' }}
+          </button>
+        </div>
+      </div>
+
+      <div class="text-center mt-4" data-aos="fade-up" data-aos-delay="300">
+        <button class="btn btn-primary" (click)="continueToCustomerInfo()">Continue to Booking Details</button>
+      </div>
+      <p class="text-muted mt-2 text-center" data-aos="fade-up" data-aos-delay="400">
+        By continuing, you agree to our 
+        <a routerLink="/terms" class="text-primary">Terms of Service</a> and 
+        <a routerLink="/privacy" class="text-primary">Privacy Policy</a>.
+      </p>
+    </div>
+  </section>
+</main>

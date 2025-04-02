@@ -1,0 +1,32 @@
+<header class="header fixed-top">
+  <div class="container d-flex align-items-center justify-content-between">
+    <!-- Logo Text -->
+    <a routerLink="/home" class="logo d-flex align-items-center">
+      <div class="logo-wrapper flex-column">
+        <span class="logo-text-main">Nexora</span>
+        <span class="logo-text-sub">Booking</span>
+      </div>
+    </a>
+
+    <!-- Navbar Toggle (Mobile) -->
+    <button class="mobile-nav-toggle" (click)="toggleMobileNav()" [ngClass]="{'active': isMobileNavActive}">
+      <i class="bi" [ngClass]="isMobileNavActive ? 'bi-x' : 'bi-list'"></i>
+    </button>
+
+    <!-- Navbar Links -->
+    <nav class="navbar" [ngClass]="{'active': isMobileNavActive}">
+      <ul class="nav-list">
+        <li *ngFor="let link of navLinks" class="nav-item">
+          <a [routerLink]="link.path" 
+             routerLinkActive="active" 
+             [routerLinkActiveOptions]="{exact: link.path === '/home'}" 
+             (click)="closeMobileNav()"
+             class="nav-link d-flex align-items-center">
+            <i class="bi" [ngClass]="getIconClass(link.label)"></i>
+            <span>{{ link.label }}</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>

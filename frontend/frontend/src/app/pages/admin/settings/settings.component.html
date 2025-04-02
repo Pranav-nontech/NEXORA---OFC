@@ -1,0 +1,30 @@
+<main class="main">
+  <section id="settings" class="section">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Business Settings</h2>
+      </div>
+      <div class="php-email-form" data-aos="fade-up" data-aos-delay="100">
+        <form>
+          <div class="row gy-3">
+            <div class="col-md-12">
+              <label for="name" class="form-label">Business Name</label>
+              <input type="text" class="form-control" id="name" [(ngModel)]="businessSettings.name" name="name">
+            </div>
+            <div class="col-md-12">
+              <label for="hours" class="form-label">Operating Hours</label>
+              <input type="text" class="form-control" id="hours" [(ngModel)]="businessSettings.hours" name="hours">
+            </div>
+            <div class="col-md-12">
+              <label for="location" class="form-label">Location</label>
+              <input type="text" class="form-control" id="location" [(ngModel)]="businessSettings.location" name="location">
+            </div>
+            <div class="col-md-12 text-center">
+              <button type="button" class="btn btn-primary" (click)="saveSettings()">Save</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>

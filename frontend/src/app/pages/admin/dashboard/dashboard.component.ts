@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Inject, PLATFORM_ID, Component, OnInit } from '@angular/core';
+import { Inject, PLATFORM_ID, Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
@@ -8,6 +8,8 @@ import { AdminService } from '../../../shared/services/admin.service';
 import { BookingService } from '../../../shared/services/booking.service';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { ApexAxisChartSeries, ApexChart, ApexXAxis, ApexTitleSubtitle, ChartType } from 'ng-apexcharts';
+import { DarkModeService } from '../../../shared/services/dark-mode.service';
+import { Subscription } from 'rxjs';
 
 interface Booking {
   _id: string;
@@ -37,12 +39,13 @@ interface Profile {
   imports: [CommonModule, MatTableModule, MatCardModule, MatButtonModule, NgApexchartsModule],
   templateUrl: './dashboard.component.html',
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   chartOptions: {
     series: ApexAxisChartSeries;
     chart: ApexChart;
     xaxis: ApexXAxis;
     title: ApexTitleSubtitle;
+    theme?: { mode: 'light' | 'dark' };
   } = {
     series: [
       {
@@ -51,28 +54,43 @@ export class DashboardComponent implements OnInit {
       },
     ],
     chart: {
-      type: 'line' as ChartType, // Explicitly typed to avoid undefined
+      type: 'line' as ChartType,
       height: 350,
     },
     xaxis: {
       categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+      labels: {
+        style: {
+          colors: '#333', // Default color for light mode
+        },
+      },
     },
     title: {
       text: 'Monthly Bookings',
+      style: {
+        color: '#333', // Default color for light mode
+      },
+    },
+    theme: {
+      mode: 'light', // Default mode
     },
   };
+
+  private darkModeSubscription!: Subscription;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private adminService: AdminService,
-    private bookingService: BookingService
+    private bookingService: BookingService,
+    private darkModeService: DarkModeService
   ) {}
 
   stats = {
-    appointmentsToday: 0,
+    totalBookings: 0,
     totalCustomers: 0,
     revenue: 0,
-    pendingBookings: 0,
+    pendingActions: 0,
+    staffUtilization: 0,
     cancellationRate: 0,
   };
 
@@ -93,10 +111,51 @@ export class DashboardComponent implements OnInit {
     if (isPlatformBrowser(this.platformId)) {
       console.log('Running on browser');
       this.loadDashboardData();
+
+      // Subscribe to dark mode changes
+      this.darkModeSubscription = this.darkModeService.darkMode$.subscribe((darkMode) => {
+        this.updateChartColors(darkMode);
+      });
+
+      // Initial update based on current dark mode state
+      this.updateChartColors(this.darkModeService.getDarkMode());
     } else {
       console.log('Running on server');
       this.initializeDefaultStats();
     }
+  }
+
+  ngOnDestroy(): void {
+    if (this.darkModeSubscription) {
+      this.darkModeSubscription.unsubscribe();
+    }
+  }
+
+  private updateChartColors(darkMode: boolean): void {
+    const textColor = darkMode ? '#b0b0b0' : '#333'; // Use a more readable color in dark mode
+    this.chartOptions = {
+      ...this.chartOptions,
+      xaxis: {
+        ...this.chartOptions.xaxis,
+        labels: {
+          ...this.chartOptions.xaxis.labels,
+          style: {
+            ...this.chartOptions.xaxis.labels?.style,
+            colors: textColor,
+          },
+        },
+      },
+      title: {
+        ...this.chartOptions.title,
+        style: {
+          ...this.chartOptions.title.style,
+          color: textColor, // Update title color
+        },
+      },
+      theme: {
+        mode: darkMode ? 'dark' : 'light',
+      },
+    };
   }
 
   loadDashboardData(): void {
@@ -146,22 +205,50 @@ export class DashboardComponent implements OnInit {
         this.profile.completionPercentage = this.calculateProfileCompletion(this.profile);
       },
     });
+
+    this.adminService.getStaff().subscribe({
+      next: (staff: any[]) => {
+        this.updateStaffUtilization(staff);
+      },
+      error: (err: any) => {
+        console.error('Failed to fetch staff:', err);
+        const mockStaff = [
+          { id: '1', name: 'Alice', onShift: true, booked: true },
+          { id: '2', name: 'Bob', onShift: true, booked: false },
+          { id: '3', name: 'Charlie', onShift: false, booked: false },
+        ];
+        this.updateStaffUtilization(mockStaff);
+      },
+    });
   }
 
   updateStats(): void {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    this.stats.appointmentsToday = this.bookings.filter((b) => {
+    this.stats.totalBookings = this.bookings.filter((b) => {
       const bookingDate = new Date(b.timeSlot);
       return bookingDate >= today && bookingDate < new Date(today.getTime() + 24 * 60 * 60 * 1000);
     }).length;
-    this.stats.pendingBookings = this.bookings.filter((b) => b.status === 'Pending').length;
+    this.stats.pendingActions = this.bookings.filter((b) => b.status === 'Pending').length;
     this.stats.revenue = this.bookings.reduce((sum, b) => sum + b.serviceId.price, 0);
     this.stats.cancellationRate = (this.bookings.filter((b) => b.status === 'Canceled').length / this.bookings.length) * 100 || 0;
   }
 
+  updateStaffUtilization(staff: any[]): void {
+    const staffOnShift = staff.filter((s) => s.onShift).length;
+    const staffBooked = staff.filter((s) => s.onShift && s.booked).length;
+    this.stats.staffUtilization = staffOnShift > 0 ? (staffBooked / staffOnShift) * 100 : 0;
+  }
+
   initializeDefaultStats(): void {
-    this.stats = { appointmentsToday: 0, totalCustomers: 0, revenue: 0, pendingBookings: 0, cancellationRate: 0 };
+    this.stats = {
+      totalBookings: 0,
+      totalCustomers: 0,
+      revenue: 0,
+      pendingActions: 0,
+      staffUtilization: 0,
+      cancellationRate: 0,
+    };
     this.bookings = [];
     this.customers = [];
     this.profile = { name: '', email: '', services: [], availability: [], completionPercentage: 0 };

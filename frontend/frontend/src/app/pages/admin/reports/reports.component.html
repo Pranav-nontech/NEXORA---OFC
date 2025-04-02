@@ -1,0 +1,16 @@
+<main class="main">
+  <section id="reports" class="section">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Reports</h2>
+      </div>
+      <div *ngIf="error" class="alert alert-danger text-center" data-aos="fade-up">{{ error }}</div>
+      <div class="info-item" data-aos="fade-up" data-aos-delay="100">
+        <div class="content">
+          <p><strong>Bookings This Month:</strong> {{ reportData.bookingsThisMonth }}</p>
+          <p><strong>Revenue This Month:</strong> ${{ reportData.revenueThisMonth }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

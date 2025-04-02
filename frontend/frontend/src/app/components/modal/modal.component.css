@@ -1,0 +1,70 @@
+.modal {
+  background-color: rgba(0, 0, 0, 0.5); /* Bootstrap backdrop default */
+}
+
+.modal-dialog {
+  max-width: 600px;
+  margin: 1.75rem auto;
+}
+
+.modal-content {
+  background-color: var(--surface-color); /* #ffffff */
+  border: none;
+  border-radius: 6px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+  background-color: var(--surface-color); /* #ffffff */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 1rem 1.5rem;
+}
+
+.modal-title {
+  color: var(--heading-color); /* #2a2c39 */
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: var(--heading-font); /* Raleway */
+}
+
+.btn-close {
+  background: transparent;
+  border: none;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.btn-close:hover {
+  opacity: 1;
+}
+
+.modal-body {
+  color: var(--default-color); /* #444444 */
+  padding: 1.5rem;
+}
+
+/* Dark Background Variant */
+.dark-background .modal-content {
+  background-color: #404356; /* Selecao’s dark surface */
+  color: #ffffff;
+}
+
+.dark-background .modal-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark-background .modal-title {
+  color: #ffffff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .modal-dialog {
+    width: 90%;
+    margin: 1rem auto;
+  }
+
+  .modal-title {
+    font-size: 1.25rem;
+  }
+}

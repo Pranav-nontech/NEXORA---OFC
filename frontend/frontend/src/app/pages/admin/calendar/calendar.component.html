@@ -1,0 +1,37 @@
+<main class="main">
+  <section id="calendar" class="section">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Calendar Management</h2>
+      </div>
+      <div class="info-item" data-aos="fade-up" data-aos-delay="100">
+        <h3>Events</h3>
+        <ul class="list-unstyled">
+          <li *ngFor="let event of events">
+            {{ event.title }} - {{ event.date | date:'short' }} ({{ event.duration }} mins)
+          </li>
+        </ul>
+      </div>
+      <div class="php-email-form mt-4" data-aos="fade-up" data-aos-delay="200">
+        <h3>Add Event</h3>
+        <div class="row gy-3">
+          <div class="col-md-12">
+            <label for="title" class="form-label">Event Title</label>
+            <input type="text" class="form-control" #title placeholder="Event Title">
+          </div>
+          <div class="col-md-12">
+            <label for="date" class="form-label">Date</label>
+            <input type="datetime-local" class="form-control" #date>
+          </div>
+          <div class="col-md-12">
+            <label for="duration" class="form-label">Duration (mins)</label>
+            <input type="number" class="form-control" #duration placeholder="Duration (mins)" min="15">
+          </div>
+          <div class="col-md-12 text-center">
+            <button type="button" class="btn btn-primary" (click)="addEvent(title.value, date.value, duration.value)">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

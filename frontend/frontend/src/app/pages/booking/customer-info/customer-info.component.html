@@ -1,0 +1,67 @@
+<main class="main">
+  <section id="customer-info" class="section">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Customer Information</h2>
+        <p>Almost There! Just a Few Details</p>
+      </div>
+      <p class="content text-center mb-5" data-aos="fade-up" data-aos-delay="100">
+        We need some information from you to complete your booking. Please fill out the form below accurately.
+      </p>
+
+      <div class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+        <form>
+          <div class="row gy-3">
+            <div class="col-md-6">
+              <label for="firstName" class="form-label">First Name</label>
+              <input type="text" class="form-control" id="firstName" [(ngModel)]="customerInfo.firstName" name="firstName" placeholder="Your First Name" required>
+            </div>
+            <div class="col-md-6">
+              <label for="lastName" class="form-label">Last Name</label>
+              <input type="text" class="form-control" id="lastName" [(ngModel)]="customerInfo.lastName" name="lastName" placeholder="Your Last Name" required>
+            </div>
+            <div class="col-md-6">
+              <label for="email" class="form-label">Email Address</label>
+              <input type="email" class="form-control" id="email" [(ngModel)]="customerInfo.email" name="email" placeholder="Your Email" required>
+            </div>
+            <div class="col-md-6">
+              <label for="phoneNumber" class="form-label">Phone Number</label>
+              <input type="tel" class="form-control" id="phoneNumber" [(ngModel)]="customerInfo.phoneNumber" name="phoneNumber" placeholder="Your Phone Number" required>
+            </div>
+            <div class="col-md-12">
+              <label for="address" class="form-label">Address</label>
+              <input type="text" class="form-control" id="address" [(ngModel)]="customerInfo.address" name="address" placeholder="Your Address">
+            </div>
+            <div class="col-md-4">
+              <label for="city" class="form-label">City</label>
+              <input type="text" class="form-control" id="city" [(ngModel)]="customerInfo.city" name="city" placeholder="Your City">
+            </div>
+            <div class="col-md-4">
+              <label for="state" class="form-label">State/Province</label>
+              <input type="text" class="form-control" id="state" [(ngModel)]="customerInfo.state" name="state" placeholder="Your State">
+            </div>
+            <div class="col-md-4">
+              <label for="zipCode" class="form-label">Zip/Postal Code</label>
+              <input type="text" class="form-control" id="zipCode" [(ngModel)]="customerInfo.zipCode" name="zipCode" placeholder="Your Zip Code">
+            </div>
+            <div class="col-md-12">
+              <label for="notes" class="form-label">Notes/Special Requests</label>
+              <textarea class="form-control" id="notes" [(ngModel)]="customerInfo.notes" name="notes" rows="4" placeholder="Any specific needs"></textarea>
+            </div>
+            <div class="col-md-12">
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="termsConsent" [(ngModel)]="customerInfo.termsConsent" name="termsConsent" required>
+                <label class="form-check-label" for="termsConsent">
+                  I have read and agree to the <a routerLink="/terms" class="text-primary">Terms of Service</a> and <a routerLink="/privacy" class="text-primary">Privacy Policy</a>.
+                </label>
+              </div>
+            </div>
+            <div class="col-md-12 text-center">
+              <button type="button" class="btn btn-primary" (click)="submitCustomerInfo()" [disabled]="!customerInfo.termsConsent">Submit Details</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>

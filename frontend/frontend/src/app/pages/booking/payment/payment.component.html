@@ -1,0 +1,35 @@
+<main class="main">
+  <section id="payment" class="section">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Complete Your Booking</h2>
+        <p>Secure Payment Processing</p>
+      </div>
+      <p class="content text-center mb-5" data-aos="fade-up" data-aos-delay="100">
+        Your payment is processed securely through our trusted payment gateway. We accept Visa, Mastercard, American Express, and PayPal. Your financial information is encrypted and protected.
+      </p>
+
+      <div class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+        <p class="fw-bold mb-4"><strong>Amount:</strong> {{ paymentDetails.currency }} {{ paymentDetails.amount }}</p>
+        <form>
+          <div class="row gy-3">
+            <div class="col-md-12">
+              <label for="cardNumber" class="form-label">Card Number</label>
+              <input type="text" class="form-control" id="cardNumber" #cardNumber placeholder="XXXX-XXXX-XXXX-XXXX" required>
+            </div>
+            <div class="col-md-12 text-center">
+              <button type="button" class="btn btn-primary me-2" (click)="processPayment(cardNumber.value)">Pay Now</button>
+              <button type="button" class="btn btn-outline-primary">Cancel & Return to Booking</button>
+            </div>
+            <div class="col-md-12" *ngIf="paymentError">
+              <p class="text-danger">{{ paymentError }}</p>
+            </div>
+          </div>
+        </form>
+        <p class="text-muted mt-3">
+          Secured by SSL | <a routerLink="/privacy" class="text-primary">Privacy Policy</a>
+        </p>
+      </div>
+    </div>
+  </section>
+</main>

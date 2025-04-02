@@ -1,59 +1,81 @@
 <main class="main">
   <section id="dashboard" class="section">
     <div class="container">
-      <div class="section-title" data-aos="fade-up">
-        <h2>Admin Dashboard</h2>
-        <p>Welcome, {{ profile.name || 'Admin' }}</p>
-      </div>
+      <mat-card class="section-title-card" [ngClass]="{'dark-mode-only': true}" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Admin Dashboard</h2>
+          <p>Welcome, {{ profile.name || 'Admin' }}</p>
+        </div>
+      </mat-card>
 
       <!-- Error Alert -->
       <div *ngIf="error" class="alert alert-danger text-center" data-aos="fade-up">{{ error }}</div>
 
-      <!-- Overview Section -->
-      <div class="row gy-4" data-aos="fade-up" data-aos-delay="100">
-        <div class="col-md-3">
-          <mat-card class="feature-box">
-            <mat-card-title>Appointments Today</mat-card-title>
-            <mat-card-content class="display-6">{{ stats.appointmentsToday }}</mat-card-content>
+      <!-- Key Metrics Overview Section -->
+      <div class="row gy-4 metrics-grid" data-aos="fade-up" data-aos-delay="100">
+        <div class="col-md-3 col-sm-6">
+          <mat-card class="metric-card">
+            <mat-card-title>
+              <i class="fas fa-calendar-check me-2"></i>Total Bookings
+            </mat-card-title>
+            <mat-card-content class="display-6">{{ stats.totalBookings }}</mat-card-content>
           </mat-card>
         </div>
-        <div class="col-md-3">
-          <mat-card class="feature-box">
-            <mat-card-title>Total Customers</mat-card-title>
+        <div class="col-md-3 col-sm-6">
+          <mat-card class="metric-card">
+            <mat-card-title>
+              <i class="fas fa-users me-2"></i>Active Customers
+            </mat-card-title>
             <mat-card-content class="display-6">{{ stats.totalCustomers }}</mat-card-content>
           </mat-card>
         </div>
-        <div class="col-md-3">
-          <mat-card class="feature-box">
-            <mat-card-title>Revenue</mat-card-title>
+        <div class="col-md-3 col-sm-6">
+          <mat-card class="metric-card">
+            <mat-card-title>
+              <i class="fas fa-dollar-sign me-2"></i>Revenue
+            </mat-card-title>
             <mat-card-content class="display-6">${{ stats.revenue }}</mat-card-content>
           </mat-card>
         </div>
-        <div class="col-md-3">
-          <mat-card class="feature-box">
-            <mat-card-title>Pending Bookings</mat-card-title>
-            <mat-card-content class="display-6">{{ stats.pendingBookings }}</mat-card-content>
+        <div class="col-md-3 col-sm-6">
+          <mat-card class="metric-card">
+            <mat-card-title>
+              <i class="fas fa-user-tie me-2"></i>Staff Utilization
+            </mat-card-title>
+            <mat-card-content class="display-6">{{ stats.staffUtilization | number: '1.0-0' }}%</mat-card-content>
+          </mat-card>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <mat-card class="metric-card">
+            <mat-card-title>
+              <i class="fas fa-tasks me-2"></i>Pending Actions
+            </mat-card-title>
+            <mat-card-content class="display-6">{{ stats.pendingActions }}</mat-card-content>
           </mat-card>
         </div>
       </div>
 
       <!-- Chart Section -->
-      <div class="row mt-4" data-aos="fade-up" data-aos-delay="200">
+      <div class="row mt-4 chart-section" data-aos="fade-up" data-aos-delay="200">
         <div class="col-md-6">
-          <apx-chart
-            [series]="chartOptions.series"
-            [chart]="chartOptions.chart"
-            [xaxis]="chartOptions.xaxis"
-            [title]="chartOptions.title"
-          ></apx-chart>
+          <mat-card class="chart-tile">
+            <apx-chart
+              [series]="chartOptions.series"
+              [chart]="chartOptions.chart"
+              [xaxis]="chartOptions.xaxis"
+              [title]="chartOptions.title"
+            ></apx-chart>
+          </mat-card>
         </div>
         <div class="col-md-6">
-          <apx-chart
-            [series]="chartOptions.series"
-            [chart]="chartOptions.chart"
-            [xaxis]="chartOptions.xaxis"
-            [title]="chartOptions.title"
-          ></apx-chart>
+          <mat-card class="chart-tile">
+            <apx-chart
+              [series]="chartOptions.series"
+              [chart]="chartOptions.chart"
+              [xaxis]="chartOptions.xaxis"
+              [title]="chartOptions.title"
+            ></apx-chart>
+          </mat-card>
         </div>
       </div>
 

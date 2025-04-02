@@ -3,9 +3,14 @@
     <h2>NEXORA Admin</h2>
   </div>
   <app-sidebar></app-sidebar>
-  <main class="main-content">
+  <main class="main-content" #mainContent>
     <section class="content">
       <router-outlet></router-outlet>
     </section>
   </main>
+
+  <!-- Mode Toggle Button -->
+  <button class="mode-toggle" (click)="toggleMode()" title="Toggle Dark/Light Mode">
+    <mat-icon>{{ darkMode ? 'brightness_7' : 'brightness_4' }}</mat-icon>
+  </button>
 </div>
